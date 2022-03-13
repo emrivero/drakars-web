@@ -1,13 +1,12 @@
 {
-  "name": "nextjs-with-typescript",
-  "version": "5.0.0",
+  "name": "carontecars-web",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest"
+    "lint": "next lint"
   },
   "dependencies": {
     "@emotion/cache": "latest",
@@ -16,9 +15,11 @@
     "@emotion/styled": "latest",
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
+    "axios": "^0.26.1",
     "next": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "zustand": "^3.7.1"
   },
   "devDependencies": {
     "@types/node": "latest",

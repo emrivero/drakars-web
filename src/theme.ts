@@ -1,14 +1,27 @@
-import { createTheme } from '@mui/material/styles';
-import { red } from '@mui/material/colors';
+import { deepPurple, green, red } from "@mui/material/colors";
+import { createTheme } from "@mui/material/styles";
 
-// Create a theme instance.
+export interface Theme {
+  palette: {
+    primary: {
+      main: string;
+    };
+    secondary: {
+      main: string;
+    };
+    error: {
+      main: string;
+    };
+  };
+}
+
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#556cd6',
+      main: deepPurple.A400,
     },
     secondary: {
-      main: '#19857b',
+      main: green[300],
     },
     error: {
       main: red.A400,
