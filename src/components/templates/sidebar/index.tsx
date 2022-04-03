@@ -6,6 +6,7 @@ import {
   Coronavirus,
   DirectionsCar,
   Info,
+  Percent,
   Schedule,
 } from "@mui/icons-material";
 import { ListItem, Typography } from "@mui/material";
@@ -36,6 +37,20 @@ export const Sidebar: FC<SidebarProps> = () => {
           Servicios
         </Typography>
         <List>
+          <ListItem>
+            <BlackLink
+              href={{ pathname: "/local" }}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <Percent />
+              <Box sx={{ ml: 1 }}>
+                <Typography variant="h6">Ofertas</Typography>
+              </Box>
+            </BlackLink>
+          </ListItem>
           <ListItem>
             <BlackLink
               href={{ pathname: "/local" }}
