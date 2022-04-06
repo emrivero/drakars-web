@@ -12,7 +12,7 @@ import Toolbar from "@mui/material/Toolbar";
 import { Theme } from "@mui/system";
 import { useTranslation } from "next-i18next";
 import { FC, useState } from "react";
-import { Routes } from "../../../routes/routes";
+import { useAuth } from "../../../auth/use-auth";
 import { toggleSidebar } from "../../../store/sidebar/actions/toggle-sidebar";
 import { Capitalize } from "../../atoms/transforms/capitalize";
 import { BlackLink } from "../../molecules/black-link";
@@ -21,6 +21,7 @@ import { HeaderProps } from "./types";
 export const Header: FC<HeaderProps> = () => {
   const theme: Partial<Theme> = useTheme();
   const { t } = useTranslation("header");
+  const { login, logout, isAuthenticated } = useAuth();
 
   const [languageAnchor, setLanguageAnchor] = useState<null | HTMLElement>(
     null
@@ -120,17 +121,31 @@ export const Header: FC<HeaderProps> = () => {
           <Box
             sx={{ flexGrow: 1 / 24, display: "flex", flexDirection: "column" }}
           >
-            <Button
-              variant="outlined"
-              size="large"
-              endIcon={<AccountCircle />}
-              aria-label="account of current user"
-              aria-haspopup="true"
-              color="inherit"
-              href={Routes.LOGIN_PAGE}
-            >
-              {t("enter")}
-            </Button>
+            {!isAuthenticated ? (
+              <Button
+                onClick={login}
+                variant="outlined"
+                size="large"
+                endIcon={<AccountCircle />}
+                aria-label="account of current user"
+                aria-haspopup="true"
+                color="inherit"
+              >
+                {t("enter")}
+              </Button>
+            ) : (
+              <Button
+                onClick={logout}
+                variant="outlined"
+                size="large"
+                endIcon={<AccountCircle />}
+                aria-label="account of current user"
+                aria-haspopup="true"
+                color="inherit"
+              >
+                {t("exit")}
+              </Button>
+            )}
           </Box>
         </Toolbar>
       </AppBar>

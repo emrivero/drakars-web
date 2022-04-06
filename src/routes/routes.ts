@@ -1,3 +1,5 @@
 export enum Routes {
-  LOGIN_PAGE = "/login",
+  LOGIN = "/login",
+  LOGOUT = "/api/auth/signout",
+  HOME_PAGE = "/",
 }
