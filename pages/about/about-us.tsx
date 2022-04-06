@@ -1,9 +1,9 @@
 import { Box } from "@mui/material";
 import type { NextPage } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { Layout } from "../src/components/templates/layout";
+import { Layout } from "../../src/components/templates/layout";
 
-const Home: NextPage = () => {
+const AboutUs: NextPage = () => {
   return (
     <Layout>
       <Box sx={{ flexGrow: 1 }}></Box>;
@@ -19,4 +19,4 @@ export async function getStaticProps({ locale }) {
   };
 }
 
-export default Home;
+export default AboutUs;

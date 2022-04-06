@@ -1,12 +1,12 @@
 import { get, set } from "../..";
 
-export const toggleSidebar = () => {
+export const toggleSidebar = (flag?: boolean) => {
   const { sidebarState } = get();
 
   set({
     sidebarState: {
       ...sidebarState,
-      open: !sidebarState.open,
+      open: flag == null ? !sidebarState.open : flag,
     },
   });
 };

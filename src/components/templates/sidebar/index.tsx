@@ -16,6 +16,7 @@ import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import { Theme } from "@mui/system";
 import { FC } from "react";
+import { Routes } from "../../../routes/routes";
 import { useStore } from "../../../store";
 import { toggleSidebar } from "../../../store/sidebar/actions/toggle-sidebar";
 import { BlackLink } from "../../molecules/black-link";
@@ -25,7 +26,7 @@ export const Sidebar: FC<SidebarProps> = () => {
   const { open } = useStore((state) => state.sidebarState);
   const theme: Partial<Theme> = useTheme();
   return (
-    <Drawer anchor="left" open={open} onClose={toggleSidebar}>
+    <Drawer anchor="left" open={open} onClose={() => toggleSidebar()}>
       <Box
         sx={{
           width: 380,
@@ -95,7 +96,7 @@ export const Sidebar: FC<SidebarProps> = () => {
         <List>
           <ListItem>
             <BlackLink
-              href={{ pathname: "/local" }}
+              href={{ pathname: Routes.ABOUT_US }}
               sx={{ display: "flex", alignItems: "center" }}
             >
               <Info />
@@ -106,7 +107,7 @@ export const Sidebar: FC<SidebarProps> = () => {
           </ListItem>
           <ListItem>
             <BlackLink
-              href={{ pathname: "/local" }}
+              href={{ pathname: Routes.CONTACT }}
               sx={{ display: "flex", alignItems: "center" }}
             >
               <ContactMail />
@@ -117,7 +118,7 @@ export const Sidebar: FC<SidebarProps> = () => {
           </ListItem>
           <ListItem>
             <BlackLink
-              href={{ pathname: "/local" }}
+              href={{ pathname: Routes.FAQ }}
               sx={{ display: "flex", alignItems: "center" }}
             >
               <ContactSupport />
@@ -128,7 +129,7 @@ export const Sidebar: FC<SidebarProps> = () => {
           </ListItem>
           <ListItem>
             <BlackLink
-              href={{ pathname: "/local" }}
+              href={{ pathname: Routes.COVID19 }}
               sx={{ display: "flex", alignItems: "center" }}
             >
               <Coronavirus />

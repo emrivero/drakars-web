@@ -1,10 +1,14 @@
 import { Box } from "@mui/material";
-import { FC } from "react";
+import { FC, useEffect } from "react";
+import { toggleSidebar } from "../../../store/sidebar/actions/toggle-sidebar";
 import { Footer } from "../footer";
 import { Header } from "../header";
 import { Sidebar } from "../sidebar";
 
 export const Layout: FC = ({ children }) => {
+  useEffect(() => {
+    toggleSidebar(false);
+  }, []);
   return (
     <Box sx={{ width: 1 }}>
       <Header />

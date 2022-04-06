@@ -1,5 +1,4 @@
 import { CacheProvider, EmotionCache } from "@emotion/react";
-import { CircularProgress } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 import { AuthClientEvent } from "@react-keycloak/core/lib/types";
@@ -50,11 +49,10 @@ function MyApp(props: MyAppProps) {
         initOptions={{
           onLoad: "check-sso",
           flow: "implicit",
-          silentCheckSsoRedirectUri: "http://localhost:3000/login",
         }}
         onEvent={eventLogger}
         onTokens={tokenLogger}
-        LoadingComponent={<CircularProgress />}
+        // LoadingComponent={<CircularProgress />}
         // isLoadingCheck={() => !axios.defaults.headers.common.Authorization}
       >
         <ThemeProvider theme={theme}>

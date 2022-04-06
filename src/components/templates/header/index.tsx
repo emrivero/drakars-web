@@ -13,14 +13,16 @@ import { Theme } from "@mui/system";
 import { useTranslation } from "next-i18next";
 import { FC, useState } from "react";
 import { useAuth } from "../../../auth/use-auth";
+import { Routes } from "../../../routes/routes";
 import { toggleSidebar } from "../../../store/sidebar/actions/toggle-sidebar";
 import { Capitalize } from "../../atoms/transforms/capitalize";
 import { BlackLink } from "../../molecules/black-link";
+import Link from "../../molecules/link";
 import { HeaderProps } from "./types";
 
 export const Header: FC<HeaderProps> = () => {
   const theme: Partial<Theme> = useTheme();
-  const { t } = useTranslation("header");
+  const { t, i18n } = useTranslation("header");
   const { login, logout, isAuthenticated } = useAuth();
 
   const [languageAnchor, setLanguageAnchor] = useState<null | HTMLElement>(
@@ -62,14 +64,16 @@ export const Header: FC<HeaderProps> = () => {
             <MenuIcon />
           </IconButton>
           <Box sx={{ display: { md: "flex" } }}>
-            <Typography
-              variant="h5"
-              component="div"
-              sx={{ flexGrow: 1 }}
-              fontWeight={600}
-            >
-              Drakcars
-            </Typography>
+            <Link href={Routes.HOME_PAGE}>
+              <Typography
+                variant="h5"
+                component="div"
+                sx={{ flexGrow: 1 }}
+                fontWeight={600}
+              >
+                Drakcars
+              </Typography>
+            </Link>
           </Box>
           <Box sx={{ flexGrow: 1 }} />
           <IconButton sx={{ color: "#fff" }}>
@@ -105,12 +109,12 @@ export const Header: FC<HeaderProps> = () => {
               TransitionComponent={Fade}
             >
               <MenuItem>
-                <BlackLink href="" locale="es">
+                <BlackLink href={{ pathname: "" }} locale="es">
                   <Capitalize>{t("spanish")}</Capitalize>
                 </BlackLink>
               </MenuItem>
               <MenuItem>
-                <BlackLink href="" locale="en">
+                <BlackLink href={{ pathname: "" }} locale="en">
                   <Capitalize>{t("english")}</Capitalize>
                 </BlackLink>
               </MenuItem>
