@@ -7,6 +7,7 @@ import axios from "axios";
 import { appWithTranslation } from "next-i18next";
 import { AppProps } from "next/app";
 import Head from "next/head";
+import { createUser } from "../src/api/user/client";
 import createEmotionCache from "../src/components/molecules/createEmotionCache";
 import theme from "../src/theme";
 
@@ -27,8 +28,10 @@ const eventLogger = (event: AuthClientEvent, error: unknown) => {
 };
 
 const tokenLogger = (tokens: { token: string }) => {
-  console.log(tokens.token);
   axios.defaults.headers.common.Authorization = `Bearer ${tokens?.token}`;
+  if (tokens?.token) {
+    createUser();
+  }
 };
 
 function MyApp(props: MyAppProps) {
@@ -48,7 +51,8 @@ function MyApp(props: MyAppProps) {
         persistor={SSRCookies(cookies)}
         initOptions={{
           onLoad: "check-sso",
-          flow: "implicit",
+          flow: "standard",
+          checkLoginIframe: false,
         }}
         onEvent={eventLogger}
         onTokens={tokenLogger}

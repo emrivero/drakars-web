@@ -1,14 +1,10 @@
-import { deleteReq, get, patch, post } from "..";
-import {
-  UpdateUserRequest,
-  UserRequest,
-  UserResponse,
-} from "./user/types/user.types";
+import { deleteReq, get, patch, post } from "../..";
+import { UpdateUserRequest, UserResponse } from "../types/user.types";
 
 const BASE_RESOURCE = "users";
 
-export const createUser = async (data: UserRequest) => {
-  const result = await post<UserResponse>(`${BASE_RESOURCE}`, data);
+export const createUser = async () => {
+  const result = await post<UserResponse>(`${BASE_RESOURCE}`, {});
   return result;
 };
 

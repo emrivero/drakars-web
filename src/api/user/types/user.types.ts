@@ -1,4 +1,4 @@
-import { Rol } from "../../../../auth/types/rol";
+import { Rol } from "../../../auth/types/rol";
 
 export interface UserResponse {
   id?: string;

@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { getSession } from "next-auth/react";
 
 const isProd: boolean = process.env.NODE_ENV === "production";
 
@@ -28,13 +27,6 @@ if (!isProd) {
     return response;
   });
 }
-
-axios.interceptors.request.use(async (request) => {
-  const session = await getSession();
-  console.log(session);
-  // axios.defaults.headers.common.Authorization = `Bearer ${tokens?.token}`;
-  return request;
-});
 
 // axios.interceptors.response.use(
 //   (response: AxiosResponse) => response,
