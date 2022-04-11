@@ -18,11 +18,13 @@
     "@react-keycloak/ssr": "^3.3.0",
     "axios": "^0.26.1",
     "cookie": "^0.4.2",
+    "inversify": "^6.0.1",
     "keycloak-js": "^16.1.1",
     "next": "latest",
     "next-i18next": "^10.5.0",
     "react": "latest",
     "react-dom": "latest",
+    "reflect-metadata": "^0.1.13",
     "zustand": "^3.7.1"
   },
   "devDependencies": {

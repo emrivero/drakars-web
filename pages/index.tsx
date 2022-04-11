@@ -6,7 +6,7 @@ import { Layout } from "../src/components/templates/layout";
 const Home: NextPage = () => {
   return (
     <Layout>
-      <Box sx={{ flexGrow: 1 }}></Box>;
+      <Box sx={{ flexGrow: 1 }}></Box>
     </Layout>
   );
 };

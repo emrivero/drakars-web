@@ -7,9 +7,11 @@ import axios from "axios";
 import { appWithTranslation } from "next-i18next";
 import { AppProps } from "next/app";
 import Head from "next/head";
+import { useRouter } from "next/router";
+import "reflect-metadata";
 import { createUser } from "../src/api/user/client";
 import createEmotionCache from "../src/components/molecules/createEmotionCache";
-import theme from "../src/theme";
+import themes from "../src/theme";
 
 const clientSideEmotionCache = createEmotionCache();
 interface MyAppProps extends AppProps {
@@ -41,6 +43,8 @@ function MyApp(props: MyAppProps) {
     pageProps,
     cookies,
   } = props;
+  const router = useRouter();
+  console.log(router.pathname);
   return (
     <CacheProvider value={emotionCache}>
       <Head>
@@ -59,7 +63,13 @@ function MyApp(props: MyAppProps) {
         // LoadingComponent={<CircularProgress />}
         // isLoadingCheck={() => !axios.defaults.headers.common.Authorization}
       >
-        <ThemeProvider theme={theme}>
+        <ThemeProvider
+          theme={
+            router.pathname.startsWith("/admin")
+              ? themes.themeAdmin
+              : themes.themeClient
+          }
+        >
           <CssBaseline />
           <Component {...pageProps} />
         </ThemeProvider>

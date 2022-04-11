@@ -38,23 +38,12 @@ export const Header: FC<HeaderProps> = () => {
     setLanguageAnchor(null);
   };
 
-  const [accountAnchor, setAccountAnchor] = useState<null | HTMLElement>(null);
-  const openAccountMenu = Boolean(accountAnchor);
-
-  const handleAccountMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAccountAnchor(event.currentTarget);
-  };
-
-  const handleCloseAccountMenu = () => {
-    setAccountAnchor(null);
-  };
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
           <IconButton
-            onClick={toggleSidebar}
+            onClick={() => toggleSidebar(true)}
             size="large"
             edge="start"
             color="inherit"

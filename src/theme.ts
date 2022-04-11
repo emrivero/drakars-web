@@ -1,4 +1,4 @@
-import { deepPurple, green, red } from "@mui/material/colors";
+import { deepPurple, green, grey, red } from "@mui/material/colors";
 import { createTheme } from "@mui/material/styles";
 
 export interface Theme {
@@ -12,16 +12,21 @@ export interface Theme {
     error: {
       main: string;
     };
+    black: {
+      main: string;
+    };
   };
 }
 
-const theme = createTheme({
+const themeClient = createTheme({
   palette: {
     primary: {
       main: deepPurple.A400,
+      dark: grey[900],
     },
     secondary: {
       main: green[300],
+      dark: "#111939",
     },
     error: {
       main: red.A400,
@@ -29,4 +34,37 @@ const theme = createTheme({
   },
 });
 
-export default theme;
+const themeAdmin = createTheme({
+  palette: {
+    primary: {
+      main: deepPurple.A400,
+      dark: grey[900],
+    },
+    secondary: {
+      main: green[300],
+      dark: "#111939",
+    },
+    error: {
+      main: red.A400,
+    },
+  },
+  components: {
+    MuiAccordionSummary: {
+      styleOverrides: {
+        expandIconWrapper: {
+          color: grey[400],
+        },
+      },
+    },
+    MuiAccordion: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#111939",
+          color: grey[400],
+        },
+      },
+    },
+  },
+});
+
+export default { themeClient, themeAdmin };
