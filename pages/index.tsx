@@ -1,12 +1,20 @@
-import { Box } from "@mui/material";
+import { Container } from "@mui/material";
 import type { NextPage } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { RentFilter } from "../src/components/organism/rent-filter";
 import { Layout } from "../src/components/templates/layout";
 
 const Home: NextPage = () => {
   return (
     <Layout>
-      <Box sx={{ flexGrow: 1 }}></Box>
+      <Container
+        maxWidth="xl"
+        sx={{
+          width: "70vw",
+        }}
+      >
+        <RentFilter image="/img/portrait.jpg" />
+      </Container>
     </Layout>
   );
 };
