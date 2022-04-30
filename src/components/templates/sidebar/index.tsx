@@ -7,7 +7,6 @@ import {
   DirectionsCar,
   Info,
   Percent,
-  Schedule,
 } from "@mui/icons-material";
 import { ListItem, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -74,17 +73,6 @@ export const Sidebar: FC<SidebarProps> = () => {
               <AirportShuttle />
               <Box sx={{ ml: 1 }}>
                 <Typography variant="h6">Alquiler de furgonetas</Typography>
-              </Box>
-            </BlackLink>
-          </ListItem>
-          <ListItem>
-            <BlackLink
-              href={{ pathname: "/local" }}
-              sx={{ display: "flex", alignItems: "center" }}
-            >
-              <Schedule />
-              <Box sx={{ ml: 1 }}>
-                <Typography variant="h6">Alquiler de larga duración</Typography>
               </Box>
             </BlackLink>
           </ListItem>

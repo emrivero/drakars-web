@@ -1,4 +1,4 @@
-import { deepPurple, green, grey, red } from "@mui/material/colors";
+import { amber, grey, indigo, red } from "@mui/material/colors";
 import { createTheme } from "@mui/material/styles";
 
 export interface Theme {
@@ -21,11 +21,11 @@ export interface Theme {
 const themeClient = createTheme({
   palette: {
     primary: {
-      main: deepPurple.A400,
+      main: indigo[500],
       dark: grey[900],
     },
     secondary: {
-      main: green[300],
+      main: amber[500],
       dark: "#111939",
     },
     error: {
@@ -37,11 +37,11 @@ const themeClient = createTheme({
 const themeAdmin = createTheme({
   palette: {
     primary: {
-      main: deepPurple.A400,
+      main: indigo[500],
       dark: grey[900],
     },
     secondary: {
-      main: green[300],
+      main: amber[500],
       dark: "#111939",
     },
     error: {

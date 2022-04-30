@@ -1,4 +1,4 @@
-import { Box, Grid, Paper } from "@mui/material";
+import { Box, Grid, Paper, Typography } from "@mui/material";
 import { FC } from "react";
 import { Filter } from "./filter";
 
@@ -46,6 +46,47 @@ export const RentFilter: FC<RentFilterProps> = ({ image }) => {
         }}
       />
       <Grid container>
+        <Grid item md={7}>
+          <Box
+            sx={{
+              position: "relative",
+              p: { xs: 3, md: 6 },
+              pb: { md: 0 },
+              pr: { md: 0 },
+            }}
+          >
+            <Typography
+              variant="h4"
+              sx={{
+                fontFamily: `'Acme', sans-serif`,
+              }}
+            >
+              Alquiler de coches en toda España
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              position: "relative",
+              p: { xs: 1, md: 2 },
+              pl: { md: 6 },
+              pr: { md: 0 },
+            }}
+          >
+            <Typography variant="h6">
+              Cancelación hasta 24h antes de la recogida
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              position: "relative",
+              p: { xs: 1, md: 2 },
+              pl: { md: 6 },
+              pr: { md: 0 },
+            }}
+          >
+            <Typography variant="h6">Los precios más bajos del país</Typography>
+          </Box>
+        </Grid>
         <Grid item md={4}>
           <Box
             sx={{

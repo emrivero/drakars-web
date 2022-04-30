@@ -22,6 +22,10 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300"
             rel="stylesheet"
           />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Acme&display=swap"
+            rel="stylesheet"
+          />
 
           {/* Inject MUI styles first to match with the prepend: true configuration. */}
           {(this.props as any).emotionStyleTags}

@@ -71,7 +71,7 @@ export const Footer: FC<FooterProps> = () => {
               color: theme.palette.grey[400],
             }}
           >
-            © 2022 Drakcars - Todos los derechos reservados
+            © 2022 Drakars - Todos los derechos reservados
           </Typography>
         </Grid>
       </Grid>

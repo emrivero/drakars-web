@@ -1,4 +1,3 @@
-import { useTheme } from "@emotion/react";
 import { CarRentalRounded, LanguageRounded } from "@mui/icons-material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -9,20 +8,19 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
-import { Theme } from "@mui/system";
 import { useTranslation } from "next-i18next";
 import { FC, useState } from "react";
 import { useAuth } from "../../../auth/use-auth";
 import { Routes } from "../../../routes/routes";
 import { toggleSidebar } from "../../../store/sidebar/actions/toggle-sidebar";
+import { Logo } from "../../atoms/logo";
 import { Capitalize } from "../../atoms/transforms/capitalize";
 import { BlackLink } from "../../molecules/black-link";
 import Link from "../../molecules/link";
 import { HeaderProps } from "./types";
 
 export const Header: FC<HeaderProps> = () => {
-  const theme: Partial<Theme> = useTheme();
-  const { t, i18n } = useTranslation("header");
+  const { t } = useTranslation("header");
   const { login, logout, isAuthenticated } = useAuth();
 
   const [languageAnchor, setLanguageAnchor] = useState<null | HTMLElement>(
@@ -54,14 +52,18 @@ export const Header: FC<HeaderProps> = () => {
           </IconButton>
           <Box sx={{ display: { md: "flex" } }}>
             <Link href={Routes.HOME_PAGE}>
-              <Typography
-                variant="h5"
-                component="div"
-                sx={{ flexGrow: 1 }}
-                fontWeight={600}
-              >
-                Drakcars
-              </Typography>
+              {/* <Box
+                  component={"img"}
+                  src="/img/logo.svg"
+                  sx={{ width: "200px", py: 1 }}
+                /> */}
+              <Logo
+                color="secondary"
+                sx={{
+                  height: ".3em",
+                  fontSize: "150px",
+                }}
+              />
             </Link>
           </Box>
           <Box sx={{ flexGrow: 1 }} />

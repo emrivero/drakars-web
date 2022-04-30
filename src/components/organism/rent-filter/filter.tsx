@@ -1,16 +1,19 @@
 import {
   Autocomplete,
   Box,
+  Checkbox,
   FormControl,
+  FormControlLabel,
   InputLabel,
   TextField,
 } from "@mui/material";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { PrimaryTypography } from "../../molecules/primary-typography";
 import { SelectInput } from "../../molecules/select-input";
 import { Form } from "../form";
 
 export const Filter: FC = () => {
+  const [{ sameOrigin }, setState] = useState({ sameOrigin: true });
   return (
     <Form handleSubmit={() => null} saveContent="Buscar">
       <Box sx={{ pt: 1, pb: 1, pl: 2 }}>
@@ -43,31 +46,45 @@ export const Filter: FC = () => {
           )}
         />
       </FormControl>
-      <FormControl
-        fullWidth
+      <FormControlLabel
         sx={{
-          p: 2,
+          pl: 2,
         }}
-      >
-        <Autocomplete
+        label="Devolver el coche en la misma oficina"
+        control={
+          <Checkbox
+            checked={sameOrigin}
+            onChange={() => setState({ sameOrigin: !sameOrigin })}
+          />
+        }
+      />
+      {!sameOrigin && (
+        <FormControl
           fullWidth
-          freeSolo
-          id="select-origin-office"
-          disableClearable
-          options={[{ label: "Oficina 1" }, { label: "Oficina 2" }]}
-          renderInput={(params) => (
-            <TextField
-              fullWidth
-              {...params}
-              placeholder="Introduce lugar de devolución"
-              InputProps={{
-                ...params.InputProps,
-                type: "search",
-              }}
-            />
-          )}
-        />
-      </FormControl>
+          sx={{
+            p: 2,
+          }}
+        >
+          <Autocomplete
+            fullWidth
+            freeSolo
+            id="select-origin-office"
+            disableClearable
+            options={[{ label: "Oficina 1" }, { label: "Oficina 2" }]}
+            renderInput={(params) => (
+              <TextField
+                fullWidth
+                {...params}
+                placeholder="Introduce lugar de entrega"
+                InputProps={{
+                  ...params.InputProps,
+                  type: "search",
+                }}
+              />
+            )}
+          />
+        </FormControl>
+      )}
       <FormControl
         sx={{
           pt: 2,
@@ -81,7 +98,7 @@ export const Filter: FC = () => {
           fullWidth
           type="date"
           label="Fecha de recogida"
-          value={null}
+          value={""}
           InputLabelProps={{
             shrink: true,
           }}
@@ -122,8 +139,8 @@ export const Filter: FC = () => {
         <TextField
           fullWidth
           type="date"
-          label="Fecha de devolución"
-          value={null}
+          label="Fecha de entrega"
+          value={""}
           InputLabelProps={{
             shrink: true,
           }}
@@ -138,7 +155,7 @@ export const Filter: FC = () => {
           width: "45%",
         }}
       >
-        <InputLabel id="rent-time-label">Hora de recogida</InputLabel>
+        <InputLabel id="rent-time-label">Hora de entrega</InputLabel>
         <SelectInput
           fullWidth
           labelId="rent-time-label"
