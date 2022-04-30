@@ -9,7 +9,7 @@ export const SelectInput: FC<SelectInputProps> = ({ items = [], ...rest }) => {
   return (
     <Select {...rest}>
       {items.map(({ value, label, ...rest }) => (
-        <MenuItem value={value} {...rest}>
+        <MenuItem value={value} key={value} {...rest}>
           {label}
         </MenuItem>
       ))}
