@@ -6,6 +6,6 @@ export const BlackLink = styled(Link)<BoxProps>(({ theme }) => ({
   color: "#000",
   textDecoration: "none",
   "&:hover": {
-    color: theme.palette.secondary.main,
+    color: theme.palette.primary.main,
   },
 }));

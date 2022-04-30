@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next export"
   },
   "dependencies": {
     "@emotion/cache": "latest",
@@ -24,6 +25,7 @@
     "next": "latest",
     "next-i18next": "^10.5.0",
     "react": "latest",
+    "react-cookie-consent": "^7.4.1",
     "react-dom": "latest",
     "reflect-metadata": "^0.1.13",
     "zustand": "^3.7.1"

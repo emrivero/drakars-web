@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import type { NextPage } from "next";
-import Link from "../src/components/molecules/Link";
+import Link from "../src/components/molecules/link";
 
 const About: NextPage = () => {
   return (
