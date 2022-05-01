@@ -43,13 +43,13 @@ ReactDOM.render(
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/admin" element={<AdminHome />}></Route>
-          <Route path="/about"></Route>
-          <Route path="/vehicles">
+          <Route path="/about">
             <Route path="about-us" element={<AboutUs />} />
             <Route path="contact" element={<Contact />} />
             <Route path="covid19" element={<Covid19 />} />
             <Route path="faq" element={<Faq />} />
           </Route>
+          <Route path="/vehicles"></Route>
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

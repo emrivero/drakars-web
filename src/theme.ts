@@ -23,6 +23,7 @@ const themeClient = createTheme({
     primary: {
       main: indigo[500],
       dark: grey[900],
+      light: "white",
     },
     secondary: {
       main: amber[500],
