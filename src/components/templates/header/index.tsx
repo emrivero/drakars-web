@@ -9,6 +9,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import { FC, useState } from "react";
+import { useAuth } from "../../../auth/use-auth";
 import { useTranslate } from "../../../i18n/useTranslate";
 import { Routes } from "../../../routes/routes";
 import { toggleSidebar } from "../../../store/sidebar/actions/toggle-sidebar";
@@ -17,7 +18,7 @@ import { Capitalize } from "../../atoms/transforms/capitalize";
 import { MuiLink } from "../../molecules/link";
 
 export const Header: FC = () => {
-  // const { login, logout, isAuthenticated } = useAuth();
+  const { login, logout, isAuthenticated } = useAuth();
   const { t } = useTranslate();
 
   const [languageAnchor, setLanguageAnchor] = useState<null | HTMLElement>(
@@ -113,22 +114,21 @@ export const Header: FC = () => {
           <Box
             sx={{ flexGrow: 1 / 24, display: "flex", flexDirection: "column" }}
           >
-            <Button
-              onClick={() => null}
-              variant="outlined"
-              size="large"
-              endIcon={<AccountCircle />}
-              aria-label="account of current user"
-              aria-haspopup="true"
-              color="inherit"
-            >
-              {t("enter")}
-            </Button>
-            {/* {!true ? (
-              
+            {!isAuthenticated ? (
+              <Button
+                onClick={login}
+                variant="outlined"
+                size="large"
+                endIcon={<AccountCircle />}
+                aria-label="account of current user"
+                aria-haspopup="true"
+                color="inherit"
+              >
+                {t("enter")}
+              </Button>
             ) : (
               <Button
-                onClick={() => null}
+                onClick={logout}
                 variant="outlined"
                 size="large"
                 endIcon={<AccountCircle />}
@@ -138,7 +138,7 @@ export const Header: FC = () => {
               >
                 {t("exit")}
               </Button>
-            )} */}
+            )}
           </Box>
         </Toolbar>
       </AppBar>

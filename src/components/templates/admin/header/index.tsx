@@ -6,12 +6,13 @@ import { deepOrange } from "@mui/material/colors";
 import Toolbar from "@mui/material/Toolbar";
 import { Theme } from "@mui/system";
 import { FC, useState } from "react";
+import { useAuth } from "../../../../auth/use-auth";
 import { Capitalize } from "../../../atoms/transforms/capitalize";
 import { BlackLink } from "../../../molecules/black-link";
 
 export const AdminHeader: FC = () => {
   const theme: Partial<Theme> = useTheme();
-  // const { login, logout, isAuthenticated } = useAuth();
+  const { login, logout, isAuthenticated } = useAuth();
 
   const [profileAnchor, setProfileAnchor] = useState<null | HTMLElement>(null);
   const open = Boolean(profileAnchor);
