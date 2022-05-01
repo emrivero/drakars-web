@@ -1,8 +1,7 @@
 import { Box } from "@mui/material";
-import type { NextPage } from "next";
-import { AdminLayout } from "../../../src/components/templates/admin/layout";
+import { AdminLayout } from "../../../components/templates/admin/layout";
 
-const AdminUsers: NextPage = () => {
+const AdminUsers = () => {
   return (
     <AdminLayout>
       <Box sx={{ flexGrow: 1 }}></Box>

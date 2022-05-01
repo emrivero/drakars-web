@@ -77,7 +77,7 @@ export const AdminSidebar: FC<{}> = () => {
                       alignItems: "center",
                       ml: 2,
                     }}
-                    href="/admin/users"
+                    to="/admin/users"
                   >
                     <Typography>
                       <Capitalize>clientes</Capitalize>
@@ -91,7 +91,7 @@ export const AdminSidebar: FC<{}> = () => {
                       alignItems: "center",
                       ml: 2,
                     }}
-                    href="/admin/editors"
+                    to="/admin/editors"
                   >
                     <Typography>
                       <Capitalize>editores</Capitalize>
@@ -105,7 +105,7 @@ export const AdminSidebar: FC<{}> = () => {
                       alignItems: "center",
                       ml: 2,
                     }}
-                    href="/admin/admins"
+                    to="/admin/admins"
                   >
                     <Typography>
                       <Capitalize>administradores</Capitalize>

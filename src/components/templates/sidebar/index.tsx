@@ -39,7 +39,7 @@ export const Sidebar: FC<SidebarProps> = () => {
         <List>
           <ListItem>
             <BlackLink
-              href={{ pathname: "/local" }}
+              to="/local"
               sx={{
                 display: "flex",
                 alignItems: "center",
@@ -53,7 +53,7 @@ export const Sidebar: FC<SidebarProps> = () => {
           </ListItem>
           <ListItem>
             <BlackLink
-              href={{ pathname: "/local" }}
+              to="/local"
               sx={{
                 display: "flex",
                 alignItems: "center",
@@ -67,7 +67,7 @@ export const Sidebar: FC<SidebarProps> = () => {
           </ListItem>
           <ListItem>
             <BlackLink
-              href={{ pathname: "/local" }}
+              to="/local"
               sx={{ display: "flex", alignItems: "center" }}
             >
               <AirportShuttle />
@@ -84,7 +84,7 @@ export const Sidebar: FC<SidebarProps> = () => {
         <List>
           <ListItem>
             <BlackLink
-              href={{ pathname: Routes.ABOUT_US }}
+              to={Routes.ABOUT_US}
               sx={{ display: "flex", alignItems: "center" }}
             >
               <Info />
@@ -95,7 +95,7 @@ export const Sidebar: FC<SidebarProps> = () => {
           </ListItem>
           <ListItem>
             <BlackLink
-              href={{ pathname: Routes.CONTACT }}
+              to={Routes.CONTACT}
               sx={{ display: "flex", alignItems: "center" }}
             >
               <ContactMail />
@@ -106,7 +106,7 @@ export const Sidebar: FC<SidebarProps> = () => {
           </ListItem>
           <ListItem>
             <BlackLink
-              href={{ pathname: Routes.FAQ }}
+              to={Routes.FAQ}
               sx={{ display: "flex", alignItems: "center" }}
             >
               <ContactSupport />
@@ -117,7 +117,7 @@ export const Sidebar: FC<SidebarProps> = () => {
           </ListItem>
           <ListItem>
             <BlackLink
-              href={{ pathname: Routes.COVID19 }}
+              to={Routes.COVID19}
               sx={{ display: "flex", alignItems: "center" }}
             >
               <Coronavirus />

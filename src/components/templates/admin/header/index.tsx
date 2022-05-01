@@ -5,16 +5,13 @@ import Box from "@mui/material/Box";
 import { deepOrange } from "@mui/material/colors";
 import Toolbar from "@mui/material/Toolbar";
 import { Theme } from "@mui/system";
-import { useTranslation } from "next-i18next";
 import { FC, useState } from "react";
-import { useAuth } from "../../../../auth/use-auth";
 import { Capitalize } from "../../../atoms/transforms/capitalize";
 import { BlackLink } from "../../../molecules/black-link";
 
 export const AdminHeader: FC<{}> = () => {
   const theme: Partial<Theme> = useTheme();
-  const { t, i18n } = useTranslation("header");
-  const { login, logout, isAuthenticated } = useAuth();
+  // const { login, logout, isAuthenticated } = useAuth();
 
   const [profileAnchor, setProfileAnchor] = useState<null | HTMLElement>(null);
   const open = Boolean(profileAnchor);
@@ -65,12 +62,12 @@ export const AdminHeader: FC<{}> = () => {
         TransitionComponent={Fade}
       >
         <MenuItem>
-          <BlackLink href="profile">
+          <BlackLink to="profile">
             <Capitalize>editar perfil</Capitalize>
           </BlackLink>
         </MenuItem>
         <MenuItem>
-          <BlackLink href={{ pathname: "logout" }}>
+          <BlackLink to="logout">
             <Capitalize>desconectar</Capitalize>
           </BlackLink>
         </MenuItem>

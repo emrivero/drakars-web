@@ -8,20 +8,18 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
-import { useTranslation } from "next-i18next";
 import { FC, useState } from "react";
-import { useAuth } from "../../../auth/use-auth";
+import { useTranslate } from "../../../i18n/useTranslate";
 import { Routes } from "../../../routes/routes";
 import { toggleSidebar } from "../../../store/sidebar/actions/toggle-sidebar";
 import { Logo } from "../../atoms/logo";
 import { Capitalize } from "../../atoms/transforms/capitalize";
-import { BlackLink } from "../../molecules/black-link";
-import Link from "../../molecules/link";
+import { MuiLink } from "../../molecules/link";
 import { HeaderProps } from "./types";
 
 export const Header: FC<HeaderProps> = () => {
-  const { t } = useTranslation("header");
-  const { login, logout, isAuthenticated } = useAuth();
+  // const { login, logout, isAuthenticated } = useAuth();
+  const { t } = useTranslate();
 
   const [languageAnchor, setLanguageAnchor] = useState<null | HTMLElement>(
     null
@@ -51,7 +49,7 @@ export const Header: FC<HeaderProps> = () => {
             <MenuIcon />
           </IconButton>
           <Box sx={{ display: { md: "flex" } }}>
-            <Link href={Routes.HOME_PAGE}>
+            <MuiLink to={Routes.HOME_PAGE}>
               {/* <Box
                   component={"img"}
                   src="/img/logo.svg"
@@ -64,7 +62,7 @@ export const Header: FC<HeaderProps> = () => {
                   fontSize: "150px",
                 }}
               />
-            </Link>
+            </MuiLink>
           </Box>
           <Box sx={{ flexGrow: 1 }} />
           <IconButton sx={{ color: "#fff" }}>
@@ -100,14 +98,14 @@ export const Header: FC<HeaderProps> = () => {
               TransitionComponent={Fade}
             >
               <MenuItem>
-                <BlackLink href={{ pathname: "" }} locale="es">
+                <Button>
                   <Capitalize>{t("spanish")}</Capitalize>
-                </BlackLink>
+                </Button>
               </MenuItem>
               <MenuItem>
-                <BlackLink href={{ pathname: "" }} locale="en">
+                <Button>
                   <Capitalize>{t("english")}</Capitalize>
-                </BlackLink>
+                </Button>
               </MenuItem>
             </Menu>
           </Box>
@@ -116,9 +114,9 @@ export const Header: FC<HeaderProps> = () => {
           <Box
             sx={{ flexGrow: 1 / 24, display: "flex", flexDirection: "column" }}
           >
-            {!isAuthenticated ? (
+            {!true ? (
               <Button
-                onClick={login}
+                onClick={() => null}
                 variant="outlined"
                 size="large"
                 endIcon={<AccountCircle />}
@@ -130,7 +128,7 @@ export const Header: FC<HeaderProps> = () => {
               </Button>
             ) : (
               <Button
-                onClick={logout}
+                onClick={() => null}
                 variant="outlined"
                 size="large"
                 endIcon={<AccountCircle />}

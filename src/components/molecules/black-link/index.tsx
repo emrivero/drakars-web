@@ -1,8 +1,7 @@
-import { BoxProps } from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
-import Link from "../link";
+import { MuiLink, MuiLinkType } from "../link";
 
-export const BlackLink = styled(Link)<BoxProps>(({ theme }) => ({
+export const BlackLink = styled(MuiLink)<MuiLinkType>(({ theme }) => ({
   color: "#000",
   textDecoration: "none",
   "&:hover": {
