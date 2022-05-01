@@ -1,9 +1,8 @@
 import { useTheme } from "@emotion/react";
 import {
-  AirportShuttle,
-  ContactMail,
   ContactSupport,
   Coronavirus,
+  CorporateFare,
   DirectionsCar,
   Info,
   Percent,
@@ -66,12 +65,12 @@ export const Sidebar: FC = () => {
           </ListItem>
           <ListItem>
             <BlackLink
-              to="/local"
+              to="/services/offices"
               sx={{ display: "flex", alignItems: "center" }}
             >
-              <AirportShuttle />
+              <CorporateFare />
               <Box sx={{ ml: 1 }}>
-                <Typography variant="h6">Alquiler de furgonetas</Typography>
+                <Typography variant="h6">Nuestras oficinas</Typography>
               </Box>
             </BlackLink>
           </ListItem>
@@ -89,17 +88,6 @@ export const Sidebar: FC = () => {
               <Info />
               <Box sx={{ ml: 1 }}>
                 <Typography variant="h6">Quiénes somos</Typography>
-              </Box>
-            </BlackLink>
-          </ListItem>
-          <ListItem>
-            <BlackLink
-              to={Routes.CONTACT}
-              sx={{ display: "flex", alignItems: "center" }}
-            >
-              <ContactMail />
-              <Box sx={{ ml: 1 }}>
-                <Typography variant="h6">Contacto</Typography>
               </Box>
             </BlackLink>
           </ListItem>

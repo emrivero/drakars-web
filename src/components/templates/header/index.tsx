@@ -1,7 +1,7 @@
 import { CarRentalRounded, LanguageRounded } from "@mui/icons-material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Button, Divider, Fade, Typography } from "@mui/material";
+import { Button, Divider, Fade, Typography, useTheme } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -19,7 +19,8 @@ import { MuiLink } from "../../molecules/link";
 
 export const Header: FC = () => {
   const { login, logout, isAuthenticated } = useAuth();
-  const { t } = useTranslate();
+  const theme = useTheme();
+  const { t, setLang, lang } = useTranslate();
 
   const [languageAnchor, setLanguageAnchor] = useState<null | HTMLElement>(
     null
@@ -32,6 +33,11 @@ export const Header: FC = () => {
 
   const handleCloseMenuLanguage = () => {
     setLanguageAnchor(null);
+  };
+
+  const changeLang = (lang: string) => {
+    setLang(lang);
+    handleCloseMenuLanguage();
   };
 
   return (
@@ -97,13 +103,29 @@ export const Header: FC = () => {
               onClose={handleCloseMenuLanguage}
               TransitionComponent={Fade}
             >
-              <MenuItem>
-                <Button>
+              <MenuItem
+                style={
+                  lang === "es"
+                    ? {
+                        backgroundColor: theme.palette.secondary.light,
+                      }
+                    : {}
+                }
+              >
+                <Button onClick={() => changeLang("es")}>
                   <Capitalize>{t("spanish")}</Capitalize>
                 </Button>
               </MenuItem>
-              <MenuItem>
-                <Button>
+              <MenuItem
+                style={
+                  lang === "en"
+                    ? {
+                        backgroundColor: theme.palette.secondary.light,
+                      }
+                    : {}
+                }
+              >
+                <Button onClick={() => changeLang("en")}>
                   <Capitalize>{t("english")}</Capitalize>
                 </Button>
               </MenuItem>

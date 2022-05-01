@@ -44,7 +44,7 @@ export const Footer: FC = () => {
             </Grid>
             <Grid item sm={3}>
               <Typography variant="caption" align="center">
-                Acerca de Caronte Cars
+                Acerca de Drakars
               </Typography>
             </Grid>
           </Grid>

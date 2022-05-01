@@ -1,22 +1,16 @@
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { Upper } from "../../components/atoms/transforms/upper";
 import { Banner } from "../../components/molecules/banner";
 import { CustomTypography } from "../../components/molecules/custom-typography";
 import { Layout } from "../../components/templates/layout";
+import { CommonSection } from "../../components/templates/layout/common-section";
 
 const Covid19 = () => {
   const theme = useTheme();
   return (
     <Layout>
-      <Container
-        maxWidth="lg"
-        sx={{
-          width: "100%",
-          mt: 10,
-          fontFamily: `"Open Sans", sans-serif`,
-        }}
-      >
+      <CommonSection>
         <Grid container gap={[0, 4]}>
           <Grid item xs={12}>
             <Box>
@@ -137,7 +131,7 @@ const Covid19 = () => {
             </CustomTypography>
           </Grid>
         </Grid>
-      </Container>
+      </CommonSection>
     </Layout>
   );
 };

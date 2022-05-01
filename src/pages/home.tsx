@@ -1,26 +1,17 @@
-import { Container } from "@mui/material";
 import { FavDestinations } from "../components/organism/fav-destinations";
 import { RentCars } from "../components/organism/rent-cars";
 import { RentFilter } from "../components/organism/rent-filter";
 import { Layout } from "../components/templates/layout";
+import { CommonSection } from "../components/templates/layout/common-section";
 
 const Home = () => {
   return (
     <Layout>
-      <Container
-        maxWidth="xl"
-        sx={{
-          width: "70vw",
-        }}
-      >
+      <CommonSection>
         <RentFilter image="/img/portrait.jpg" />
-      </Container>
-      <Container maxWidth="lg">
         <FavDestinations />
-      </Container>
-      <Container maxWidth="lg">
         <RentCars />
-      </Container>
+      </CommonSection>
     </Layout>
   );
 };

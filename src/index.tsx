@@ -8,11 +8,11 @@ import { Route, Routes } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 import keycloak from "./config/keycloak";
 import AboutUs from "./pages/about/about-us";
-import Contact from "./pages/about/contact";
 import Covid19 from "./pages/about/covid19";
 import Faq from "./pages/about/faq";
 import AdminHome from "./pages/admin";
 import Home from "./pages/home";
+import { Offices } from "./pages/services/offices";
 import theme from "./theme";
 
 const eventLogger = (event: AuthClientEvent, error: unknown) => {
@@ -42,10 +42,12 @@ ReactDOM.render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/services">
+            <Route path="offices" element={<Offices />} />
+          </Route>
           <Route path="/admin" element={<AdminHome />}></Route>
           <Route path="/about">
             <Route path="about-us" element={<AboutUs />} />
-            <Route path="contact" element={<Contact />} />
             <Route path="covid19" element={<Covid19 />} />
             <Route path="faq" element={<Faq />} />
           </Route>

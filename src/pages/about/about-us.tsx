@@ -1,10 +1,10 @@
-import { Box } from "@mui/material";
 import { Layout } from "../../components/templates/layout";
+import { CommonSection } from "../../components/templates/layout/common-section";
 
 const AboutUs = () => {
   return (
     <Layout>
-      <Box sx={{ flexGrow: 1 }}></Box>;
+      <CommonSection></CommonSection>
     </Layout>
   );
 };

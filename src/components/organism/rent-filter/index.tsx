@@ -45,14 +45,17 @@ export const RentFilter: FC<RentFilterProps> = ({ image }) => {
           backgroundColor: "rgba(0,0,0,.3)",
         }}
       />
-      <Grid container>
-        <Grid item md={7}>
+      <Grid
+        container
+        sx={{
+          p: { md: 4 },
+        }}
+      >
+        <Grid item md={6}>
           <Box
             sx={{
               position: "relative",
-              p: { xs: 3, md: 6 },
-              pb: { md: 0 },
-              pr: { md: 0 },
+              mt: { xs: 2, md: 2 },
             }}
           >
             <Typography
@@ -63,36 +66,17 @@ export const RentFilter: FC<RentFilterProps> = ({ image }) => {
             >
               Alquiler de coches en toda España
             </Typography>
-          </Box>
-          <Box
-            sx={{
-              position: "relative",
-              p: { xs: 1, md: 2 },
-              pl: { md: 6 },
-              pr: { md: 0 },
-            }}
-          >
-            <Typography variant="h6">
+            <Typography variant="h6" alignContent={"baseline"}>
               Cancelación hasta 24h antes de la recogida
             </Typography>
-          </Box>
-          <Box
-            sx={{
-              position: "relative",
-              p: { xs: 1, md: 2 },
-              pl: { md: 6 },
-              pr: { md: 0 },
-            }}
-          >
             <Typography variant="h6">Los precios más bajos del país</Typography>
           </Box>
         </Grid>
-        <Grid item md={4}>
+        <Grid item md={6}>
           <Box
             sx={{
               position: "relative",
-              p: { xs: 3, md: 6 },
-              pr: { md: 0 },
+              mt: { xs: 2, md: 2 },
             }}
           >
             <Filter />
