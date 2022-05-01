@@ -6,7 +6,7 @@ import { PrimarySpan } from "../../molecules/primary-span";
 import { PrimaryTypography } from "../../molecules/primary-typography";
 import { FavDestination } from "./fav-destination";
 
-export const FavDestinations: FC = ({}) => {
+export const FavDestinations: FC = () => {
   const LocationPrimaryIcon = PrimaryIcon(LocationOn);
   return (
     <Box sx={{ width: "100%" }}>

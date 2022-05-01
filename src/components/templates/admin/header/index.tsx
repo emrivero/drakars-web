@@ -9,7 +9,7 @@ import { FC, useState } from "react";
 import { Capitalize } from "../../../atoms/transforms/capitalize";
 import { BlackLink } from "../../../molecules/black-link";
 
-export const AdminHeader: FC<{}> = () => {
+export const AdminHeader: FC = () => {
   const theme: Partial<Theme> = useTheme();
   // const { login, logout, isAuthenticated } = useAuth();
 

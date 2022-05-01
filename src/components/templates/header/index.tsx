@@ -15,9 +15,8 @@ import { toggleSidebar } from "../../../store/sidebar/actions/toggle-sidebar";
 import { Logo } from "../../atoms/logo";
 import { Capitalize } from "../../atoms/transforms/capitalize";
 import { MuiLink } from "../../molecules/link";
-import { HeaderProps } from "./types";
 
-export const Header: FC<HeaderProps> = () => {
+export const Header: FC = () => {
   // const { login, logout, isAuthenticated } = useAuth();
   const { t } = useTranslate();
 
@@ -114,18 +113,19 @@ export const Header: FC<HeaderProps> = () => {
           <Box
             sx={{ flexGrow: 1 / 24, display: "flex", flexDirection: "column" }}
           >
-            {!true ? (
-              <Button
-                onClick={() => null}
-                variant="outlined"
-                size="large"
-                endIcon={<AccountCircle />}
-                aria-label="account of current user"
-                aria-haspopup="true"
-                color="inherit"
-              >
-                {t("enter")}
-              </Button>
+            <Button
+              onClick={() => null}
+              variant="outlined"
+              size="large"
+              endIcon={<AccountCircle />}
+              aria-label="account of current user"
+              aria-haspopup="true"
+              color="inherit"
+            >
+              {t("enter")}
+            </Button>
+            {/* {!true ? (
+              
             ) : (
               <Button
                 onClick={() => null}
@@ -138,7 +138,7 @@ export const Header: FC<HeaderProps> = () => {
               >
                 {t("exit")}
               </Button>
-            )}
+            )} */}
           </Box>
         </Toolbar>
       </AppBar>

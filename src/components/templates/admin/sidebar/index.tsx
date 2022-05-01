@@ -23,7 +23,7 @@ import { Capitalize } from "../../../atoms/transforms/capitalize";
 import { Upper } from "../../../atoms/transforms/upper";
 import { WhiteLink } from "../../../molecules/white-link";
 
-export const AdminSidebar: FC<{}> = () => {
+export const AdminSidebar: FC = () => {
   const theme: Partial<Theme> = useTheme();
   return (
     <Drawer

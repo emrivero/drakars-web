@@ -19,9 +19,8 @@ import { Routes } from "../../../routes/routes";
 import { useStore } from "../../../store";
 import { toggleSidebar } from "../../../store/sidebar/actions/toggle-sidebar";
 import { BlackLink } from "../../molecules/black-link";
-import { SidebarProps } from "./types";
 
-export const Sidebar: FC<SidebarProps> = () => {
+export const Sidebar: FC = () => {
   const { open } = useStore((state) => state.sidebarState);
   const theme: Partial<Theme> = useTheme();
   return (
