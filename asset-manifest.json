@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/drakars-web/static/js/main.6eb5d886.js",
+    "main.js": "/drakars-web/static/js/main.e630fe7c.js",
     "index.html": "/drakars-web/index.html",
-    "main.6eb5d886.js.map": "/drakars-web/static/js/main.6eb5d886.js.map"
+    "main.e630fe7c.js.map": "/drakars-web/static/js/main.e630fe7c.js.map"
   },
   "entrypoints": [
-    "static/js/main.6eb5d886.js"
+    "static/js/main.e630fe7c.js"
   ]
 }
