@@ -1,5 +1,5 @@
 import { Button, Card, CardContent, CardMedia, Grid } from "@mui/material";
-import { FC } from "react";
+import { FC, MouseEventHandler } from "react";
 import { useTranslate } from "../../../i18n/useTranslate";
 import { CarDoorIcon } from "../../atoms/car-info-icons/car-door";
 import { GasIcon } from "../../atoms/car-info-icons/gas";
@@ -17,6 +17,8 @@ export interface CarDataProps {
   doors: number;
   imageSrc: string;
   height: string;
+  actionText: string;
+  onAction: MouseEventHandler;
 }
 
 export const CarData: FC<CarDataProps> = ({
@@ -27,7 +29,8 @@ export const CarData: FC<CarDataProps> = ({
   fuel,
   seats,
   imageSrc,
-  height,
+  actionText,
+  onAction,
 }) => {
   const { t } = useTranslate();
   return (
@@ -90,8 +93,8 @@ export const CarData: FC<CarDataProps> = ({
             </SecondaryBox>
           </Grid>
           <Grid xs={12} sx={{ mt: 1 }}>
-            <Button fullWidth variant="contained">
-              Reservar
+            <Button fullWidth variant="contained" onClick={onAction}>
+              {actionText}
             </Button>
           </Grid>
         </Grid>

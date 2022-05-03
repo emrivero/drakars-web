@@ -68,6 +68,7 @@ export const Header: FC = () => {
           <Box sx={{ flexGrow: 1 }} />
           <IconButton
             sx={{ color: "#fff", display: { xs: "none", md: "inherit" } }}
+            href="/services/manage-booking"
           >
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <CarRentalRounded />

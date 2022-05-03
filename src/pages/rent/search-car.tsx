@@ -1,11 +1,13 @@
 import { Grid, useTheme } from "@mui/material";
 import { FC } from "react";
+import { useNavigate } from "react-router-dom";
 import { Upper } from "../../components/atoms/transforms/upper";
 import { CustomTypography } from "../../components/molecules/custom-typography";
 import { CarFilter } from "../../components/organism/car-filter";
 import { CarData, CarDataProps } from "../../components/organism/rent-car-data";
 import { Layout } from "../../components/templates/layout";
 import { CommonSection } from "../../components/templates/layout/common-section";
+import { RentStepper } from "../../components/templates/layout/rent-stepper";
 
 const data: Partial<CarDataProps>[] = [
   {
@@ -87,12 +89,18 @@ const data: Partial<CarDataProps>[] = [
   },
 ];
 
-export const RentCar: FC = () => {
+export const SearchCar: FC = () => {
   const theme = useTheme();
+  const navigate = useNavigate();
   return (
-    <Layout>
+    <Layout showFooter={false}>
+      <RentStepper
+        stepperProps={{ activeStep: 1 }}
+        backLink="/rent/location-date"
+      />
       <CommonSection>
-        <Grid container>
+        {/* TODO: PAGINA DE FILTROS DE COCHE */}
+        <Grid container rowSpacing={3}>
           <Grid item xs={12}>
             <CustomTypography
               type="open"
@@ -100,23 +108,29 @@ export const RentCar: FC = () => {
               color={theme.palette.primary.dark}
               variant="h3"
             >
-              <Upper>nuestra flota de coches</Upper>
+              <Upper>elige tu coche</Upper>
             </CustomTypography>
           </Grid>
-          <CarFilter sx={{ my: 4 }} />
-          {data.map((props: CarDataProps) => {
-            return (
-              <Grid
-                key={props.title}
-                xs={12}
-                sm={6}
-                md={4}
-                sx={{ mt: 4, p: 1 }}
-              >
-                <CarData actionText="Reservar" {...props} />
-              </Grid>
-            );
-          })}
+          <CarFilter sx={{ mt: 4 }} />
+          <Grid container>
+            {data.map((props: CarDataProps) => {
+              return (
+                <Grid
+                  key={props.title}
+                  xs={12}
+                  sm={6}
+                  md={3}
+                  sx={{ mt: 4, p: 1 }}
+                >
+                  <CarData
+                    actionText="Elegir"
+                    onAction={() => navigate("/rent/confirm")}
+                    {...props}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
         </Grid>
       </CommonSection>
     </Layout>

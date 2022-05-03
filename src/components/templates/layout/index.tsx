@@ -6,7 +6,11 @@ import { Footer } from "../footer";
 import { Header } from "../header";
 import { Sidebar } from "../sidebar";
 
-export const Layout: FC = ({ children }) => {
+export interface LayoutProps {
+  showFooter?: boolean;
+}
+
+export const Layout: FC<LayoutProps> = ({ children, showFooter = true }) => {
   useEffect(() => {
     toggleSidebar(false);
   }, []);
@@ -16,7 +20,7 @@ export const Layout: FC = ({ children }) => {
       {children}
       <Sidebar />
       <Box sx={{ width: 1, mb: 2 }} />
-      <Footer />
+      {showFooter && <Footer />}
       <BottomBar />
 
       {/* <CookieConsent /> */}

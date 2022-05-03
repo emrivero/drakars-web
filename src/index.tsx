@@ -12,6 +12,11 @@ import Covid19 from "./pages/about/covid19";
 import Faq from "./pages/about/faq";
 import AdminHome from "./pages/admin";
 import Home from "./pages/home";
+import { AditionalServices } from "./pages/rent/aditional-services";
+import { Confirm } from "./pages/rent/confirm";
+import { LocationDate } from "./pages/rent/location-date";
+import { SearchCar } from "./pages/rent/search-car";
+import { ManageBooking } from "./pages/services/manage-booking";
 import { Offices } from "./pages/services/offices";
 import { RentCar } from "./pages/services/rent-car";
 import theme from "./theme";
@@ -46,8 +51,16 @@ ReactDOM.render(
           <Route path="/services">
             <Route path="offices" element={<Offices />} />
             <Route path="rent-car" element={<RentCar />} />
+            <Route path="manage-booking" element={<ManageBooking />} />
           </Route>
-          <Route path="/admin" element={<AdminHome />}></Route>
+          <Route path="/rent">
+            <Route path="search-car" element={<SearchCar />} />
+            <Route path="location-date" element={<LocationDate />} />
+            <Route path="confirm" element={<Confirm />} />
+            <Route path="aditional-services" element={<AditionalServices />} />
+          </Route>
+
+          <Route path="/admin" element={<AdminHome />} />
           <Route path="/about">
             <Route path="about-us" element={<AboutUs />} />
             <Route path="covid19" element={<Covid19 />} />

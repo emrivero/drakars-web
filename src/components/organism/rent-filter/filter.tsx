@@ -6,25 +6,39 @@ import {
   FormControlLabel,
   Grid,
   InputLabel,
+  SxProps,
   TextField,
 } from "@mui/material";
 import { FC, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { PrimaryTypography } from "../../molecules/primary-typography";
 import { SelectInput } from "../../molecules/select-input";
 import { Form } from "../form";
 
-export const Filter: FC = () => {
+export interface FilterProps {
+  sx?: SxProps;
+  showTitle?: boolean;
+}
+
+export const Filter: FC<FilterProps> = ({ sx = {}, showTitle = true }) => {
   const [{ sameOrigin }, setState] = useState({ sameOrigin: true });
+  const navigate = useNavigate();
   return (
-    <Form handleSubmit={() => null} saveContent="Buscar">
+    <Form
+      handleSubmit={() => navigate("/rent/search-car")}
+      saveContent="Buscar"
+      sx={sx}
+    >
       <Grid container>
-        <Grid item xs={12}>
-          <Box sx={{ pt: 1, pb: 1, pl: 2 }}>
-            <PrimaryTypography variant="h6">
-              Encuentra lo que buscas
-            </PrimaryTypography>
-          </Box>
-        </Grid>
+        {showTitle && (
+          <Grid item xs={12}>
+            <Box sx={{ pt: 1, pb: 1, pl: 2 }}>
+              <PrimaryTypography variant="h6">
+                Encuentra lo que buscas
+              </PrimaryTypography>
+            </Box>
+          </Grid>
+        )}
         <Grid item xs={12}>
           <FormControl
             fullWidth
