@@ -1,5 +1,7 @@
 import { useTheme } from "@emotion/react";
 import {
+  ChevronLeft,
+  ChevronRight,
   ContactSupport,
   Coronavirus,
   CorporateFare,
@@ -7,7 +9,7 @@ import {
   Info,
   Percent,
 } from "@mui/icons-material";
-import { ListItem, Typography } from "@mui/material";
+import { IconButton, ListItem, styled, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
@@ -18,6 +20,13 @@ import { Routes } from "../../../routes/routes";
 import { useStore } from "../../../store";
 import { toggleSidebar } from "../../../store/sidebar/actions/toggle-sidebar";
 import { BlackLink } from "../../molecules/black-link";
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "flex-end",
+  maxHeight: "16px",
+}));
 
 export const Sidebar: FC = () => {
   const { open } = useStore((state) => state.sidebarState);
@@ -31,6 +40,11 @@ export const Sidebar: FC = () => {
         }}
         role="presentation"
       >
+        <DrawerHeader>
+          <IconButton onClick={() => toggleSidebar(false)}>
+            {theme.direction === "ltr" ? <ChevronLeft /> : <ChevronRight />}
+          </IconButton>
+        </DrawerHeader>
         <Typography sx={{ color: theme.palette.primary.main }}>
           Servicios
         </Typography>
@@ -51,7 +65,7 @@ export const Sidebar: FC = () => {
           </ListItem>
           <ListItem>
             <BlackLink
-              to="/local"
+              to="/services/rent-car"
               sx={{
                 display: "flex",
                 alignItems: "center",

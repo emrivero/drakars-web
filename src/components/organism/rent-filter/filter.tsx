@@ -18,14 +18,14 @@ export const Filter: FC = () => {
   return (
     <Form handleSubmit={() => null} saveContent="Buscar">
       <Grid container>
-        <Grid item md={12}>
+        <Grid item xs={12}>
           <Box sx={{ pt: 1, pb: 1, pl: 2 }}>
             <PrimaryTypography variant="h6">
               Encuentra lo que buscas
             </PrimaryTypography>
           </Box>
         </Grid>
-        <Grid item md={12}>
+        <Grid item xs={12}>
           <FormControl
             fullWidth
             sx={{
@@ -52,7 +52,7 @@ export const Filter: FC = () => {
             />
           </FormControl>
         </Grid>
-        <Grid item md={12}>
+        <Grid item xs={12}>
           <FormControlLabel
             sx={{
               pl: 2,
@@ -67,7 +67,7 @@ export const Filter: FC = () => {
           />
         </Grid>
         {!sameOrigin && (
-          <Grid item md={12}>
+          <Grid item xs={12}>
             <FormControl
               fullWidth
               sx={{
@@ -95,7 +95,7 @@ export const Filter: FC = () => {
             </FormControl>
           </Grid>
         )}
-        <Grid item md={6}>
+        <Grid item xs={12} sm={6}>
           <FormControl
             fullWidth
             sx={{
@@ -115,7 +115,7 @@ export const Filter: FC = () => {
             />
           </FormControl>
         </Grid>
-        <Grid item md={6}>
+        <Grid item xs={12} sm={6}>
           <FormControl
             fullWidth
             variant="outlined"
@@ -140,7 +140,7 @@ export const Filter: FC = () => {
             />
           </FormControl>
         </Grid>
-        <Grid item md={6}>
+        <Grid item xs={12} sm={6}>
           <FormControl
             fullWidth
             sx={{
@@ -160,7 +160,7 @@ export const Filter: FC = () => {
             />
           </FormControl>
         </Grid>
-        <Grid item md={6}>
+        <Grid item xs={12} sm={6}>
           <FormControl
             fullWidth
             variant="outlined"

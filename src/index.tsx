@@ -13,6 +13,7 @@ import Faq from "./pages/about/faq";
 import AdminHome from "./pages/admin";
 import Home from "./pages/home";
 import { Offices } from "./pages/services/offices";
+import { RentCar } from "./pages/services/rent-car";
 import theme from "./theme";
 
 const eventLogger = (event: AuthClientEvent, error: unknown) => {
@@ -44,6 +45,7 @@ ReactDOM.render(
           <Route path="/" element={<Home />} />
           <Route path="/services">
             <Route path="offices" element={<Offices />} />
+            <Route path="rent-car" element={<RentCar />} />
           </Route>
           <Route path="/admin" element={<AdminHome />}></Route>
           <Route path="/about">

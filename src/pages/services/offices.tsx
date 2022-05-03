@@ -12,7 +12,7 @@ export const Offices: FC = () => {
   return (
     <Layout>
       <CommonSection>
-        <Grid container gap={[0, 8]}>
+        <Grid container gap={[0, 4]}>
           <Grid item xs={12}>
             <CustomTypography
               type="open"

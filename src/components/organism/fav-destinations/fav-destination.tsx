@@ -18,14 +18,14 @@ export const FavDestination: FC<FavDestination> = ({ price, location }) => {
       <Box
         sx={{
           position: "relative",
-          height: { md: mdSize },
-          width: { md: mdSize },
+          height: { xs: mdSize },
+          width: { xs: mdSize },
         }}
       >
         <DragonIcon
           color="primary"
           sx={{
-            fontSize: { md: mdSize },
+            fontSize: { xs: mdSize },
             borderRadius: "80%",
             backgroundColor: "#eee",
             p: 1,

@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { FC, useEffect } from "react";
 import { toggleSidebar } from "../../../store/sidebar/actions/toggle-sidebar";
-import { CookieConsent } from "../../organism/cookie-consent";
+import { BottomBar } from "../../organism/bottom-bar";
 import { Footer } from "../footer";
 import { Header } from "../header";
 import { Sidebar } from "../sidebar";
@@ -17,7 +17,9 @@ export const Layout: FC = ({ children }) => {
       <Sidebar />
       <Box sx={{ width: 1, mb: 2 }} />
       <Footer />
-      <CookieConsent />
+      <BottomBar />
+
+      {/* <CookieConsent /> */}
     </Box>
   );
 };

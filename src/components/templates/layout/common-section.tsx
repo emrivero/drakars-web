@@ -4,9 +4,9 @@ import { FC } from "react";
 export const CommonSection: FC = ({ children }) => {
   return (
     <Container
-      maxWidth="lg"
+      maxWidth={false}
       sx={{
-        width: "100%",
+        width: { xs: "100%", md: "80%" },
         mt: 10,
       }}
     >

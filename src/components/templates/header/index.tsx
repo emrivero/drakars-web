@@ -56,22 +56,19 @@ export const Header: FC = () => {
           </IconButton>
           <Box sx={{ display: { md: "flex" } }}>
             <MuiLink to={Routes.HOME_PAGE}>
-              {/* <Box
-                  component={"img"}
-                  src="/img/logo.svg"
-                  sx={{ width: "200px", py: 1 }}
-                /> */}
               <Logo
                 color="secondary"
                 sx={{
-                  height: ".3em",
+                  height: { md: ".3em", xs: ".2em" },
                   fontSize: "150px",
                 }}
               />
             </MuiLink>
           </Box>
           <Box sx={{ flexGrow: 1 }} />
-          <IconButton sx={{ color: "#fff" }}>
+          <IconButton
+            sx={{ color: "#fff", display: { xs: "none", md: "inherit" } }}
+          >
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <CarRentalRounded />
               <Typography variant="h6" sx={{ flexGrow: 1 }} fontWeight={600}>
@@ -80,7 +77,12 @@ export const Header: FC = () => {
             </Box>
           </IconButton>
           <Box sx={{ flexGrow: 1 / 24 }} />
-          <Divider orientation="vertical" variant="middle" flexItem />
+          <Divider
+            orientation="vertical"
+            variant="middle"
+            flexItem
+            sx={{ display: { xs: "none", md: "inherit" } }}
+          />
           <Box sx={{ flexGrow: 1 / 24 }} />
           <Box
             sx={{
@@ -134,7 +136,11 @@ export const Header: FC = () => {
           <Box sx={{ flexGrow: 1 / 24 }} />
           {/* <Divider orientation="vertical" variant="middle" flexItem /> */}
           <Box
-            sx={{ flexGrow: 1 / 24, display: "flex", flexDirection: "column" }}
+            sx={{
+              flexGrow: 1 / 24,
+              flexDirection: "column",
+              display: { xs: "none", md: "flex" },
+            }}
           >
             {!isAuthenticated ? (
               <Button

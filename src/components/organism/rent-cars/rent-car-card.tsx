@@ -28,11 +28,7 @@ export const RentCarCard: FC<RentCarCardProps> = ({
           p: 2,
         }}
       >
-        <CardMedia
-          component="img"
-          image={imageSrc}
-          height={height || null}
-        ></CardMedia>
+        <CardMedia component="img" image={imageSrc}></CardMedia>
         <CardContent>
           <PrimaryTypography variant="h5">{title}</PrimaryTypography>
           <Typography>{textBody}</Typography>

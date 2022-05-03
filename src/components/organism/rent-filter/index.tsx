@@ -15,13 +15,13 @@ export const RentFilter: FC<RentFilterProps> = ({ image }) => {
         color: "#fff",
         mb: 4,
         mt: 4,
-        height: 600,
+        minHeight: 600,
         width: "100%",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "bottom",
         backgroundAttachment: "fixed",
-        backgroundImage: `url(${image})`,
+        backgroundImage: { md: `url(${image})` },
       }}
     >
       <Box
@@ -47,19 +47,20 @@ export const RentFilter: FC<RentFilterProps> = ({ image }) => {
       />
       <Grid
         container
+        rowSpacing={4}
         sx={{
-          p: { md: 4 },
+          p: 2,
         }}
       >
-        <Grid item md={6}>
+        <Grid item md={8} justifyContent="center" display={"flex"}>
           <Box
             sx={{
               position: "relative",
-              mt: { xs: 2, md: 2 },
+              mt: { sm: 0, md: 2 },
             }}
           >
             <Typography
-              variant="h4"
+              variant="h3"
               sx={{
                 fontFamily: `'Acme', sans-serif`,
               }}
@@ -72,11 +73,11 @@ export const RentFilter: FC<RentFilterProps> = ({ image }) => {
             <Typography variant="h6">Los precios más bajos del país</Typography>
           </Box>
         </Grid>
-        <Grid item md={6}>
+        <Grid item md={4}>
           <Box
             sx={{
               position: "relative",
-              mt: { xs: 2, md: 2 },
+              mt: { xs: 0, md: 2 },
             }}
           >
             <Filter />

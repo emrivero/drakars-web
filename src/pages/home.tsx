@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <Layout>
       <CommonSection>
-        <RentFilter image="/img/portrait.jpg" />
+        <RentFilter image="img/portrait.jpg" />
         <FavDestinations />
         <RentCars />
       </CommonSection>

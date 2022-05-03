@@ -1,10 +1,11 @@
 import { useState } from "react";
-import en from "./dictionaries/en.json";
-import es from "./dictionaries/es.json";
+import { DictType } from "./dictionaries/dict.type";
+import en from "./dictionaries/en";
+import es from "./dictionaries/es";
 
 export const useTranslate: () => {
   setLang: (key: string) => void;
-  t: (value: string) => string;
+  t: (value: keyof DictType) => string;
   lang: string;
 } = () => {
   const [{ lang }, setState] = useState({ lang: "es" });

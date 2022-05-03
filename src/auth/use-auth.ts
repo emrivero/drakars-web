@@ -4,6 +4,8 @@ import { Rol } from "./types/rol";
 
 export const useAuth = (rol?: Rol) => {
   const { keycloak, initialized } = useKeycloak();
+  // const initialized = true;
+  // const keycloak: any = { autheticated: false };
 
   useEffect(() => {
     if (!initialized) {

@@ -20,19 +20,29 @@ export const OfficeSection: FC<OfficeSectionProps> = ({
         mt: 4,
       }}
     >
-      <PrimaryBox
+      <Box
         sx={{
           position: "absolute",
           top: -25,
-          left: "45%",
-          py: 1,
-          px: 3,
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
         }}
       >
-        <Typography variant="h5" color={"white"}>
-          {title}
-        </Typography>
-      </PrimaryBox>
+        <PrimaryBox
+          sx={{
+            position: "relative",
+            py: 1,
+            px: 3,
+            display: "block",
+            borderRadius: 2,
+          }}
+        >
+          <Typography variant="h5" color={"white"}>
+            {title}
+          </Typography>
+        </PrimaryBox>
+      </Box>
       <Box sx={{ mb: 4, py: 4, px: 1 }}>
         <Grid container>
           {offices.map((office) => {

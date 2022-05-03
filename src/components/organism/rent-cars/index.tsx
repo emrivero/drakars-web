@@ -36,56 +36,60 @@ export const RentCars = () => {
         </Grid>
         <Grid
           item
-          sx={{ py: 8, px: 2 }}
+          sx={{ py: { sm: 4, md: 8 }, px: 2 }}
+          sm={6}
           md={3}
           display="flex"
           justifyContent="center"
         >
           <RentCarCard
             height="134px"
-            imageSrc="/img/car-category/small.webp"
+            imageSrc="https://www.centauro.net/_next/image/?url=https%3A%2F%2Fcdn.centauro.net%2Fweb%2FA_400738ceb4.jpg&w=384&q=90"
             textBody="Se trata de coches asequibles que están al alcance de todos los bolsillos."
             title="Pequeño"
           />
         </Grid>
         <Grid
           item
-          sx={{ py: 8, px: 2 }}
+          sx={{ py: { sm: 4, md: 8 }, px: 2 }}
+          sm={6}
           md={3}
           display="flex"
           justifyContent="center"
         >
           <RentCarCard
             height="134px"
-            imageSrc="/img/car-category/medium.webp"
+            imageSrc="https://www.centauro.net/_next/image/?url=https%3A%2F%2Fcdn.centauro.net%2Fweb%2Fpolo_4_d1171481ee.jpg&w=384&q=90"
             textBody="Se trata de coches asequibles que están al alcance de todos los bolsillos."
             title="Mediano"
           />
         </Grid>
         <Grid
           item
-          sx={{ py: 8, px: 2 }}
+          sx={{ py: { sm: 4, md: 8 }, px: 2 }}
+          sm={6}
           md={3}
           display="flex"
           justifyContent="center"
         >
           <RentCarCard
             height="134px"
-            imageSrc="/img/car-category/familiar.webp"
+            imageSrc="https://www.centauro.net/_next/image/?url=https%3A%2F%2Fcdn.centauro.net%2Fweb%2Fnew_picasso_51926250be.png&w=384&q=90"
             textBody="Se trata de coches asequibles que están al alcance de todos los bolsillos."
             title="Familiar"
           />
         </Grid>
         <Grid
           item
-          sx={{ py: 8, px: 2 }}
+          sx={{ py: { sm: 4, md: 8 }, px: 2 }}
+          sm={6}
           md={3}
           display="flex"
           justifyContent="center"
         >
           <RentCarCard
             height="134px"
-            imageSrc="/img/car-category/premium.webp"
+            imageSrc="https://www.centauro.net/_next/image/?url=https%3A%2F%2Fcdn.centauro.net%2Fweb%2Faudi_a4_1_57e10a0e45.png&w=384&q=90"
             textBody="Se trata de coches asequibles que están al alcance de todos los bolsillos."
             title="Premium"
           />

@@ -34,16 +34,48 @@ export const FavDestinations: FC = () => {
             </Box>
           </Box>
         </Grid>
-        <Grid item sx={{ py: 8 }} md={3} display="flex" justifyContent="center">
+        <Grid
+          item
+          sx={{ py: 8 }}
+          xs={12}
+          sm={6}
+          md={3}
+          display="flex"
+          justifyContent="center"
+        >
           <FavDestination location="Barcelona" price={42.65} />
         </Grid>
-        <Grid item sx={{ py: 8 }} md={3} display="flex" justifyContent="center">
+        <Grid
+          item
+          sx={{ py: 8 }}
+          xs={12}
+          sm={6}
+          md={3}
+          display="flex"
+          justifyContent="center"
+        >
           <FavDestination location="Sevilla" price={37.85} />
         </Grid>
-        <Grid item sx={{ py: 8 }} md={3} display="flex" justifyContent="center">
+        <Grid
+          item
+          sx={{ py: 8 }}
+          xs={12}
+          sm={6}
+          md={3}
+          display="flex"
+          justifyContent="center"
+        >
           <FavDestination location="Valencia" price={29.55} />
         </Grid>
-        <Grid item sx={{ py: 8 }} md={3} display="flex" justifyContent="center">
+        <Grid
+          item
+          sx={{ py: 8 }}
+          xs={12}
+          sm={6}
+          md={3}
+          display="flex"
+          justifyContent="center"
+        >
           <FavDestination location="Salamanca" price={19.95} />
         </Grid>
       </Grid>
