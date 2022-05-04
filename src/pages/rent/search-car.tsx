@@ -4,94 +4,19 @@ import { useNavigate } from "react-router-dom";
 import { Upper } from "../../components/atoms/transforms/upper";
 import { CustomTypography } from "../../components/molecules/custom-typography";
 import { CarFilter } from "../../components/organism/car-filter";
-import { CarData, CarDataProps } from "../../components/organism/rent-car-data";
+import { CarData } from "../../components/organism/rent-car-data";
 import { Layout } from "../../components/templates/layout";
 import { CommonSection } from "../../components/templates/layout/common-section";
 import { RentStepper } from "../../components/templates/layout/rent-stepper";
-
-const data: Partial<CarDataProps>[] = [
-  {
-    title: "Fiat 500",
-    category: "small",
-    doors: 3,
-    fuel: "diesel",
-    seats: 4,
-    height: "200px",
-    type: "manual",
-    imageSrc:
-      "https://www.centauro.net/_next/image/?url=https%3A%2F%2Fcdn.centauro.net%2Fweb%2FA_400738ceb4.jpg&w=384&q=90",
-  },
-  {
-    title: "Fiat 500",
-    category: "small",
-    doors: 3,
-    fuel: "diesel",
-    seats: 4,
-    height: "200px",
-    type: "manual",
-    imageSrc:
-      "https://www.centauro.net/_next/image/?url=https%3A%2F%2Fcdn.centauro.net%2Fweb%2Ffiat_panda_a1_0a7355a355.jpg&w=384&q=90",
-  },
-  {
-    title: "Fiat 500",
-    category: "small",
-    doors: 3,
-    fuel: "diesel",
-    seats: 4,
-    height: "200px",
-    type: "manual",
-    imageSrc:
-      "https://www.centauro.net/_next/image/?url=https%3A%2F%2Fcdn.centauro.net%2Fweb%2FA_400738ceb4.jpg&w=384&q=90",
-  },
-  {
-    title: "Fiat 500",
-    category: "small",
-    doors: 3,
-    fuel: "diesel",
-    seats: 4,
-    height: "200px",
-    type: "manual",
-    imageSrc:
-      "https://www.centauro.net/_next/image/?url=https%3A%2F%2Fcdn.centauro.net%2Fweb%2FA_400738ceb4.jpg&w=384&q=90",
-  },
-  {
-    title: "Fiat 500",
-    category: "small",
-    doors: 3,
-    fuel: "diesel",
-    seats: 4,
-    height: "200px",
-    type: "manual",
-    imageSrc:
-      "https://www.centauro.net/_next/image/?url=https%3A%2F%2Fcdn.centauro.net%2Fweb%2FA_400738ceb4.jpg&w=384&q=90",
-  },
-  {
-    title: "Fiat 500",
-    category: "small",
-    doors: 3,
-    fuel: "diesel",
-    seats: 4,
-    height: "200px",
-    type: "manual",
-    imageSrc:
-      "https://www.centauro.net/_next/image/?url=https%3A%2F%2Fcdn.centauro.net%2Fweb%2FA_400738ceb4.jpg&w=384&q=90",
-  },
-  {
-    title: "Fiat 500",
-    category: "small",
-    doors: 3,
-    fuel: "diesel",
-    seats: 4,
-    height: "200px",
-    type: "manual",
-    imageSrc:
-      "https://www.centauro.net/_next/image/?url=https%3A%2F%2Fcdn.centauro.net%2Fweb%2FA_400738ceb4.jpg&w=384&q=90",
-  },
-];
+import { useStore } from "../../store";
 
 export const SearchCar: FC = () => {
   const theme = useTheme();
   const navigate = useNavigate();
+  const {
+    data: { data },
+    filter,
+  } = useStore((state) => state.vehiclesByOffice);
   return (
     <Layout showFooter={false}>
       <RentStepper
@@ -111,12 +36,12 @@ export const SearchCar: FC = () => {
               <Upper>elige tu coche</Upper>
             </CustomTypography>
           </Grid>
-          <CarFilter sx={{ mt: 4 }} />
+          <CarFilter sx={{ mt: 4 }} filter={filter} />
           <Grid container>
-            {data.map((props: CarDataProps) => {
+            {data.map((data) => {
               return (
                 <Grid
-                  key={props.title}
+                  key={data.title}
                   xs={12}
                   sm={6}
                   md={3}
@@ -125,7 +50,8 @@ export const SearchCar: FC = () => {
                   <CarData
                     actionText="Elegir"
                     onAction={() => navigate("/rent/confirm")}
-                    {...props}
+                    data={data}
+                    imageSrc="https://www.centauro.net/_next/image/?url=https%3A%2F%2Fcdn.centauro.net%2Fweb%2FA_400738ceb4.jpg&w=384&q=90"
                   />
                 </Grid>
               );

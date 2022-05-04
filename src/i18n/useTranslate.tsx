@@ -13,12 +13,13 @@ export const useTranslate: () => {
 
   const t = (key: string) => {
     const dict = dicitionaries[lang];
-    const path = key.split(".");
+    const path = key?.split(".");
 
     let value = dict;
-
-    for (const key of path) {
-      value = value[key];
+    if (path) {
+      for (const key of path) {
+        value = value[key];
+      }
     }
     return typeof value === "string" ? value : key;
   };

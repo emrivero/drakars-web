@@ -1,6 +1,7 @@
 import { Button, Card, CardContent, CardMedia, Grid } from "@mui/material";
 import { FC, MouseEventHandler } from "react";
 import { useTranslate } from "../../../i18n/useTranslate";
+import { VehicleVm } from "../../../service/vehicle/client/view/VehicleVm";
 import { CarDoorIcon } from "../../atoms/car-info-icons/car-door";
 import { GasIcon } from "../../atoms/car-info-icons/gas";
 import { MarchasIcon } from "../../atoms/car-info-icons/marchas";
@@ -9,14 +10,8 @@ import { PrimaryTypography } from "../../molecules/primary-typography";
 import { SecondaryBox } from "../../molecules/secondary-box";
 
 export interface CarDataProps {
-  title: string;
-  type: "manual" | "automatic";
-  category: "small" | "medium" | "large" | "premium";
-  fuel: "petrol" | "diesel" | "electric";
-  seats: number;
-  doors: number;
+  data: VehicleVm;
   imageSrc: string;
-  height: string;
   actionText: string;
   onAction?: MouseEventHandler;
   showCategory?: boolean;
@@ -24,30 +19,20 @@ export interface CarDataProps {
 }
 
 export const CarData: FC<CarDataProps> = ({
-  title,
-  type,
-  category,
-  doors,
-  fuel,
-  seats,
+  data,
   imageSrc,
   actionText,
   onAction = null,
   showCategory = true,
-  width = null,
 }) => {
   const { t } = useTranslate();
   return (
     <Card>
-      <CardMedia
-        component="img"
-        image={imageSrc}
-        sx={{ width: width || "auto" }}
-      />
+      <CardMedia component="img" image={imageSrc} />
       <CardContent>
-        <PrimaryTypography variant="h5">{title}</PrimaryTypography>
+        <PrimaryTypography variant="h5">{data.title}</PrimaryTypography>
         <PrimaryTypography variant="h6" hidden={!showCategory}>
-          {t(category)}
+          {t(data.type)}
         </PrimaryTypography>
         <Grid container sx={{ mt: 2 }} columnSpacing={0.25} rowSpacing={0.25}>
           <Grid item xs={3} sm={6}>
@@ -60,7 +45,7 @@ export const CarData: FC<CarDataProps> = ({
               }}
             >
               <MarchasIcon sx={{ width: 16, mr: 1 }} />
-              {type}
+              {data.transmission}
             </SecondaryBox>
           </Grid>
           <Grid item xs={3} sm={6}>
@@ -73,7 +58,7 @@ export const CarData: FC<CarDataProps> = ({
               }}
             >
               <GasIcon sx={{ width: 16, mr: 1 }} />
-              {fuel}
+              {data.fuel}
             </SecondaryBox>
           </Grid>
           <Grid item xs={3} sm={6}>
@@ -86,7 +71,7 @@ export const CarData: FC<CarDataProps> = ({
               }}
             >
               <UserIcon sx={{ width: 16, mr: 1 }} />
-              {seats}
+              {data.seats}
             </SecondaryBox>
           </Grid>
           <Grid item xs={3} sm={6}>
@@ -99,7 +84,7 @@ export const CarData: FC<CarDataProps> = ({
               }}
             >
               <CarDoorIcon sx={{ width: 16, mr: 1 }} />
-              {doors}
+              {data.doors}
             </SecondaryBox>
           </Grid>
           {onAction && (

@@ -4,7 +4,6 @@ import { FC } from "react";
 import { CustomTypography } from "../../molecules/custom-typography";
 import { PrimaryTypography } from "../../molecules/primary-typography";
 import { SecondaryTypography } from "../../molecules/secondary-typography";
-import { CarData } from "../rent-car-data";
 
 export const RentData: FC = () => {
   return (
@@ -22,7 +21,7 @@ export const RentData: FC = () => {
         </Typography>
       </Box>
       <Box sx={{ width: "100%" }}>
-        <CarData
+        {/* <CarData
           showCategory={false}
           title={"Fiat 500"}
           type={"manual"}
@@ -36,7 +35,7 @@ export const RentData: FC = () => {
           height={""}
           actionText={"Cambiar"}
           onAction={() => null}
-        />
+        /> */}
         <Paper sx={{ mt: 1, px: 1, py: 4 }}>
           <Box
             display={"flex"}

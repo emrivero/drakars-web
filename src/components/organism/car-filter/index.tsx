@@ -12,14 +12,17 @@ import {
   useTheme,
 } from "@mui/material";
 import { FC, useState } from "react";
+import { PaginateDto } from "../../../service/base/client/dto/PaginateDto";
 import { FilterIcon } from "../../atoms/filter-icon";
 import { CustomTypography } from "../../molecules/custom-typography";
 
 export interface CarFilterProps {
   sx?: SxProps;
+  filter: PaginateDto;
 }
 
-export const CarFilter: FC<CarFilterProps> = ({ sx = {} }) => {
+export const CarFilter: FC<CarFilterProps> = ({ sx = {}, filter }) => {
+  const { search } = filter;
   const theme = useTheme();
   const [isVisible, setVisibility] = useState(false);
   return (
@@ -29,6 +32,7 @@ export const CarFilter: FC<CarFilterProps> = ({ sx = {} }) => {
           sx={{ width: "70%", display: "flex", justifyContent: "space-around" }}
         >
           <TextField
+            value={search}
             sx={{ flexGrow: 0.9 }}
             placeholder="Introduce marca o modelo de vehículo"
             InputProps={{
@@ -47,6 +51,7 @@ export const CarFilter: FC<CarFilterProps> = ({ sx = {} }) => {
       </Grid>
 
       <Grid
+        item
         xs={12}
         sx={{
           mt: 4,
