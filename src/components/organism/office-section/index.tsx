@@ -1,6 +1,6 @@
-import { Box, Grid, Typography, useTheme } from "@mui/material";
+import { Box, Grid, useTheme } from "@mui/material";
 import { FC } from "react";
-import { PrimaryBox } from "../../molecules/primary-box";
+import { SectionHeader } from "../../molecules/section";
 
 export interface OfficeSectionProps {
   title: string;
@@ -13,36 +13,7 @@ export const OfficeSection: FC<OfficeSectionProps> = ({
 }) => {
   const theme = useTheme();
   return (
-    <Box
-      sx={{
-        borderTop: `2px solid ${theme.palette.secondary.main}`,
-        position: "relative",
-        mt: 4,
-      }}
-    >
-      <Box
-        sx={{
-          position: "absolute",
-          top: -25,
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <PrimaryBox
-          sx={{
-            position: "relative",
-            py: 1,
-            px: 3,
-            display: "block",
-            borderRadius: 2,
-          }}
-        >
-          <Typography variant="h5" color={"white"}>
-            {title}
-          </Typography>
-        </PrimaryBox>
-      </Box>
+    <SectionHeader title={title} color={theme.palette.secondary.main}>
       <Box sx={{ mb: 4, py: 4, px: 1 }}>
         <Grid container>
           {offices.map((office) => {
@@ -73,6 +44,6 @@ export const OfficeSection: FC<OfficeSectionProps> = ({
           })}
         </Grid>
       </Box>
-    </Box>
+    </SectionHeader>
   );
 };

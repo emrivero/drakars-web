@@ -5,7 +5,7 @@ export interface CustomTypographyProps extends TypographyProps {
 }
 
 export const CustomTypography = styled(Typography)<CustomTypographyProps>(
-  ({ theme, type = "roboto" }) => {
+  ({ type = "roboto" }) => {
     const fontFamily: Record<CustomTypographyProps["type"], string> = {
       roboto: `"Roboto","Helvetica","Arial",sans-serif`,
       acme: `"Acme","Helvetica","Arial",sans-serif`,

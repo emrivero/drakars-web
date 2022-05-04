@@ -14,8 +14,7 @@ export const LocationDate: FC = () => {
     <Layout showFooter={false}>
       <RentStepper stepperProps={{ activeStep: 0 }}>
         <CommonSection>
-          {/* TODO: PAGINA DE FILTROS DE COCHE */}
-          <Grid container rowSpacing={3}>
+          <Grid container>
             <Grid item xs={12}>
               <CustomTypography
                 type="open"
@@ -26,8 +25,14 @@ export const LocationDate: FC = () => {
                 <Upper>elige fecha y hora</Upper>
               </CustomTypography>
             </Grid>
-            <Grid xs={12} sx={{ mt: 4 }} display="flex" justifyContent="center">
-              <Box sx={{ width: "70%" }}>
+            <Grid
+              item
+              xs={12}
+              sx={{ mt: 4, p: 4 }}
+              display="flex"
+              justifyContent="center"
+            >
+              <Box sx={{ width: { lg: "80%", md: "70vw", sm: "95%" } }}>
                 <Filter showTitle={false} />
               </Box>
             </Grid>

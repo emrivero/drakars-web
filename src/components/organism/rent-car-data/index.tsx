@@ -18,7 +18,9 @@ export interface CarDataProps {
   imageSrc: string;
   height: string;
   actionText: string;
-  onAction: MouseEventHandler;
+  onAction?: MouseEventHandler;
+  showCategory?: boolean;
+  width?: string;
 }
 
 export const CarData: FC<CarDataProps> = ({
@@ -30,15 +32,23 @@ export const CarData: FC<CarDataProps> = ({
   seats,
   imageSrc,
   actionText,
-  onAction,
+  onAction = null,
+  showCategory = true,
+  width = null,
 }) => {
   const { t } = useTranslate();
   return (
     <Card>
-      <CardMedia component="img" image={imageSrc} />
+      <CardMedia
+        component="img"
+        image={imageSrc}
+        sx={{ width: width || "auto" }}
+      />
       <CardContent>
         <PrimaryTypography variant="h5">{title}</PrimaryTypography>
-        <PrimaryTypography variant="h6">{t(category)}</PrimaryTypography>
+        <PrimaryTypography variant="h6" hidden={!showCategory}>
+          {t(category)}
+        </PrimaryTypography>
         <Grid container sx={{ mt: 2 }} columnSpacing={0.25} rowSpacing={0.25}>
           <Grid item xs={3} sm={6}>
             <SecondaryBox
@@ -92,11 +102,13 @@ export const CarData: FC<CarDataProps> = ({
               {doors}
             </SecondaryBox>
           </Grid>
-          <Grid xs={12} sx={{ mt: 1 }}>
-            <Button fullWidth variant="contained" onClick={onAction}>
-              {actionText}
-            </Button>
-          </Grid>
+          {onAction && (
+            <Grid item xs={12} sx={{ mt: 1 }}>
+              <Button fullWidth variant="contained" onClick={onAction}>
+                {actionText}
+              </Button>
+            </Grid>
+          )}
         </Grid>
       </CardContent>
     </Card>

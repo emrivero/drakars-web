@@ -1,5 +1,6 @@
 import { Grid, useTheme } from "@mui/material";
 import { FC } from "react";
+import { useNavigate } from "react-router-dom";
 import { Upper } from "../../components/atoms/transforms/upper";
 import { CustomTypography } from "../../components/molecules/custom-typography";
 import { CarFilter } from "../../components/organism/car-filter";
@@ -89,6 +90,7 @@ const data: Partial<CarDataProps>[] = [
 
 export const RentCar: FC = () => {
   const theme = useTheme();
+  const navigate = useNavigate();
   return (
     <Layout>
       <CommonSection>
@@ -113,7 +115,11 @@ export const RentCar: FC = () => {
                 md={4}
                 sx={{ mt: 4, p: 1 }}
               >
-                <CarData actionText="Reservar" {...props} />
+                <CarData
+                  onAction={() => navigate("/rent/location-date")}
+                  actionText="Reservar"
+                  {...props}
+                />
               </Grid>
             );
           })}

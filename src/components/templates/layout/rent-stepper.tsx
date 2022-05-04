@@ -47,7 +47,7 @@ export const RentStepper: FC<RentStepperProps> = ({
           </Stepper>
         </Grid>
         {backLink && (
-          <Grid xs={12} sx={{ mt: 4 }}>
+          <Grid item xs={12} sx={{ mt: 4 }}>
             <Button onClick={() => navigate(backLink)}>Atrás</Button>
           </Grid>
         )}
