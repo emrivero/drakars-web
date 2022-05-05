@@ -1,14 +1,27 @@
 import { Search } from "@mui/icons-material";
 import { Grid, TextField, useTheme } from "@mui/material";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Upper } from "../../components/atoms/transforms/upper";
 import { CustomTypography } from "../../components/molecules/custom-typography";
 import { OfficeSection } from "../../components/organism/office-section";
 import { Layout } from "../../components/templates/layout";
 import { CommonSection } from "../../components/templates/layout/common-section";
+import { useOfficeService } from "../../service/office/application";
+import { useStore } from "../../store";
 
 export const Offices: FC = () => {
   const theme = useTheme();
+  const { data } = useStore((state) => state.offices);
+  const {
+    finder,
+    mappers: { CityWithOffices },
+  } = useOfficeService();
+
+  useEffect(() => {
+    finder.fetch();
+  }, []);
+
+  const mappedData = CityWithOffices.create(data).data;
   return (
     <Layout>
       <CommonSection>
@@ -25,8 +38,9 @@ export const Offices: FC = () => {
           </Grid>
           <Grid item xs={12}>
             <TextField
+              onChange={(e) => finder.onSearch({ search: e.target.value })}
               fullWidth
-              placeholder="Introduce nombre, municipio o provincia"
+              placeholder="Introduce nombre de oficina, municipio, provincia o código postal"
               InputProps={{
                 type: "search",
                 endAdornment: <Search />,
@@ -34,42 +48,15 @@ export const Offices: FC = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <OfficeSection
-              title="Sevilla"
-              offices={[
-                "Tomares",
-                "Aeropuerto Sevilla",
-                "Estación St Justa",
-                "Dos Hermanas, Av. Menéndez Pelayo",
-              ]}
-            />
-            <OfficeSection
-              title="Valencia"
-              offices={[
-                "Tomares",
-                "Aeropuerto Sevilla",
-                "Estación St Justa",
-                "Dos Hermanas, Av. Menéndez Pelayo",
-              ]}
-            />
-            <OfficeSection
-              title="Barcelona"
-              offices={[
-                "Tomares",
-                "Aeropuerto Sevilla",
-                "Estación St Justa",
-                "Dos Hermanas, Av. Menéndez Pelayo",
-              ]}
-            />
-            <OfficeSection
-              title="Madrid"
-              offices={[
-                "Tomares",
-                "Aeropuerto Sevilla",
-                "Estación St Justa",
-                "Dos Hermanas, Av. Menéndez Pelayo",
-              ]}
-            />
+            {mappedData.map((data) => {
+              return (
+                <OfficeSection
+                  key={data.city.name}
+                  title={data.city.name}
+                  offices={data.offices}
+                />
+              );
+            })}
           </Grid>
         </Grid>
       </CommonSection>

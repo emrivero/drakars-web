@@ -1,10 +1,11 @@
 import produce, { Draft } from "immer";
 import create, { GetState, Mutate, SetState, StoreApi } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
+import { OfficeSlice } from "../service/office/state";
 import { VehicleSlice } from "../service/vehicle/state";
 import { SidebarSlice } from "./sidebar/state";
 
-type AppState = typeof SidebarSlice & typeof VehicleSlice;
+type AppState = typeof SidebarSlice & typeof VehicleSlice & typeof OfficeSlice;
 
 export const useStore = create<
   AppState,
@@ -15,6 +16,7 @@ export const useStore = create<
   subscribeWithSelector(() => ({
     ...SidebarSlice,
     ...VehicleSlice,
+    ...OfficeSlice,
   }))
 );
 
