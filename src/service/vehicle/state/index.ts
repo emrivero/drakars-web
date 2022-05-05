@@ -1,10 +1,10 @@
-import { PaginateDto } from "../../base/client/dto/PaginateDto";
+import { get } from "../../../store";
 import { PaginateVm } from "../../base/client/view/PaginateVm";
+import { FilterVehicle } from "../application/model/filter-vehicle";
 import { VehicleVm } from "../client/view/VehicleVm";
 
 export interface VehicleStateProps {
-  vehicles: { data: PaginateVm<VehicleVm>; filter: PaginateDto };
-  vehiclesByOffice: { data: PaginateVm<VehicleVm>; filter: PaginateDto };
+  vehicles: { data: PaginateVm<VehicleVm>; filter: FilterVehicle };
 }
 
 export const VehicleSlice: VehicleStateProps = {
@@ -12,12 +12,18 @@ export const VehicleSlice: VehicleStateProps = {
     data: new PaginateVm(),
     filter: {
       search: "",
+      fuel: "",
+      seats: "",
+      sort: "expensive",
+      transmission: "",
+      type: "",
+      "office.id": "",
     },
   },
-  vehiclesByOffice: {
-    data: new PaginateVm(),
-    filter: {
-      search: "",
-    },
-  },
+};
+
+export const getVehicleState: () => VehicleStateProps = () => {
+  const { vehicles } = get();
+
+  return { vehicles };
 };

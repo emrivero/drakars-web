@@ -7,22 +7,33 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  SelectChangeEvent,
   SxProps,
   TextField,
   useTheme,
 } from "@mui/material";
 import { FC, useState } from "react";
-import { PaginateDto } from "../../../service/base/client/dto/PaginateDto";
+import { FilterVehicle } from "../../../service/vehicle/application/model/filter-vehicle";
+import { PaginateVehicleService } from "../../../service/vehicle/application/PaginateService";
 import { FilterIcon } from "../../atoms/filter-icon";
 import { CustomTypography } from "../../molecules/custom-typography";
 
 export interface CarFilterProps {
   sx?: SxProps;
-  filter: PaginateDto;
+  filter: FilterVehicle;
+  paginator?: PaginateVehicleService;
 }
 
-export const CarFilter: FC<CarFilterProps> = ({ sx = {}, filter }) => {
-  const { search } = filter;
+export type SelectVehicleTypeEvent = SelectChangeEvent<
+  "" | "small" | "medium" | "large" | "premium"
+>;
+
+export const CarFilter: FC<CarFilterProps> = ({
+  sx = {},
+  filter,
+  paginator,
+}) => {
+  const { search, type, seats, fuel, sort, transmission } = filter;
   const theme = useTheme();
   const [isVisible, setVisibility] = useState(false);
   return (
@@ -32,6 +43,7 @@ export const CarFilter: FC<CarFilterProps> = ({ sx = {}, filter }) => {
           sx={{ width: "70%", display: "flex", justifyContent: "space-around" }}
         >
           <TextField
+            onChange={(e) => paginator.onFilter({ search: e.target.value })}
             value={search}
             sx={{ flexGrow: 0.9 }}
             placeholder="Introduce marca o modelo de vehículo"
@@ -68,15 +80,23 @@ export const CarFilter: FC<CarFilterProps> = ({ sx = {}, filter }) => {
               </CustomTypography>
             </InputLabel>
             <Select
+              onChange={(e: SelectChangeEvent) => {
+                const value = e.target.value as
+                  | ""
+                  | "small"
+                  | "medium"
+                  | "large"
+                  | "premium";
+                paginator.onFilter({ type: value });
+              }}
               labelId="type-filter"
-              value={"any"}
+              value={type}
               label="Type"
-              onChange={() => null}
             >
-              <MenuItem value={"any"}>Cualquiera</MenuItem>
+              <MenuItem value={""}>Cualquiera</MenuItem>
               <MenuItem value={"small"}>Pequeño</MenuItem>
               <MenuItem value={"medium"}>Mediano</MenuItem>
-              <MenuItem value={"familiar"}>Familiar</MenuItem>
+              <MenuItem value={"large"}>Familiar</MenuItem>
               <MenuItem value={"premium"}>Premium</MenuItem>
             </Select>
           </FormControl>
@@ -87,16 +107,19 @@ export const CarFilter: FC<CarFilterProps> = ({ sx = {}, filter }) => {
               </CustomTypography>
             </InputLabel>
             <Select
+              onChange={(e: SelectChangeEvent) => {
+                const value = e.target.value as "" | "2" | "4" | "5" | "6";
+                paginator.onFilter({ seats: value });
+              }}
               labelId="seats-filter"
-              value={"any"}
+              value={seats}
               label="Seats"
-              onChange={() => null}
             >
-              <MenuItem value={"any"}>Cualquiera</MenuItem>
-              <MenuItem value={"small"}>2 o más</MenuItem>
-              <MenuItem value={"medium"}>4 o más</MenuItem>
-              <MenuItem value={"familiar"}>5 o más</MenuItem>
-              <MenuItem value={"premium"}>6 o más</MenuItem>
+              <MenuItem value={""}>Cualquiera</MenuItem>
+              <MenuItem value={2}>2 o más</MenuItem>
+              <MenuItem value={4}>4 o más</MenuItem>
+              <MenuItem value={5}>5 o más</MenuItem>
+              <MenuItem value={6}>6 o más</MenuItem>
             </Select>
           </FormControl>
           <FormControl variant="filled" sx={{ flexGrow: 1 / 2, px: 0.5 }}>
@@ -107,30 +130,43 @@ export const CarFilter: FC<CarFilterProps> = ({ sx = {}, filter }) => {
             </InputLabel>
             <Select
               labelId="seats-filter"
-              value={"any"}
+              value={fuel}
               label="Seats"
-              onChange={() => null}
+              onChange={(e: SelectChangeEvent) => {
+                const value = e.target.value as
+                  | ""
+                  | "fuel"
+                  | "diesel"
+                  | "electric";
+                paginator.onFilter({ fuel: value });
+              }}
             >
-              <MenuItem value={"any"}>Cualquiera</MenuItem>
-              <MenuItem value={"small"}>Gasolina</MenuItem>
-              <MenuItem value={"medium"}>Diesel</MenuItem>
-              <MenuItem value={"familiar"}>Electrico</MenuItem>
+              <MenuItem value={""}>Cualquiera</MenuItem>
+              <MenuItem value={"fuel"}>Gasolina</MenuItem>
+              <MenuItem value={"diesel"}>Diesel</MenuItem>
+              <MenuItem value={"electric"}>Electrico</MenuItem>
             </Select>
           </FormControl>
           <FormControl variant="filled" sx={{ flexGrow: 1 / 2, px: 0.5 }}>
-            <InputLabel id="seats-filter">
+            <InputLabel id="order-filter">
               <CustomTypography color={theme.palette.primary.main}>
                 Orden
               </CustomTypography>
             </InputLabel>
             <Select
-              labelId="seats-filter"
-              value={"better"}
-              label="Seats"
-              onChange={() => null}
+              onChange={(e: SelectChangeEvent) => {
+                const value = e.target.value as
+                  | "better"
+                  | "cheap"
+                  | "expensive";
+                paginator.onFilter({ sort: value });
+              }}
+              labelId="order-filter"
+              value={sort}
+              label="order"
             >
-              <MenuItem value={"small"}>Precio más bajo</MenuItem>
-              <MenuItem value={"medium"}>Precio más alto</MenuItem>
+              <MenuItem value={"cheap"}>Precio más bajo</MenuItem>
+              <MenuItem value={"expensive"}>Precio más alto</MenuItem>
               <MenuItem value={"better"}>Mejor valorados</MenuItem>
             </Select>
           </FormControl>
@@ -142,13 +178,16 @@ export const CarFilter: FC<CarFilterProps> = ({ sx = {}, filter }) => {
             </InputLabel>
             <Select
               labelId="marchas-filter"
-              value={"any"}
+              value={transmission}
               label="Marchas"
-              onChange={() => null}
+              onChange={(e: SelectChangeEvent) => {
+                const value = e.target.value as "" | "manual" | "automatic";
+                paginator.onFilter({ transmission: value });
+              }}
             >
-              <MenuItem value={"any"}>Cualquiera</MenuItem>
-              <MenuItem value={"medium"}>Manual</MenuItem>
-              <MenuItem value={"better"}>Automático</MenuItem>
+              <MenuItem value={""}>Cualquiera</MenuItem>
+              <MenuItem value={"manual"}>Manual</MenuItem>
+              <MenuItem value={"automatic"}>Automático</MenuItem>
             </Select>
           </FormControl>
         </Box>

@@ -1,5 +1,5 @@
 import { Grid, useTheme } from "@mui/material";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Upper } from "../../components/atoms/transforms/upper";
 import { CustomTypography } from "../../components/molecules/custom-typography";
@@ -8,15 +8,22 @@ import { CarData } from "../../components/organism/rent-car-data";
 import { Layout } from "../../components/templates/layout";
 import { CommonSection } from "../../components/templates/layout/common-section";
 import { RentStepper } from "../../components/templates/layout/rent-stepper";
+import { useVehicleService } from "../../service/vehicle/application";
 import { useStore } from "../../store";
 
 export const SearchCar: FC = () => {
+  const { paginator } = useVehicleService();
   const theme = useTheme();
   const navigate = useNavigate();
   const {
     data: { data },
     filter,
-  } = useStore((state) => state.vehiclesByOffice);
+  } = useStore((state) => state.vehicles);
+
+  useEffect(() => {
+    paginator.fetchVehicles();
+  }, []);
+
   return (
     <Layout showFooter={false}>
       <RentStepper
@@ -36,11 +43,12 @@ export const SearchCar: FC = () => {
               <Upper>elige tu coche</Upper>
             </CustomTypography>
           </Grid>
-          <CarFilter sx={{ mt: 4 }} filter={filter} />
+          <CarFilter sx={{ mt: 4 }} filter={filter} paginator={paginator} />
           <Grid container>
             {data.map((data) => {
               return (
                 <Grid
+                  item
                   key={data.title}
                   xs={12}
                   sm={6}

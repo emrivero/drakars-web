@@ -20,7 +20,7 @@ export const RentCar: FC = () => {
   } = useStore((state) => state.vehicles);
 
   useEffect(() => {
-    paginator.fetch();
+    paginator.fetchVehicles();
   }, []);
 
   return (
@@ -37,7 +37,7 @@ export const RentCar: FC = () => {
               <Upper>nuestra flota de coches</Upper>
             </CustomTypography>
           </Grid>
-          <CarFilter sx={{ my: 4 }} filter={filter} />
+          <CarFilter sx={{ my: 4 }} filter={filter} paginator={paginator} />
           {data.map((data) => {
             return (
               <Grid
