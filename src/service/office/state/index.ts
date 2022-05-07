@@ -40,6 +40,7 @@ export const OfficeSlice: OfficeStateProps = {
     cityId: null,
     cities: [],
     municipalities: [],
+    status: "",
   },
 };
 

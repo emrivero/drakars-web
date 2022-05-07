@@ -3,7 +3,7 @@ import { CityClient } from "../../city/client";
 import { MunicipalityClient } from "../../municipality/client";
 import { OfficeClient } from "../client";
 import { OfficeDto } from "../client/dto/OfficeDto";
-import { getOfficeState } from "../state";
+import { getOfficeState, OfficeSlice } from "../state";
 import { NewOffice } from "./model/NewOffice";
 
 export class CreateOfficeService {
@@ -11,10 +11,16 @@ export class CreateOfficeService {
   private readonly cityClient = new CityClient();
   private readonly municipalityClient = new MunicipalityClient();
 
-  create() {
+  async create() {
     const { newOffice } = getOfficeState();
     const office = NewOffice.create(newOffice);
-    return this.client.post("", office);
+    try {
+      await this.client.post("", office);
+      this.setState({ status: "success" });
+      this.clear();
+    } catch (e) {
+      this.setState({ status: "error" });
+    }
   }
 
   async searchCity(name: string) {
@@ -34,6 +40,10 @@ export class CreateOfficeService {
       const { data } = await this.municipalityClient.getByCity(cityId, name);
       this.setState({ municipalities: data, searchMunicipality: name });
     }
+  }
+
+  clear() {
+    this.setState(OfficeSlice.newOffice);
   }
 
   clearSearch() {

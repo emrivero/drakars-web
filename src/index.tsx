@@ -3,6 +3,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { AuthClientEvent } from "@react-keycloak/core/lib/types";
 import { ReactKeycloakProvider } from "@react-keycloak/web";
 import axios from "axios";
+import { SnackbarProvider } from "notistack";
 import ReactDOM from "react-dom";
 import { Route, Routes } from "react-router";
 import { BrowserRouter } from "react-router-dom";
@@ -50,53 +51,58 @@ ReactDOM.render(
     onEvent={eventLogger}
     onTokens={tokenLogger}
   >
-    <ThemeProvider theme={theme.themeClient}>
-      <CssBaseline />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/services">
-            <Route path="offices" element={<Offices />} />
-            <Route path="rent-car" element={<RentCar />} />
-            <Route path="manage-booking" element={<ManageBooking />} />
-          </Route>
-          <Route path="/rent">
-            <Route path="search-car" element={<SearchCar />} />
-            <Route path="location-date" element={<LocationDate />} />
-            <Route path="confirm" element={<Confirm />} />
-            <Route path="aditional-services" element={<AditionalServices />} />
-          </Route>
+    <SnackbarProvider maxSnack={3}>
+      <ThemeProvider theme={theme.themeClient}>
+        <CssBaseline />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/services">
+              <Route path="offices" element={<Offices />} />
+              <Route path="rent-car" element={<RentCar />} />
+              <Route path="manage-booking" element={<ManageBooking />} />
+            </Route>
+            <Route path="/rent">
+              <Route path="search-car" element={<SearchCar />} />
+              <Route path="location-date" element={<LocationDate />} />
+              <Route path="confirm" element={<Confirm />} />
+              <Route
+                path="aditional-services"
+                element={<AditionalServices />}
+              />
+            </Route>
 
-          <Route path="/admin">
-            <Route path="" element={<AdminHome />} />
-            <Route path="offices">
-              <Route path="" element={<ListOffices />} />
-              <Route path="add" element={<AddOffice />} />
+            <Route path="/admin">
+              <Route path="" element={<AdminHome />} />
+              <Route path="offices">
+                <Route path="" element={<ListOffices />} />
+                <Route path="add" element={<AddOffice />} />
+              </Route>
+              <Route path="vehicles">
+                <Route path="" element={<ListVehicles />} />
+                <Route path="add" element={<AddOffice />} />
+              </Route>
+              <Route path="users">
+                <Route path="" element={<ListOffices />} />
+                <Route path="add" element={<AddOffice />} />
+              </Route>
+              <Route path="statistics">
+                <Route path="general" element={<GeneralStats />} />
+                <Route path="users" element={<UserStats />} />
+                <Route path="vehicles" element={<VehiclesStats />} />
+                <Route path="offices" element={<OfficesStats />} />
+              </Route>
             </Route>
-            <Route path="vehicles">
-              <Route path="" element={<ListVehicles />} />
-              <Route path="add" element={<AddOffice />} />
+            <Route path="/about">
+              <Route path="about-us" element={<AboutUs />} />
+              <Route path="covid19" element={<Covid19 />} />
+              <Route path="faq" element={<Faq />} />
             </Route>
-            <Route path="users">
-              <Route path="" element={<ListOffices />} />
-              <Route path="add" element={<AddOffice />} />
-            </Route>
-            <Route path="statistics">
-              <Route path="general" element={<GeneralStats />} />
-              <Route path="users" element={<UserStats />} />
-              <Route path="vehicles" element={<VehiclesStats />} />
-              <Route path="offices" element={<OfficesStats />} />
-            </Route>
-          </Route>
-          <Route path="/about">
-            <Route path="about-us" element={<AboutUs />} />
-            <Route path="covid19" element={<Covid19 />} />
-            <Route path="faq" element={<Faq />} />
-          </Route>
-          <Route path="/vehicles"></Route>
-        </Routes>
-      </BrowserRouter>
-    </ThemeProvider>
+            <Route path="/vehicles"></Route>
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
+    </SnackbarProvider>
   </ReactKeycloakProvider>,
   document.querySelector("#root")
 );

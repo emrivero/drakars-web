@@ -5,7 +5,7 @@ export class NewOffice {
     public readonly name: string,
     public readonly address: string,
     public readonly zipCode: string,
-    public readonly municipalityId: number
+    public readonly municipality: number
   ) {}
 
   static create(officeDto: OfficeDto) {

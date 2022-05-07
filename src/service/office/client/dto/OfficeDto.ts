@@ -11,4 +11,5 @@ export interface OfficeDto {
   municipalities: MunicipalityVm[];
   searchCity: string;
   searchMunicipality: string;
+  status: "error" | "success" | "";
 }
