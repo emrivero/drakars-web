@@ -1,51 +1,60 @@
-import { Box, Grid, TextField } from "@mui/material";
-import { FC } from "react";
-import { CrudCheckboxTable } from "../../../components/templates/admin/dk-table";
+import { FC, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { AdminLayout } from "../../../components/templates/admin/layout";
+import { AdminPagination } from "../../../components/templates/admin/pagination";
+import { useOfficeService } from "../../../service/office/application";
 import { officeColumns } from "../../../service/office/application/model/OfficeGridColum";
+import { useStore } from "../../../store";
 
 export const ListOffices: FC = () => {
+  const {
+    paginator,
+    mappers: { OfficeGridRowMapper },
+  } = useOfficeService();
+
+  const {
+    paginatedOffices: {
+      paginationOptions: { currentPage, itemsPerPage, totalItems, search },
+      data,
+    },
+  } = useStore();
+
+  const navigation = useNavigate();
+
+  useEffect(() => {
+    paginator.paginate();
+  }, [currentPage, itemsPerPage, search]);
+
   return (
     <AdminLayout title="Oficinas">
-      <Grid container rowSpacing={4}>
-        <Grid item xs={12}>
-          <TextField
-            onChange={() => null}
-            fullWidth
-            placeholder="Buscar oficina"
-            InputProps={{
-              type: "search",
-            }}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Box sx={{ width: "100%", height: "70vh" }}>
-            <CrudCheckboxTable
-              columns={officeColumns}
-              ActionsProps={{
-                onEdit: (row) => console.log(row),
-              }}
-              rows={[
-                {
-                  index: "1",
-                  id: 1,
-                  name: "nombre",
-                  address: "Calle saddfssfdasdfrgasdfdghseds",
-                  zipCode: 8787,
-                },
-                {
-                  index: "2",
-                  id: 2,
-                  name: "nombre",
-                  address: "Calle saddfssfdasdfrgasdfdghseds",
-                  zipCode: 8787,
-                },
-              ]}
-              onSelect={(rows) => console.log(rows)}
-            />
-          </Box>
-        </Grid>
-      </Grid>
+      <AdminPagination
+        onAddItem={() => navigation("/admin/offices/add")}
+        onRemoveItems={(row) => console.log(row)}
+        addText="Añadir oficina"
+        textFieldSearch={{
+          onChange: (e) => paginator.onFilter({ search: e.target.value }),
+          value: search,
+          placeholder:
+            "Introduce nombre, dirección o código postal de la oficina",
+        }}
+        tableProps={{
+          onSelect: (rows) => console.log(rows),
+          columns: officeColumns,
+          paginationProps: {
+            count: totalItems,
+            page: currentPage,
+            onPageChange: (e, page) => paginator.changePage(page),
+            onRowsPerPageChange: (e) =>
+              paginator.changeRows(parseInt(e.target.value)),
+            rowsPerPage: itemsPerPage,
+            rowsPerPageOptions: [10, 25],
+          },
+          ActionsProps: {
+            onEdit: (row) => console.log(row),
+          },
+          rows: data.data.map(OfficeGridRowMapper),
+        }}
+      />
     </AdminLayout>
   );
 };

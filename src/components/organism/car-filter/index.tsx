@@ -13,15 +13,15 @@ import {
   useTheme,
 } from "@mui/material";
 import { FC, useState } from "react";
+import { ListVehicleService } from "../../../service/vehicle/application/ListVehicleService";
 import { FilterVehicle } from "../../../service/vehicle/application/model/filter-vehicle";
-import { PaginateVehicleService } from "../../../service/vehicle/application/PaginateService";
 import { FilterIcon } from "../../atoms/filter-icon";
 import { CustomTypography } from "../../molecules/custom-typography";
 
 export interface CarFilterProps {
   sx?: SxProps;
   filter: FilterVehicle;
-  paginator?: PaginateVehicleService;
+  paginator?: ListVehicleService;
 }
 
 export type SelectVehicleTypeEvent = SelectChangeEvent<

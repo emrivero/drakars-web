@@ -1,10 +1,5 @@
-import { CityVm } from "../../client/view/CityVm";
 import { OfficeVm } from "../../client/view/OfficeVm";
-
-export type CityWithOfficesVO = {
-  offices: OfficeVm[];
-  city: CityVm;
-};
+import { CityWithOfficesVO } from "../model/CityWithOfficesVO";
 
 export class CityWithOffices {
   constructor(private offices: OfficeVm[]) {}

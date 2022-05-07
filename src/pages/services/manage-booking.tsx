@@ -10,10 +10,10 @@ import { useVehicleService } from "../../service/vehicle/application";
 
 export const ManageBooking: FC = () => {
   const theme = useTheme();
-  const { paginator } = useVehicleService();
+  const { finder } = useVehicleService();
 
   useEffect(() => {
-    paginator.cleanOffice();
+    finder.cleanOffice();
   });
   return (
     <Layout showFooter={false}>

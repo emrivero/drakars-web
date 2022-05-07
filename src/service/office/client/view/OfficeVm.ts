@@ -1,5 +1,5 @@
 import { BaseVm } from "../../../base/client/view/BaseVm";
-import { MunicipalityVm } from "./MunicipalityVm";
+import { MunicipalityVm } from "../../../municipality/client/view/MunicipalityVm";
 
 export class OfficeVm extends BaseVm {
   constructor(

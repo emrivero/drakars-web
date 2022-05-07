@@ -6,12 +6,14 @@ import {
   TableBody,
   TableCell,
   TableContainer,
+  TablePagination,
+  TablePaginationProps,
   TableRow,
 } from "@mui/material";
 import { ChangeEvent, Dispatch, FC, useEffect, useState } from "react";
 import { PrimaryTypography } from "../../molecules/primary-typography";
 
-export type TableGridRow = Record<string, string | number> & { index: string };
+export type TableGridRow = Record<string, any> & { index: string };
 
 export type TableGridColumn = {
   field: string;
@@ -26,6 +28,7 @@ export type TableGridColumnProps = {
   cols: TableGridColumn[];
   onCheck?: (e: ChangeEvent<HTMLInputElement>, checked: boolean) => void;
   selected?: boolean;
+  disabled?: boolean;
 };
 
 export type TableGridRowProps = {
@@ -42,6 +45,7 @@ export interface TableGridProps {
   rows: TableGridRow[];
   selectable?: boolean;
   onSelect?: (rows: TableGridRow[]) => void;
+  paginationProps: TablePaginationProps;
 }
 
 export const TableGridColumns: FC<TableGridColumnProps> = ({
@@ -49,6 +53,7 @@ export const TableGridColumns: FC<TableGridColumnProps> = ({
   selectable,
   onCheck,
   selected,
+  disabled = false,
 }) => {
   return (
     <TableRow>
@@ -58,6 +63,7 @@ export const TableGridColumns: FC<TableGridColumnProps> = ({
             sx={{ width: 0.05 }}
             onChange={onCheck}
             checked={selected}
+            disabled={disabled}
           />
         </TableCell>
       )}
@@ -149,9 +155,10 @@ export const TableGrid: FC<TableGridProps> = ({
   rows,
   selectable = false,
   onSelect = () => null,
+  paginationProps,
 }) => {
   const [selectedRows, setSelectedRows] = useState<TableGridRow[]>([]);
-  const headerSelected = rows.length === selectedRows.length;
+  const headerSelected = rows.length === selectedRows.length && rows.length > 0;
 
   const handleCheckAll = (_, checked) => {
     if (checked) {
@@ -166,22 +173,35 @@ export const TableGrid: FC<TableGridProps> = ({
   }, [selectedRows]);
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ width: "100%", ...sxTable }}>
-        <TableGridColumns
-          cols={columns}
-          onCheck={handleCheckAll}
-          selectable={selectable}
-          selected={headerSelected}
-        />
-        <TableGridRow
-          rows={rows}
-          cols={columns}
-          selectable={selectable}
-          onCheck={setSelectedRows}
-          selectedRows={selectedRows}
-        />
-      </Table>
-    </TableContainer>
+    <>
+      <TableContainer component={Paper}>
+        <Table sx={{ width: "100%", ...sxTable }}>
+          <TableGridColumns
+            cols={columns}
+            onCheck={handleCheckAll}
+            selectable={selectable}
+            selected={headerSelected}
+            disabled={rows.length === 0}
+          />
+          <TableGridRow
+            rows={rows}
+            cols={columns}
+            selectable={selectable}
+            onCheck={setSelectedRows}
+            selectedRows={selectedRows}
+          />
+        </Table>
+      </TableContainer>
+      <TablePagination
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+        {...paginationProps}
+      />
+    </>
   );
 };
+
+// count total de elementos
+//

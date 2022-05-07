@@ -1,4 +1,3 @@
-import { useTheme } from "@emotion/react";
 import {
   BarChart,
   Business,
@@ -15,18 +14,18 @@ import {
   ListItem,
   Toolbar,
   Typography,
+  useTheme,
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
-import { Theme } from "@mui/system";
 import { FC } from "react";
 import { Capitalize } from "../../../atoms/transforms/capitalize";
 import { Upper } from "../../../atoms/transforms/upper";
 import { BlackLink } from "../../../molecules/black-link";
 
 export const AdminSidebar: FC = () => {
-  const theme: Partial<Theme> = useTheme();
+  const theme = useTheme();
   return (
     <Drawer
       anchor="left"
@@ -37,7 +36,7 @@ export const AdminSidebar: FC = () => {
         sx: {
           width: "280px",
           flexShrink: 0,
-          backgroundColor: theme.palette.secondary.dark,
+          backgroundColor: theme.palette.primary.dark,
           "& .MuiDrawer-paper": {
             width: "280px",
             boxSizing: "border-box",
@@ -62,9 +61,7 @@ export const AdminSidebar: FC = () => {
       <Divider />
       <List>
         <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMore color={theme.palette.common.white} />}
-          >
+          <AccordionSummary expandIcon={<ExpandMore color="primary" />}>
             <ListItem>
               <Person />
               <Box sx={{ ml: 2 }}>
@@ -120,9 +117,7 @@ export const AdminSidebar: FC = () => {
           </AccordionDetails>
         </Accordion>
         <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMore color={theme.palette.common.white} />}
-          >
+          <AccordionSummary expandIcon={<ExpandMore color="primary" />}>
             <ListItem>
               <DirectionsCar />
               <Box sx={{ ml: 2 }}>
@@ -164,9 +159,7 @@ export const AdminSidebar: FC = () => {
           </AccordionDetails>
         </Accordion>
         <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMore color={theme.palette.common.white} />}
-          >
+          <AccordionSummary expandIcon={<ExpandMore color="primary" />}>
             <ListItem>
               <Business />
               <Box sx={{ ml: 2 }}>
@@ -208,9 +201,7 @@ export const AdminSidebar: FC = () => {
           </AccordionDetails>
         </Accordion>
         <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMore color={theme.palette.common.white} />}
-          >
+          <AccordionSummary expandIcon={<ExpandMore color="primary" />}>
             <ListItem>
               <BarChart />
               <Box sx={{ ml: 2 }}>

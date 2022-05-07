@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { PaginateVehicleService } from "./PaginateService";
+import { ListVehicleService } from "./ListVehicleService";
 
 export const useVehicleService = () => {
   const [vehicleServices] = useState({
-    paginator: new PaginateVehicleService(),
+    finder: new ListVehicleService(),
   });
 
   return vehicleServices;

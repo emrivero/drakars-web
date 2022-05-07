@@ -32,5 +32,5 @@ export const changeState: SetState<Draft<AppState>> = (
   recipe: (draft: Draft<AppState>) => Draft<AppState>,
   replace?: boolean
 ) => {
-  useStore.setState(produce<AppState>(get(), recipe), replace);
+  set(produce<AppState>(get(), recipe), replace);
 };

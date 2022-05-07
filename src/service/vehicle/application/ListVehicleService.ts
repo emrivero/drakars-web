@@ -5,7 +5,8 @@ import { VehicleVm } from "../client/view/VehicleVm";
 import { getVehicleState } from "../state";
 import { FilterVehicle } from "./model/filter-vehicle";
 import { PaginateVehicleBuilder } from "./PaginateVehicleBuilder";
-export class PaginateVehicleService {
+
+export class ListVehicleService {
   private readonly client = new VehicleClient();
 
   async fetchVehicles() {

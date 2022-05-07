@@ -12,7 +12,7 @@ import { useVehicleService } from "../../service/vehicle/application";
 import { useStore } from "../../store";
 
 export const SearchCar: FC = () => {
-  const { paginator } = useVehicleService();
+  const { finder } = useVehicleService();
   const theme = useTheme();
   const navigate = useNavigate();
   const {
@@ -21,7 +21,7 @@ export const SearchCar: FC = () => {
   } = useStore((state) => state.vehicles);
 
   useEffect(() => {
-    paginator.fetchVehicles();
+    finder.fetchVehicles();
   }, []);
 
   return (
@@ -43,7 +43,7 @@ export const SearchCar: FC = () => {
               <Upper>elige tu coche</Upper>
             </CustomTypography>
           </Grid>
-          <CarFilter sx={{ mt: 4 }} filter={filter} paginator={paginator} />
+          <CarFilter sx={{ mt: 4 }} filter={filter} paginator={finder} />
           <Grid container>
             {data.map((data) => {
               return (

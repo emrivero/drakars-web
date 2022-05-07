@@ -22,12 +22,13 @@ const themeClient = createTheme({
   palette: {
     primary: {
       main: indigo[500],
-      dark: grey[900],
+      dark: "#111939",
       light: "white",
     },
     secondary: {
       main: amber[500],
-      dark: "#111939",
+      light: amber[300],
+      dark: amber[700],
     },
     error: {
       main: red.A400,
