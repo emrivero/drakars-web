@@ -11,6 +11,13 @@ import AboutUs from "./pages/about/about-us";
 import Covid19 from "./pages/about/covid19";
 import Faq from "./pages/about/faq";
 import AdminHome from "./pages/admin";
+import { ListOffices } from "./pages/admin/offices";
+import { AddOffice } from "./pages/admin/offices/AddOffice";
+import { GeneralStats } from "./pages/admin/statistics/general";
+import { OfficesStats } from "./pages/admin/statistics/offices";
+import { UserStats } from "./pages/admin/statistics/users";
+import { VehiclesStats } from "./pages/admin/statistics/vehicles";
+import { ListVehicles } from "./pages/admin/vehicles";
 import Home from "./pages/home";
 import { AditionalServices } from "./pages/rent/aditional-services";
 import { Confirm } from "./pages/rent/confirm";
@@ -60,7 +67,27 @@ ReactDOM.render(
             <Route path="aditional-services" element={<AditionalServices />} />
           </Route>
 
-          <Route path="/admin" element={<AdminHome />} />
+          <Route path="/admin">
+            <Route path="" element={<AdminHome />} />
+            <Route path="offices">
+              <Route path="" element={<ListOffices />} />
+              <Route path="add" element={<AddOffice />} />
+            </Route>
+            <Route path="vehicles">
+              <Route path="" element={<ListVehicles />} />
+              <Route path="add" element={<AddOffice />} />
+            </Route>
+            <Route path="users">
+              <Route path="" element={<ListOffices />} />
+              <Route path="add" element={<AddOffice />} />
+            </Route>
+            <Route path="statistics">
+              <Route path="general" element={<GeneralStats />} />
+              <Route path="users" element={<UserStats />} />
+              <Route path="vehicles" element={<VehiclesStats />} />
+              <Route path="offices" element={<OfficesStats />} />
+            </Route>
+          </Route>
           <Route path="/about">
             <Route path="about-us" element={<AboutUs />} />
             <Route path="covid19" element={<Covid19 />} />

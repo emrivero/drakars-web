@@ -59,7 +59,7 @@ export const RentCars = () => {
         >
           <RentCarCard
             height="134px"
-            imageSrc="https://www.centauro.net/_next/image/?url=https%3A%2F%2Fcdn.centauro.net%2Fweb%2Fpolo_4_d1171481ee.jpg&w=384&q=90"
+            imageSrc="http://localhost:5000/static/vehicles/volswagen_polo.webp"
             textBody="Se trata de coches asequibles que están al alcance de todos los bolsillos."
             title="Mediano"
           />

@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
-import { AdminLayout } from "../../../components/templates/admin/layout";
+import { AdminLayout } from "../../../../components/templates/admin/layout";
 
-const Admins = () => {
+const AdminUsers = () => {
   return (
     <AdminLayout>
       <Box sx={{ flexGrow: 1 }}></Box>
@@ -9,4 +9,4 @@ const Admins = () => {
   );
 };
 
-export default Admins;
+export default AdminUsers;

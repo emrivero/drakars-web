@@ -1,7 +1,6 @@
 import { useTheme } from "@emotion/react";
 import { Avatar, Fade, Grid, Menu, MenuItem, Typography } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
 import { deepOrange } from "@mui/material/colors";
 import Toolbar from "@mui/material/Toolbar";
 import { Theme } from "@mui/system";
@@ -9,7 +8,11 @@ import { FC, useState } from "react";
 import { Capitalize } from "../../../atoms/transforms/capitalize";
 import { BlackLink } from "../../../molecules/black-link";
 
-export const AdminHeader: FC = () => {
+export interface AdminHeaderProps {
+  title?: string;
+}
+
+export const AdminHeader: FC<AdminHeaderProps> = ({ title }) => {
   const theme: Partial<Theme> = useTheme();
   // const { login, logout, isAuthenticated } = useAuth();
 
@@ -25,17 +28,18 @@ export const AdminHeader: FC = () => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <>
       <AppBar
         position="fixed"
         sx={{
           width: `calc(100% - 280px)`,
+          ml: "280px",
         }}
       >
         <Toolbar sx={{ backgroundColor: theme.palette.common.white }}>
           <Grid>
             <Typography variant="h4" noWrap color={theme.palette.primary.main}>
-              Bienvenido, Paco
+              {title}
             </Typography>
           </Grid>
           <Grid container justifyContent="flex-end">
@@ -72,6 +76,6 @@ export const AdminHeader: FC = () => {
           </BlackLink>
         </MenuItem>
       </Menu>
-    </Box>
+    </>
   );
 };

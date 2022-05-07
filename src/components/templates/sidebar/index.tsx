@@ -21,7 +21,7 @@ import { useStore } from "../../../store";
 import { toggleSidebar } from "../../../store/sidebar/actions/toggle-sidebar";
 import { BlackLink } from "../../molecules/black-link";
 
-const DrawerHeader = styled("div")(({ theme }) => ({
+const DrawerHeader = styled("div")(() => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "flex-end",
