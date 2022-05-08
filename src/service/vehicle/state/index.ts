@@ -1,10 +1,12 @@
 import { get } from "../../../store";
 import { PaginateVm } from "../../base/client/view/PaginateVm";
 import { FilterVehicle } from "../application/model/filter-vehicle";
+import { VehicleDto } from "../client/dto/VehicleDto";
 import { VehicleVm } from "../client/view/VehicleVm";
 
 export interface VehicleStateProps {
   vehicles: { data: PaginateVm<VehicleVm>; filter: FilterVehicle };
+  newVehicle: VehicleDto;
 }
 
 export const VehicleSlice: VehicleStateProps = {
@@ -20,10 +22,25 @@ export const VehicleSlice: VehicleStateProps = {
       "office.id": "",
     },
   },
+  newVehicle: {
+    mark: "",
+    model: "",
+    officeId: null,
+    offices: [],
+    pricePerDay: 100.5,
+    seats: null,
+    status: "",
+    transmission: "",
+    type: "",
+    year: 2021,
+    searchOffice: "",
+    fuel: "",
+    doors: null,
+  },
 };
 
 export const getVehicleState: () => VehicleStateProps = () => {
-  const { vehicles } = get();
+  const { vehicles, newVehicle } = get();
 
-  return { vehicles };
+  return { vehicles, newVehicle };
 };

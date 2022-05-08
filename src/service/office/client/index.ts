@@ -35,4 +35,11 @@ export class OfficeClient extends Client<
       body: data,
     });
   }
+
+  async searchByName(name: string) {
+    return await this.genericRequest<OfficeVm[]>({
+      method: "get",
+      resource: `search/${name}`,
+    });
+  }
 }

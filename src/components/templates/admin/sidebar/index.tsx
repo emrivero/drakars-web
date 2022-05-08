@@ -134,7 +134,7 @@ export const AdminSidebar: FC = () => {
                     alignItems: "center",
                     ml: 2,
                   }}
-                  to="/admin/offices/add"
+                  to="/admin/vehicles/add"
                 >
                   <Typography>
                     <Capitalize>añadir vehículo</Capitalize>

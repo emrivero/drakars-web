@@ -41,6 +41,11 @@ export const OfficeSlice: OfficeStateProps = {
     cities: [],
     municipalities: [],
     status: "",
+    morningOpeningTime: "",
+    morningClosingTime: "",
+    eveningOpeningTime: "",
+    eveningClosingTime: "",
+    eveningTime: false,
   },
 };
 

@@ -20,6 +20,7 @@ export const SearchInput: FC<SearchInput> = ({
 }) => {
   return (
     <Autocomplete
+      isOptionEqualToValue={(option, value) => option.value === value.value}
       {...AutocompleteProps}
       renderInput={(params) => (
         <TextField color="primary" {...params} {...TextFieldProps} />

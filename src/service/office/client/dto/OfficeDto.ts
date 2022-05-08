@@ -12,4 +12,9 @@ export interface OfficeDto {
   searchCity: string;
   searchMunicipality: string;
   status: "error" | "success" | "";
+  morningOpeningTime: string;
+  morningClosingTime: string;
+  eveningOpeningTime: string;
+  eveningClosingTime: string;
+  eveningTime: boolean;
 }

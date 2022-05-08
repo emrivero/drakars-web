@@ -19,6 +19,7 @@ import { OfficesStats } from "./pages/admin/statistics/offices";
 import { UserStats } from "./pages/admin/statistics/users";
 import { VehiclesStats } from "./pages/admin/statistics/vehicles";
 import { ListVehicles } from "./pages/admin/vehicles";
+import { AddVehicle } from "./pages/admin/vehicles/AddVehicle";
 import Home from "./pages/home";
 import { AditionalServices } from "./pages/rent/aditional-services";
 import { Confirm } from "./pages/rent/confirm";
@@ -80,7 +81,7 @@ ReactDOM.render(
               </Route>
               <Route path="vehicles">
                 <Route path="" element={<ListVehicles />} />
-                <Route path="add" element={<AddOffice />} />
+                <Route path="add" element={<AddVehicle />} />
               </Route>
               <Route path="users">
                 <Route path="" element={<ListOffices />} />

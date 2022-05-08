@@ -1,6 +1,7 @@
 import { Client } from "../../base/client";
 import { PaginateVO } from "../../base/client/dto/PaginateDto";
 import { PaginateVm } from "../../base/client/view/PaginateVm";
+import { NewVehicle } from "../application/model/NewVehicle";
 import { VehicleVm } from "./view/VehicleVm";
 
 export class VehicleClient extends Client<
@@ -10,7 +11,7 @@ export class VehicleClient extends Client<
   VehicleVm,
   VehicleVm,
   VehicleVm,
-  VehicleVm,
+  NewVehicle,
   VehicleVm,
   VehicleVm
 > {

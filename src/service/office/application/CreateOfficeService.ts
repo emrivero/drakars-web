@@ -32,13 +32,15 @@ export class CreateOfficeService {
   }
 
   async searchMunicipality(name: string) {
-    const {
-      newOffice: { cityId },
-    } = getOfficeState();
+    if (name) {
+      const {
+        newOffice: { cityId },
+      } = getOfficeState();
 
-    if (cityId > -1) {
-      const { data } = await this.municipalityClient.getByCity(cityId, name);
-      this.setState({ municipalities: data, searchMunicipality: name });
+      if (cityId > -1) {
+        const { data } = await this.municipalityClient.getByCity(cityId, name);
+        this.setState({ municipalities: data, searchMunicipality: name });
+      }
     }
   }
 

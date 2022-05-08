@@ -1,7 +1,16 @@
 import { Save } from "@mui/icons-material";
-import { Box, Button, FormLabel, Grid, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  FormLabel,
+  Grid,
+  TextField,
+} from "@mui/material";
 import { useSnackbar } from "notistack";
 import { FC, useEffect } from "react";
+import { PrimaryTypography } from "../../../components/molecules/primary-typography";
 import { SearchInput } from "../../../components/molecules/search";
 import { AdminLayout } from "../../../components/templates/admin/layout";
 import { useCityService } from "../../../service/city/application";
@@ -31,6 +40,11 @@ export const AddOffice: FC = () => {
     address,
     name,
     status,
+    morningOpeningTime,
+    morningClosingTime,
+    eveningOpeningTime,
+    eveningClosingTime,
+    eveningTime,
   } = useStore((state) => state.newOffice);
 
   const cityList = cities
@@ -61,21 +75,28 @@ export const AddOffice: FC = () => {
       <Grid container columnSpacing={2} rowSpacing={2}>
         <Grid item xs={4}>
           <Box sx={{ p: 1 }}>
-            <FormLabel>Busque una ciudad</FormLabel>
+            <FormLabel>
+              <PrimaryTypography fontWeight={500}>
+                Busque una ciudad
+              </PrimaryTypography>
+            </FormLabel>
           </Box>
           <SearchInput
             AutocompleteProps={{
+              noOptionsText: "Sin coincidencias",
               sx: { p: 1 },
               options: cityList,
-              onInputChange: (_, value, reason) =>
+              onInputChange: (_, value, reason) => {
                 reason === "input"
                   ? creator.searchCity(value)
-                  : creator.clearSearch(),
+                  : creator.clearSearch();
+              },
 
-              onChange: (e, { value, label }) =>
+              onChange: (e, opt) =>
+                opt &&
                 creator.setState({
-                  cityId: value,
-                  searchCity: label,
+                  cityId: opt?.value,
+                  searchCity: opt?.label,
                 }),
               value: {
                 value: cityId,
@@ -87,25 +108,31 @@ export const AddOffice: FC = () => {
         </Grid>
         <Grid item xs={4}>
           <Box sx={{ p: 1 }}>
-            <FormLabel>Busque un municipio</FormLabel>
+            <FormLabel>
+              <PrimaryTypography fontWeight={500}>
+                Busque un municipio
+              </PrimaryTypography>
+            </FormLabel>
           </Box>
           <SearchInput
             AutocompleteProps={{
+              noOptionsText: "Sin coincidencias",
               sx: { p: 1 },
               options: municipalityList,
               onInputChange: (_, value, reason) =>
                 reason === "input"
                   ? creator.searchMunicipality(value)
                   : creator.clearMunicipalitySerch(),
-              onChange: (e, { value, label }) =>
+              onChange: (e, opt) =>
                 creator.setState({
-                  municipalityId: value,
-                  searchMunicipality: label,
+                  municipalityId: opt?.value,
+                  searchMunicipality: opt?.label,
                 }),
               value: {
                 value: municipalityId,
                 label: searchMunicipality,
               },
+              disabled: !cityId,
             }}
             TextFieldProps={{ label: "Elige municipio" }}
           />
@@ -113,7 +140,11 @@ export const AddOffice: FC = () => {
         <Grid item xs={4} />
         <Grid item xs={12}>
           <Box sx={{ p: 1 }}>
-            <FormLabel>Información general</FormLabel>
+            <FormLabel>
+              <PrimaryTypography fontWeight={500}>
+                Información general
+              </PrimaryTypography>
+            </FormLabel>
           </Box>
           <Box sx={{ display: "flex" }}>
             <Box sx={{ p: 1, flexGrow: 1 / 3 }}>
@@ -145,30 +176,105 @@ export const AddOffice: FC = () => {
             </Box>
           </Box>
         </Grid>
+        <Grid item xs={6}>
+          <Box sx={{ p: 1 }}>
+            <FormLabel>
+              <PrimaryTypography fontWeight={500}>
+                Horario de mañana
+              </PrimaryTypography>
+            </FormLabel>
+          </Box>
+          <Box sx={{ display: "flex" }}>
+            <Box sx={{ p: 1, flexGrow: 1 / 3 }}>
+              <TextField
+                fullWidth
+                onChange={(e) =>
+                  creator.setState({ morningOpeningTime: e.target.value })
+                }
+                type="time"
+                label="Hora de apertura"
+                value={morningOpeningTime}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                inputProps={{
+                  step: 300,
+                }}
+              />
+            </Box>
+            <Box sx={{ p: 1, flexGrow: 1 / 3 }}>
+              <TextField
+                fullWidth
+                onChange={(e) =>
+                  creator.setState({ morningClosingTime: e.target.value })
+                }
+                type="time"
+                label="Hora de cierre"
+                value={morningClosingTime}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                inputProps={{
+                  step: 300,
+                }}
+              />
+            </Box>
+            <Box sx={{ p: 1, flexGrow: 1 / 3 }}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={eveningTime}
+                    onChange={(e) =>
+                      creator.setState({ eveningTime: e.target.checked })
+                    }
+                  />
+                }
+                label="Añadir horario de tarde"
+              />
+            </Box>
+          </Box>
+        </Grid>
+        <Grid item xs={6} />
         <Grid item xs={4}>
           <Box sx={{ p: 1 }}>
-            <FormLabel>Añada el horario de la oficina</FormLabel>
+            <FormLabel>
+              <PrimaryTypography fontWeight={500}>
+                Horario de tarde
+              </PrimaryTypography>
+            </FormLabel>
           </Box>
           <Box sx={{ display: "flex" }}>
             <Box sx={{ p: 1, flexGrow: 1 / 2 }}>
               <TextField
                 fullWidth
+                onChange={(e) =>
+                  creator.setState({ eveningOpeningTime: e.target.value })
+                }
                 type="time"
+                value={eveningOpeningTime}
                 label="Hora de apertura"
-                value={""}
                 InputLabelProps={{
                   shrink: true,
+                }}
+                inputProps={{
+                  step: 300,
                 }}
               />
             </Box>
             <Box sx={{ p: 1, flexGrow: 1 / 2 }}>
               <TextField
                 fullWidth
+                onChange={(e) =>
+                  creator.setState({ eveningClosingTime: e.target.value })
+                }
                 type="time"
                 label="Hora de cierre"
-                value={""}
+                value={eveningClosingTime}
                 InputLabelProps={{
                   shrink: true,
+                }}
+                inputProps={{
+                  step: 300,
                 }}
               />
             </Box>

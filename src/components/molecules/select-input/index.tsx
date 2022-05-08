@@ -1,8 +1,8 @@
 import { MenuItem, MenuItemProps, Select, SelectProps } from "@mui/material";
 import { FC } from "react";
 
-export interface SelectInputProps extends SelectProps {
-  items?: ({ label: string } & MenuItemProps)[];
+export interface SelectInputProps extends SelectProps<any> {
+  items: ({ label: string; value: any } & MenuItemProps)[];
 }
 
 export const SelectInput: FC<SelectInputProps> = ({ items = [], ...rest }) => {
