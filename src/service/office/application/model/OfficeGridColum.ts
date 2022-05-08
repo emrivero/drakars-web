@@ -2,10 +2,6 @@ import { TableGridColumn } from "../../../../components/organism/table-grid";
 
 export const officeColumns: TableGridColumn[] = [
   {
-    field: "id",
-    label: "ID ",
-  },
-  {
     field: "name",
     label: "Nombre",
   },
@@ -16,5 +12,13 @@ export const officeColumns: TableGridColumn[] = [
   {
     field: "zipCode",
     label: "Código postal",
+  },
+  {
+    field: "municipality",
+    label: "Municipio",
+  },
+  {
+    field: "city",
+    label: "Provincia",
   },
 ];

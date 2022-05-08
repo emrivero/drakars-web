@@ -148,6 +148,20 @@ export const AdminSidebar: FC = () => {
                     alignItems: "center",
                     ml: 2,
                   }}
+                  to="/admin/vehicles/add"
+                >
+                  <Typography>
+                    <Capitalize>reservar vehículo</Capitalize>
+                  </Typography>
+                </BlackLink>
+              </ListItem>
+              <ListItem>
+                <BlackLink
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    ml: 2,
+                  }}
                   to="/admin/vehicles"
                 >
                   <Typography>

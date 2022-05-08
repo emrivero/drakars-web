@@ -7,6 +7,7 @@ import { SnackbarProvider } from "notistack";
 import ReactDOM from "react-dom";
 import { Route, Routes } from "react-router";
 import { BrowserRouter } from "react-router-dom";
+import { LoadingPage } from "./components/molecules/loading-page";
 import keycloak from "./config/keycloak";
 import AboutUs from "./pages/about/about-us";
 import Covid19 from "./pages/about/covid19";
@@ -51,6 +52,7 @@ ReactDOM.render(
     }}
     onEvent={eventLogger}
     onTokens={tokenLogger}
+    LoadingComponent={<LoadingPage />}
   >
     <SnackbarProvider maxSnack={3}>
       <ThemeProvider theme={theme.themeClient}>

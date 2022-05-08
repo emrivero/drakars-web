@@ -128,6 +128,8 @@ export const TableGridRow: FC<TableGridRowProps> = ({
               const ColRender = col.render;
               const cellWidth =
                 col.width !== null && col.width > 1 ? 1 : col.width;
+              const field = row[col.field];
+              console.log(field);
               return (
                 <TableCell
                   align={col.align || "inherit"}
@@ -138,7 +140,7 @@ export const TableGridRow: FC<TableGridRowProps> = ({
                       : "auto",
                   }}
                 >
-                  {col.render ? ColRender(row) : row[col.field]}
+                  {col.render ? ColRender(row) : field}
                 </TableCell>
               );
             })}

@@ -3,9 +3,11 @@ import { PaginateOfficeOpts } from "./model/paginate-office";
 
 export class PaginateOfficeBuilder {
   static createFilter(filterOpts: PaginateOfficeOpts): PaginateDto {
-    const sorts = {};
+    // const sorts = {};
 
     const paginateDto = new PaginateDto({
+      page: filterOpts.currentPage + 1,
+      limit: filterOpts.itemsPerPage,
       filter: {
         //     type: filterOpts.type,
         //     seats: filterOpts.seats ? `$gt:${filterOpts.seats}` : "",

@@ -5,5 +5,7 @@ export const OfficeGridRowMapper = (vm: OfficeVm): TableGridRow => {
   return {
     index: `${vm.id}`,
     ...vm,
+    city: vm.municipality?.city?.name,
+    municipality: vm.municipality?.name,
   };
 };
