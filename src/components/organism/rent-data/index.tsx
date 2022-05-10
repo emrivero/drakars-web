@@ -1,11 +1,22 @@
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import { Box, Button, Paper, Typography } from "@mui/material";
 import { FC } from "react";
+import { useStore } from "../../../store";
 import { CustomTypography } from "../../molecules/custom-typography";
 import { PrimaryTypography } from "../../molecules/primary-typography";
 import { SecondaryTypography } from "../../molecules/secondary-typography";
+import { CarData } from "../rent-car-data";
 
 export const RentData: FC = () => {
+  const {
+    endDate,
+    startDate,
+    startHour,
+    endHour,
+    searchOriginOffice,
+    searchDestinyOffice,
+  } = useStore((state) => state.selectedOffice);
+  const { selectedVehicle, totalPrice } = useStore();
   return (
     <Box
       display="flex"
@@ -21,21 +32,12 @@ export const RentData: FC = () => {
         </Typography>
       </Box>
       <Box sx={{ width: "100%" }}>
-        {/* <CarData
-          showCategory={false}
-          title={"Fiat 500"}
-          type={"manual"}
-          category={"small"}
-          fuel={"petrol"}
-          seats={0}
-          doors={0}
-          imageSrc={
-            "https://www.centauro.net/_next/image/?url=https%3A%2F%2Fcdn.centauro.net%2Fweb%2FA_400738ceb4.jpg&w=384&q=90"
-          }
-          height={""}
+        <CarData
+          data={selectedVehicle}
+          imageSrc="https://www.centauro.net/_next/image/?url=https%3A%2F%2Fcdn.centauro.net%2Fweb%2FA_400738ceb4.jpg&w=384&q=90"
           actionText={"Cambiar"}
           onAction={() => null}
-        /> */}
+        />
         <Paper sx={{ mt: 1, px: 1, py: 4 }}>
           <Box
             display={"flex"}
@@ -48,18 +50,27 @@ export const RentData: FC = () => {
             </SecondaryTypography>
             <Box
               display={"flex"}
-              justifyContent={"space-between"}
+              justifyContent={"space-around"}
               alignItems={"center"}
             >
-              <Box display={"flex"} alignItems={"center"}>
+              <Box display={"flex"} alignItems={"center"} width="50%">
                 <ArrowBack sx={{ mr: 1 }} color="secondary" />
                 <PrimaryTypography variant="h6">
-                  Aeropuerto Sevilla
+                  {searchOriginOffice}
                 </PrimaryTypography>
               </Box>
-              <CustomTypography type="open" fontWeight={"600"}>
-                06/10/2022 20:30
-              </CustomTypography>
+              <Box>
+                <Box>
+                  <CustomTypography type="open" fontWeight={"600"}>
+                    {startDate}
+                  </CustomTypography>
+                </Box>
+                <Box>
+                  <CustomTypography type="open" fontWeight={"600"}>
+                    {startHour}
+                  </CustomTypography>
+                </Box>
+              </Box>
             </Box>
           </Box>
           <Box
@@ -72,18 +83,27 @@ export const RentData: FC = () => {
             </SecondaryTypography>
             <Box
               display={"flex"}
-              justifyContent={"space-between"}
+              justifyContent={"space-around"}
               alignItems={"center"}
             >
-              <Box display={"flex"} alignItems={"center"}>
+              <Box display={"flex"} alignItems={"center"} width="50%">
                 <ArrowForward sx={{ mr: 1 }} color="secondary" />
                 <PrimaryTypography variant="h6">
-                  Aeropuerto Sevilla
+                  {searchDestinyOffice || searchOriginOffice}
                 </PrimaryTypography>
               </Box>
-              <CustomTypography type="open" fontWeight={"600"}>
-                06/10/2022 20:30
-              </CustomTypography>
+              <Box>
+                <Box>
+                  <CustomTypography type="open" fontWeight={"600"}>
+                    {endDate}
+                  </CustomTypography>
+                </Box>
+                <Box>
+                  <CustomTypography type="open" fontWeight={"600"}>
+                    {endHour}
+                  </CustomTypography>
+                </Box>
+              </Box>
             </Box>
           </Box>
           <Box width="100%" sx={{ mt: 2 }}>
@@ -98,7 +118,7 @@ export const RentData: FC = () => {
           justifyContent={"space-between"}
         >
           <Typography variant="h5">Total</Typography>
-          <Typography variant="h5">234.67 €</Typography>
+          <Typography variant="h5">{totalPrice} €</Typography>
         </Box>
       </Box>
     </Box>

@@ -29,6 +29,6 @@ export class CityWithOffices {
       }
     });
 
-    return cities;
+    return cities.sort((c1, c2) => c1.city.name.localeCompare(c2.city.name));
   }
 }

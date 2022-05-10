@@ -1,17 +1,13 @@
 import { TableGridColumn } from "../../../../components/organism/table-grid";
 
 export const vehicleColumns: TableGridColumn[] = [
-  {
-    field: "id",
-    label: "ID ",
-  },
+  // {
+  //   field: "id",
+  //   label: "ID ",
+  // },
   {
     field: "fullName",
     label: "Modelo",
-  },
-  {
-    field: "address",
-    label: "Dirección",
   },
   {
     field: "seats",
@@ -37,5 +33,9 @@ export const vehicleColumns: TableGridColumn[] = [
   {
     field: "pricePerDay",
     label: "Precio por día",
+  },
+  {
+    field: "office",
+    label: "Oficina",
   },
 ];

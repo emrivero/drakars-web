@@ -1,18 +1,18 @@
 import { changeState } from "../../../store";
 import { PaginateVm } from "../../base/client/view/PaginateVm";
-import { OfficeClient } from "../client";
-import { OfficeVm } from "../client/view/OfficeVm";
-import { getOfficeState } from "../state";
-import { PaginateOpts } from "./model/paginate-office";
-import { PaginateOfficeBuilder } from "./PaginateOfficeBuilder";
+import { PaginateOpts } from "../../office/application/model/paginate-office";
+import { VehicleClient } from "../client";
+import { VehicleVm } from "../client/view/VehicleVm";
+import { getVehicleState } from "../state";
+import { PaginateVehicleBuilder } from "./PaginateVehicleBuilder";
 
-export class PaginationVehicleService {
-  private readonly client = new OfficeClient();
+export class PaginateVehicleService {
+  private readonly client = new VehicleClient();
 
   async paginate() {
     const {
-      paginatedOffices: { paginationOptions },
-    } = getOfficeState();
+      paginatedVehicles: { paginationOptions },
+    } = getVehicleState();
 
     this._paginate(paginationOptions);
   }
@@ -33,9 +33,9 @@ export class PaginationVehicleService {
   private async _paginate(newFilter: Partial<PaginateOpts>) {
     try {
       const {
-        paginatedOffices: { paginationOptions },
-      } = getOfficeState();
-      const dto = PaginateOfficeBuilder.createFilter({
+        paginatedVehicles: { paginationOptions },
+      } = getVehicleState();
+      const dto = PaginateVehicleBuilder.createPaginateFilter({
         ...paginationOptions,
         ...newFilter,
       });
@@ -50,19 +50,19 @@ export class PaginationVehicleService {
     }
   }
 
-  private setData(data: PaginateVm<OfficeVm>) {
-    changeState(({ paginatedOffices }) => {
+  private setData(data: PaginateVm<VehicleVm>) {
+    changeState(({ paginatedVehicles }) => {
       if (data) {
-        paginatedOffices.data = data;
+        paginatedVehicles.data = data;
       }
     });
   }
 
   private setFilter(filter: Partial<PaginateOpts>) {
-    changeState(({ paginatedOffices }) => {
+    changeState(({ paginatedVehicles }) => {
       if (filter) {
-        paginatedOffices.paginationOptions = {
-          ...paginatedOffices.paginationOptions,
+        paginatedVehicles.paginationOptions = {
+          ...paginatedVehicles.paginationOptions,
           ...filter,
         };
       }

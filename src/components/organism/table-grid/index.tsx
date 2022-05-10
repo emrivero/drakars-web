@@ -129,7 +129,6 @@ export const TableGridRow: FC<TableGridRowProps> = ({
               const cellWidth =
                 col.width !== null && col.width > 1 ? 1 : col.width;
               const field = row[col.field];
-              console.log(field);
               return (
                 <TableCell
                   align={col.align || "inherit"}
@@ -175,33 +174,27 @@ export const TableGrid: FC<TableGridProps> = ({
   }, [selectedRows]);
 
   return (
-    <>
-      <TableContainer component={Paper}>
-        <Table sx={{ width: "100%", ...sxTable }}>
-          <TableGridColumns
-            cols={columns}
-            onCheck={handleCheckAll}
-            selectable={selectable}
-            selected={headerSelected}
-            disabled={rows.length === 0}
-          />
-          <TableGridRow
-            rows={rows}
-            cols={columns}
-            selectable={selectable}
-            onCheck={setSelectedRows}
-            selectedRows={selectedRows}
-          />
-        </Table>
-      </TableContainer>
-      <TablePagination
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-        {...paginationProps}
-      />
-    </>
+    <TableContainer component={Paper}>
+      <Table sx={{ width: "100%", ...sxTable }}>
+        <TableGridColumns
+          cols={columns}
+          onCheck={handleCheckAll}
+          selectable={selectable}
+          selected={headerSelected}
+          disabled={rows.length === 0}
+        />
+        <TableGridRow
+          rows={rows}
+          cols={columns}
+          selectable={selectable}
+          onCheck={setSelectedRows}
+          selectedRows={selectedRows}
+        />
+        <TableRow>
+          <TablePagination {...paginationProps} />
+        </TableRow>
+      </Table>
+    </TableContainer>
   );
 };
 

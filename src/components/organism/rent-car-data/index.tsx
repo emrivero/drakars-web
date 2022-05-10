@@ -1,4 +1,12 @@
-import { Button, Card, CardContent, CardMedia, Grid } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Grid,
+  Typography,
+} from "@mui/material";
 import { FC, MouseEventHandler } from "react";
 import { useTranslate } from "../../../i18n/useTranslate";
 import { VehicleVm } from "../../../service/vehicle/client/view/VehicleVm";
@@ -86,6 +94,18 @@ export const CarData: FC<CarDataProps> = ({
               <CarDoorIcon sx={{ width: 16, mr: 1 }} />
               {data.doors}
             </SecondaryBox>
+          </Grid>
+          <Grid item xs={12}>
+            <Box
+              sx={{
+                px: 2,
+                display: "flex",
+                justifyContent: "center",
+                py: 1,
+              }}
+            >
+              <Typography fontWeight={600}>{data.pricePerDay} €/Día</Typography>
+            </Box>
           </Grid>
           {onAction && (
             <Grid item xs={12} sx={{ mt: 1 }}>

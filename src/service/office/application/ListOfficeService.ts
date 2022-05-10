@@ -4,7 +4,7 @@ import { OfficeVm } from "../client/view/OfficeVm";
 import { getOfficeState } from "../state";
 import { FilterOffice } from "./model/filter-office";
 
-export class ListVehicleService {
+export class ListOfficeService {
   private readonly client = new OfficeClient();
 
   async fetch() {
@@ -14,6 +14,10 @@ export class ListVehicleService {
   onSearch(filter: Partial<FilterOffice>) {
     this.list(filter);
   }
+
+  // searchByName(name: string) {
+  //   this.client.searchByName(name)
+  // }
 
   private async list(newFilter: Partial<FilterOffice>) {
     const {

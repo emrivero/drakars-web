@@ -9,6 +9,12 @@ import { PaginateVehicleBuilder } from "./PaginateVehicleBuilder";
 export class ListVehicleService {
   private readonly client = new VehicleClient();
 
+  private FILTER_OFFICE: number = null;
+
+  set filterOffice(value: number) {
+    this.FILTER_OFFICE = value;
+  }
+
   async fetchVehicles() {
     this.filterVehicle({});
   }
@@ -33,8 +39,18 @@ export class ListVehicleService {
       ...newFilter,
     });
     try {
-      const { data } = await this.client.paginate(paginateQuery.json);
-      this.setVehicleDataState(data, { ...filter, ...newFilter });
+      const { data } = await this.client.paginate({
+        ...paginateQuery.json,
+        paginateOptions: {
+          groupBy: ["mark", "model"],
+          where: this.FILTER_OFFICE > 0 ? { office: this.FILTER_OFFICE } : {},
+        },
+      });
+
+      this.setVehicleDataState(data, {
+        ...filter,
+        ...newFilter,
+      });
     } catch (e) {
       console.error(e);
       this.setVehicleDataState(null, { ...filter, ...newFilter });

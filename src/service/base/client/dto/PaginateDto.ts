@@ -8,6 +8,7 @@ export interface PaginateVO {
     [column: string]: number | string | string[];
   };
   relations?: string[];
+  paginateOptions?: Record<string, unknown>;
 }
 export class PaginateDto {
   constructor(
@@ -18,6 +19,7 @@ export class PaginateDto {
       relations: [],
       search: "",
       sortBy: [],
+      paginateOptions: {},
     }
   ) {}
 

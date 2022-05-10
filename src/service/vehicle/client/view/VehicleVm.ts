@@ -1,4 +1,5 @@
 import { BaseVm } from "../../../base/client/view/BaseVm";
+import { OfficeVm } from "../../../office/client/view/OfficeVm";
 
 export class VehicleVm extends BaseVm {
   constructor(
@@ -13,9 +14,8 @@ export class VehicleVm extends BaseVm {
     public readonly fuel: string,
     public readonly transmission: "manual" | "automatic",
     public readonly type: "small" | "medium" | "large" | "premium",
-    public readonly rented: boolean,
-    public readonly limitKm: number,
-    public readonly pricePerday: number
+    public readonly pricePerDay: number,
+    public readonly office: OfficeVm
   ) {
     super(id, createdAt, updatedAt);
   }
@@ -33,9 +33,8 @@ export class VehicleVm extends BaseVm {
       vehicle.fuel,
       vehicle.transmission,
       vehicle.type,
-      vehicle.rented,
-      vehicle.limitKm,
-      vehicle.pricePerday
+      vehicle.pricePerDay,
+      vehicle.office
     );
   }
 

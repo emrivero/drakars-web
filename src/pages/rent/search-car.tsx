@@ -8,11 +8,13 @@ import { CarData } from "../../components/organism/rent-car-data";
 import { Layout } from "../../components/templates/layout";
 import { CommonSection } from "../../components/templates/layout/common-section";
 import { RentStepper } from "../../components/templates/layout/rent-stepper";
+import { useRentCarService } from "../../service/rent-car/application";
 import { useVehicleService } from "../../service/vehicle/application";
 import { useStore } from "../../store";
 
 export const SearchCar: FC = () => {
   const { finder } = useVehicleService();
+  const { filterer } = useRentCarService();
   const theme = useTheme();
   const navigate = useNavigate();
   const {
@@ -20,7 +22,15 @@ export const SearchCar: FC = () => {
     filter,
   } = useStore((state) => state.vehicles);
 
+  const {
+    selectedOffice: { originOffice },
+  } = useStore();
+
   useEffect(() => {
+    if (!originOffice) {
+      navigate("/rent/location-date");
+    }
+    finder.filterOffice = originOffice;
     finder.fetchVehicles();
   }, []);
 
@@ -57,7 +67,10 @@ export const SearchCar: FC = () => {
                 >
                   <CarData
                     actionText="Elegir"
-                    onAction={() => navigate("/rent/confirm")}
+                    onAction={() => {
+                      filterer.selectVehicle(data);
+                      navigate("/rent/confirm");
+                    }}
                     data={data}
                     imageSrc="https://www.centauro.net/_next/image/?url=https%3A%2F%2Fcdn.centauro.net%2Fweb%2FA_400738ceb4.jpg&w=384&q=90"
                   />

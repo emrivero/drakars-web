@@ -1,14 +1,14 @@
 import { get } from "../../../store";
 import { PaginateVm } from "../../base/client/view/PaginateVm";
 import { FilterOffice } from "../application/model/filter-office";
-import { PaginateOfficeOpts } from "../application/model/paginate-office";
+import { PaginateOpts } from "../application/model/paginate-office";
 import { OfficeDto } from "../client/dto/OfficeDto";
 import { OfficeVm } from "../client/view/OfficeVm";
 
 export interface OfficeStateProps {
   offices: { data: OfficeVm[]; filter: FilterOffice };
   paginatedOffices: {
-    paginationOptions: PaginateOfficeOpts;
+    paginationOptions: PaginateOpts;
     data: PaginateVm<OfficeVm>;
   };
   newOffice: OfficeDto;

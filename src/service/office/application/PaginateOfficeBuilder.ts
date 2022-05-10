@@ -1,8 +1,8 @@
 import { PaginateDto } from "../../base/client/dto/PaginateDto";
-import { PaginateOfficeOpts } from "./model/paginate-office";
+import { PaginateOpts } from "./model/paginate-office";
 
 export class PaginateOfficeBuilder {
-  static createFilter(filterOpts: PaginateOfficeOpts): PaginateDto {
+  static createFilter(filterOpts: PaginateOpts): PaginateDto {
     // const sorts = {};
 
     const paginateDto = new PaginateDto({

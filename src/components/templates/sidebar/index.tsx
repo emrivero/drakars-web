@@ -7,7 +7,6 @@ import {
   CorporateFare,
   DirectionsCar,
   Info,
-  Percent,
 } from "@mui/icons-material";
 import { IconButton, ListItem, styled, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -49,7 +48,7 @@ export const Sidebar: FC = () => {
           Servicios
         </Typography>
         <List>
-          <ListItem>
+          {/* <ListItem>
             <BlackLink
               to="/local"
               sx={{
@@ -62,7 +61,7 @@ export const Sidebar: FC = () => {
                 <Typography variant="h6">Ofertas</Typography>
               </Box>
             </BlackLink>
-          </ListItem>
+          </ListItem> */}
           <ListItem>
             <BlackLink
               to="/services/rent-car"

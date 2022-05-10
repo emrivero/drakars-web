@@ -1,4 +1,4 @@
-export interface PaginateOfficeOpts {
+export interface PaginateOpts {
   itemsPerPage: number;
   totalItems: number;
   currentPage: number;
