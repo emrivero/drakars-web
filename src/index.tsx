@@ -29,6 +29,9 @@ import { SearchCar } from "./pages/rent/search-car";
 import { ManageBooking } from "./pages/services/manage-booking";
 import { Offices } from "./pages/services/offices";
 import { RentCar } from "./pages/services/rent-car";
+import { ClientClient } from "./service/user/client/client";
+import "./styles/Calendar.css";
+import "./styles/DatePicker.css";
 import theme from "./theme";
 
 const eventLogger = (event: AuthClientEvent, error: unknown) => {
@@ -38,7 +41,7 @@ const eventLogger = (event: AuthClientEvent, error: unknown) => {
 const tokenLogger = (tokens: { token: string }) => {
   axios.defaults.headers.common.Authorization = `Bearer ${tokens?.token}`;
   if (tokens?.token) {
-    // createUser();
+    new ClientClient().post("", {});
   }
 };
 

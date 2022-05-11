@@ -7,9 +7,11 @@ export interface FormProps {
   sx?: SxProps;
   paperProps?: PaperProps;
   buttomComponent?: JSX.Element;
+  disabledSubmit?: boolean;
 }
 
 export const Form: FC<FormProps> = ({
+  disabledSubmit = false,
   handleSubmit,
   children,
   saveContent,
@@ -18,7 +20,12 @@ export const Form: FC<FormProps> = ({
   buttomComponent = null,
 }) => {
   const defaultButton = (
-    <Button variant="contained" color="primary" onClick={handleSubmit}>
+    <Button
+      variant="contained"
+      disabled={disabledSubmit}
+      color="primary"
+      onClick={handleSubmit}
+    >
       {saveContent}
     </Button>
   );

@@ -3,12 +3,16 @@ import {
   Checkbox,
   FormControl,
   FormControlLabel,
+  FormLabel,
   Grid,
   InputLabel,
   SxProps,
-  TextField,
+  Typography,
+  useTheme,
 } from "@mui/material";
+import moment from "moment";
 import { FC, useEffect, useState } from "react";
+import DatePicker from "react-date-picker/dist/entry.nostyle";
 import { useNavigate } from "react-router-dom";
 import { useRentCarService } from "../../../service/rent-car/application";
 import { HoursOptions } from "../../../service/rent-car/application/model/HoursOptions";
@@ -24,6 +28,7 @@ export interface FilterProps {
 }
 
 export const Filter: FC<FilterProps> = ({ sx = {}, showTitle = true }) => {
+  const theme = useTheme();
   const [{ sameOrigin }, setState] = useState({ sameOrigin: true });
   const navigate = useNavigate();
   const {
@@ -32,6 +37,7 @@ export const Filter: FC<FilterProps> = ({ sx = {}, showTitle = true }) => {
   } = useRentCarService();
 
   const {
+    rentValidation,
     originOffices,
     originOffice,
     destinyOffices,
@@ -42,7 +48,10 @@ export const Filter: FC<FilterProps> = ({ sx = {}, showTitle = true }) => {
     startDate,
     startHour,
     endHour,
-  } = useStore((state) => state.selectedOffice);
+  } = useStore((state) => ({
+    ...state.selectedOffice,
+    rentValidation: state.rentValidation,
+  }));
 
   const origins = originOffices
     .map(SelectedOfficeOption)
@@ -63,8 +72,15 @@ export const Filter: FC<FilterProps> = ({ sx = {}, showTitle = true }) => {
     });
   }, [sameOrigin]);
 
+  const active =
+    rentValidation.endHour.valid &&
+    rentValidation.startHour.valid &&
+    !!originOffice &&
+    (sameOrigin ? true : !!destinyOffice);
+
   return (
     <Form
+      disabledSubmit={!active}
       handleSubmit={() => navigate("/rent/search-car")}
       saveContent="Buscar"
       sx={sx}
@@ -126,73 +142,61 @@ export const Filter: FC<FilterProps> = ({ sx = {}, showTitle = true }) => {
         </Grid>
         {!sameOrigin && (
           <Grid item xs={12}>
-            <FormControl
-              fullWidth
-              sx={{
-                p: 2,
-              }}
-            >
-              <SearchInput
-                AutocompleteProps={{
-                  noOptionsText: "Sin coincidencias",
-                  sx: { p: 1 },
-                  options: destinies,
-                  onInputChange: (_, value, reason) => {
-                    reason === "input"
-                      ? filterer.onSearchDestiny(value)
-                      : filterer.setState({
-                          destinyOffices: [],
-                          searchDestinyOffice: "",
-                        });
-                  },
+            <SearchInput
+              AutocompleteProps={{
+                noOptionsText: "Sin coincidencias",
+                sx: { p: 1 },
+                options: destinies,
+                onInputChange: (_, value, reason) => {
+                  reason === "input"
+                    ? filterer.onSearchDestiny(value)
+                    : filterer.setState({
+                        destinyOffices: [],
+                        searchDestinyOffice: "",
+                      });
+                },
 
-                  onChange: (e, opt) =>
-                    opt &&
-                    filterer.setState({
-                      destinyOffice: opt?.value,
-                      searchDestinyOffice: opt?.label,
-                    }),
-                  value: {
-                    value: destinyOffice,
-                    label: searchDestinyOffice,
-                  },
-                }}
-                TextFieldProps={{
-                  label: "Destino",
-                  placeholder: "Busca una oficina de destino",
-                }}
-              />
-            </FormControl>
-          </Grid>
-        )}
-        <Grid item xs={12} sm={6}>
-          <FormControl
-            fullWidth
-            sx={{
-              pt: 2,
-              pb: 2,
-              pl: 2,
-              pr: 1,
-            }}
-          >
-            <TextField
-              type="date"
-              label="Fecha de recogida"
-              onChange={({ currentTarget }) =>
-                filterer.setState({ startDate: currentTarget.value })
-              }
-              value={startDate}
-              InputLabelProps={{
-                shrink: true,
+                onChange: (e, opt) =>
+                  opt &&
+                  filterer.setState({
+                    destinyOffice: opt?.value,
+                    searchDestinyOffice: opt?.label,
+                  }),
+                value: {
+                  value: destinyOffice,
+                  label: searchDestinyOffice,
+                },
+              }}
+              TextFieldProps={{
+                label: "Destino",
+                placeholder: "Busca una oficina de destino",
               }}
             />
-          </FormControl>
+          </Grid>
+        )}
+        <Grid item xs={12} sm={12} md={6}>
+          <Box pl={1} display="flex" flexDirection={"column"}>
+            <FormLabel>Fecha de recogida</FormLabel>
+            <DatePicker
+              value={startDate && moment(startDate).toDate()}
+              minDate={moment().toDate()}
+              maxDate={
+                endDate ? moment(endDate).subtract(1, "day").toDate() : null
+              }
+              onChange={(value) =>
+                filterer.setState({
+                  startDate: value ? moment(value).format("YYYY-MM-DD") : null,
+                })
+              }
+            />
+          </Box>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={12} md={6}>
           <FormControl
             fullWidth
             variant="outlined"
             sx={{
+              mt: { md: 0.8, xs: 4 },
               pt: 2,
               pb: 2,
               pl: 1,
@@ -202,50 +206,56 @@ export const Filter: FC<FilterProps> = ({ sx = {}, showTitle = true }) => {
             <InputLabel id="devolution-time-label">Hora de recogida</InputLabel>
             <SelectInput
               fullWidth
-              onChange={(e, v) =>
-                filterer.setState({ startHour: e.target.value })
-              }
+              onChange={(e) => filterer.setState({ startHour: e.target.value })}
               labelId="devolution-time-label"
               id="rent-time"
               label="Hora de recogida"
               items={HoursOptions}
               value={startHour}
+              error={!rentValidation.startHour.valid}
             />
           </FormControl>
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <FormControl
-            fullWidth
-            sx={{
-              pt: 2,
-              pb: 2,
-              pl: 2,
-              pr: 1,
-            }}
-          >
-            <TextField
-              type="date"
-              label="Fecha de devolución"
-              onChange={(e) => filterer.setState({ endDate: e.target.value })}
-              value={endDate}
-              InputLabelProps={{
-                shrink: true,
-              }}
+        {!rentValidation.startHour.valid && (
+          <Grid xs={12}>
+            <Box
+              sx={{ width: 1, px: 1, display: "flex", justifyContent: "end" }}
+            >
+              <Typography variant="body2" color={theme.palette.error.dark}>
+                Fuera de horario de oficina
+              </Typography>
+            </Box>
+          </Grid>
+        )}
+        <Grid item xs={12} sm={12} md={6}>
+          <Box pl={1} display="flex" flexDirection={"column"}>
+            <FormLabel>Fecha de devolución</FormLabel>
+            <DatePicker
+              value={endDate && moment(endDate).toDate()}
+              minDate={
+                startDate ? moment(startDate).add(1, "day").toDate() : null
+              }
+              onChange={(value) =>
+                filterer.setState({
+                  endDate: value ? moment(value).format("YYYY-MM-DD") : null,
+                })
+              }
             />
-          </FormControl>
+          </Box>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={12} md={6}>
           <FormControl
             fullWidth
             variant="outlined"
             sx={{
-              pt: 2,
-              pb: 2,
-              pl: 1,
-              pr: 1,
+              mt: { md: 0.8, xs: 4 },
+              py: 2,
+              px: 1,
             }}
           >
-            <InputLabel id="devolution-time-label">Hora de recogida</InputLabel>
+            <InputLabel id="devolution-time-label">
+              Hora de devolución
+            </InputLabel>
             <SelectInput
               onChange={(e) => filterer.setState({ endHour: e.target.value })}
               labelId="devolution-time-label"
@@ -253,9 +263,21 @@ export const Filter: FC<FilterProps> = ({ sx = {}, showTitle = true }) => {
               label="Hora de devolución"
               items={HoursOptions}
               value={endHour}
+              error={!rentValidation.endHour.valid}
             />
           </FormControl>
         </Grid>
+        {!rentValidation.endHour.valid && (
+          <Grid xs={12}>
+            <Box
+              sx={{ width: 1, px: 1, display: "flex", justifyContent: "end" }}
+            >
+              <Typography variant="body2" color={theme.palette.error.dark}>
+                Fuera de horario de oficina
+              </Typography>
+            </Box>
+          </Grid>
+        )}
       </Grid>
     </Form>
   );

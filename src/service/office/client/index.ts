@@ -42,4 +42,13 @@ export class OfficeClient extends Client<
       resource: `search/${name}`,
     });
   }
+
+  async validateTime(id: number, hour: string) {
+    return await this.genericRequest<{ result: boolean }>({
+      method: "get",
+      resource: `valid-hour/${id}?${new URLSearchParams({
+        hour,
+      }).toString()}`,
+    });
+  }
 }
