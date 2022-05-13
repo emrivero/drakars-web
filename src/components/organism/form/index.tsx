@@ -2,7 +2,7 @@ import { Box, Button, Paper, PaperProps, SxProps } from "@mui/material";
 import { FC, FormEventHandler, ReactNode } from "react";
 
 export interface FormProps {
-  handleSubmit: FormEventHandler<Element>;
+  handleSubmit?: FormEventHandler<Element>;
   saveContent: ReactNode;
   sx?: SxProps;
   paperProps?: PaperProps;
@@ -12,7 +12,7 @@ export interface FormProps {
 
 export const Form: FC<FormProps> = ({
   disabledSubmit = false,
-  handleSubmit,
+  handleSubmit = () => null,
   children,
   saveContent,
   paperProps = {},

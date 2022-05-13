@@ -3,6 +3,7 @@ import { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Upper } from "../../components/atoms/transforms/upper";
 import { CustomTypography } from "../../components/molecules/custom-typography";
+import { LoadingPage } from "../../components/molecules/loading-page";
 import { CarFilter } from "../../components/organism/car-filter";
 import { CarData } from "../../components/organism/rent-car-data";
 import { Layout } from "../../components/templates/layout";
@@ -18,11 +19,11 @@ export const SearchCar: FC = () => {
   const {
     data: { data },
     filter,
-  } = useStore((state) => state.availableVehicles);
+  } = useStore((state) => state.rentData.availableVehicles);
 
   const {
     selectedOffice: { originOffice },
-  } = useStore();
+  } = useStore((state) => state.rentData);
 
   useEffect(() => {
     if (!originOffice) {
@@ -30,6 +31,10 @@ export const SearchCar: FC = () => {
     }
     finder.list();
   }, []);
+
+  if (!originOffice) {
+    return <LoadingPage />;
+  }
 
   return (
     <Layout showFooter={false}>

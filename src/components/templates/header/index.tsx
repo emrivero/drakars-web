@@ -15,6 +15,7 @@ import { Routes } from "../../../routes/routes";
 import { toggleSidebar } from "../../../store/sidebar/actions/toggle-sidebar";
 import { Logo } from "../../atoms/logo";
 import { Capitalize } from "../../atoms/transforms/capitalize";
+import { BlackLink } from "../../molecules/black-link";
 import { MuiLink } from "../../molecules/link";
 
 export const Header: FC = () => {
@@ -66,17 +67,18 @@ export const Header: FC = () => {
             </MuiLink>
           </Box>
           <Box sx={{ flexGrow: 1 }} />
-          <IconButton
-            sx={{ color: "#fff", display: { xs: "none", md: "inherit" } }}
-            href="/services/manage-booking"
-          >
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <CarRentalRounded />
-              <Typography variant="h6" sx={{ flexGrow: 1 }} fontWeight={600}>
-                <Capitalize>{t("manage_booking")}</Capitalize>
-              </Typography>
-            </Box>
-          </IconButton>
+          <BlackLink to="/services/manage-booking">
+            <IconButton
+              sx={{ color: "#fff", display: { xs: "none", md: "inherit" } }}
+            >
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <CarRentalRounded />
+                <Typography variant="h6" sx={{ flexGrow: 1 }} fontWeight={600}>
+                  <Capitalize>{t("manage_booking")}</Capitalize>
+                </Typography>
+              </Box>
+            </IconButton>
+          </BlackLink>
           <Box sx={{ flexGrow: 1 / 24 }} />
           <Divider
             orientation="vertical"

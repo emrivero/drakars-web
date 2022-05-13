@@ -10,21 +10,26 @@ import { CarData } from "../rent-car-data";
 
 export const RentData: FC = () => {
   const {
-    endDate,
-    startDate,
-    startHour,
-    endHour,
-    searchOriginOffice,
-    searchDestinyOffice,
-  } = useStore((state) => state.selectedOffice);
-  const { selectedVehicle, totalPrice } = useStore();
+    selectedOffice: {
+      endDate,
+      startDate,
+      startHour,
+      endHour,
+      searchOriginOffice,
+      searchDestinyOffice,
+    },
+    selectedVehicle,
+    totalPrice,
+  } = useStore((state) => state.rentData);
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(selectedVehicle);
     if (!selectedVehicle) {
       navigate("/rent/location-date");
     }
   }, []);
+
   return (
     <Box
       display="flex"

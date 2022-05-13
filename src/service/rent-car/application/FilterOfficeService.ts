@@ -23,7 +23,7 @@ export class FilterRentOfficeService {
 
   private constructor() {
     useStore.subscribe(
-      ({ selectedOffice }) => [
+      ({ rentData: { selectedOffice } }) => [
         selectedOffice.originOffice,
         selectedOffice.destinyOffice,
         selectedOffice.startHour,
@@ -84,20 +84,25 @@ export class FilterRentOfficeService {
   }
 
   clear() {
-    this.setState(RentCarSlice.selectedOffice);
+    this.setState(RentCarSlice.rentData.selectedOffice);
   }
 
   setState(data: Partial<SelectedOfficeDto>) {
     changeState((state) => {
       if (data) {
-        state.selectedOffice = { ...state.selectedOffice, ...data };
+        state.rentData.selectedOffice = {
+          ...state.rentData.selectedOffice,
+          ...data,
+        };
       }
     });
   }
 
   selectVehicle(data: VehicleVm) {
     const {
-      selectedOffice: { startDate, endDate },
+      rentData: {
+        selectedOffice: { startDate, endDate },
+      },
     } = getRentState();
     const start = moment(startDate);
     const end = moment(endDate);
@@ -106,8 +111,8 @@ export class FilterRentOfficeService {
     const price = days * data.pricePerDay;
     changeState((state) => {
       if (data) {
-        state.selectedVehicle = data;
-        state.totalPrice = price;
+        state.rentData.selectedVehicle = data;
+        state.rentData.totalPrice = price;
       }
     });
   }
@@ -118,8 +123,8 @@ export class FilterRentOfficeService {
   ) {
     changeState((state) => {
       if (validation) {
-        state.rentValidation[key] = {
-          ...state.rentValidation[key],
+        state.rentData.rentValidation[key] = {
+          ...state.rentData.rentValidation[key],
           ...validation,
         };
       }

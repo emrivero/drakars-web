@@ -49,8 +49,8 @@ export const Filter: FC<FilterProps> = ({ sx = {}, showTitle = true }) => {
     startHour,
     endHour,
   } = useStore((state) => ({
-    ...state.selectedOffice,
-    rentValidation: state.rentValidation,
+    ...state.rentData.selectedOffice,
+    rentValidation: state.rentData.rentValidation,
   }));
 
   const origins = originOffices

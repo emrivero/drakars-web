@@ -36,7 +36,9 @@ export class FilterAvailableVehicleService
     } = getVehicleState();
 
     const {
-      selectedOffice: { endDate, startDate, originOffice },
+      rentData: {
+        selectedOffice: { endDate, startDate, originOffice },
+      },
     } = getRentState();
 
     const paginateQuery = PaginateVehicleBuilder.createFilter({
@@ -65,7 +67,7 @@ export class FilterAvailableVehicleService
     data: PaginateVm<VehicleVm>,
     filter: FilterVehicle = null
   ) {
-    changeState(({ availableVehicles }) => {
+    changeState(({ rentData: { availableVehicles } }) => {
       if (data) {
         availableVehicles.data = new PaginateVm(
           data.data,

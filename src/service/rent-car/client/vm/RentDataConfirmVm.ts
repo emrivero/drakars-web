@@ -1,10 +1,13 @@
 import { BaseVm } from "../../../base/client/view/BaseVm";
+import { OfficeVm } from "../../../office/client/view/OfficeVm";
 import { VehicleVm } from "../../../vehicle/client/view/VehicleVm";
 
 export class RentDataConfirmVm extends BaseVm {
   paymentDate: string;
   paymentType: string;
   rentedVehicle: VehicleVm;
+  originOffice: OfficeVm;
+  destinyOffice: OfficeVm;
   startDate: string;
   endDate: string;
   status: string;
