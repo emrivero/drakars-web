@@ -6,16 +6,18 @@ import {
   Grid,
   Radio,
   RadioGroup,
+  Switch,
   TextareaAutosize,
   TextField,
   useTheme,
 } from "@mui/material";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { SectionHeader } from "../../molecules/section";
 import { Form } from "../form";
 
 export const UserRegister: FC = () => {
   const theme = useTheme();
+  const [onlinePay, setOnlinePay] = useState(true);
   return (
     <Box width="100%">
       <Form
@@ -41,17 +43,6 @@ export const UserRegister: FC = () => {
             <Grid item md={6}>
               <FormControl fullWidth>
                 <TextField
-                  variant="standard"
-                  type="text"
-                  fullWidth
-                  label="Empresa"
-                />
-              </FormControl>
-            </Grid>
-            <Grid item md={6} />
-            <Grid item md={6}>
-              <FormControl fullWidth>
-                <TextField
                   required
                   variant="standard"
                   type="text"
@@ -71,7 +62,18 @@ export const UserRegister: FC = () => {
                 />
               </FormControl>
             </Grid>
-            <Grid item md={6}>
+            <Grid item md={4}>
+              <FormControl fullWidth>
+                <TextField
+                  required
+                  variant="standard"
+                  type="text"
+                  fullWidth
+                  label="DNI/NIE"
+                />
+              </FormControl>
+            </Grid>
+            <Grid item md={4}>
               <FormControl fullWidth>
                 <TextField
                   required
@@ -82,7 +84,7 @@ export const UserRegister: FC = () => {
                 />
               </FormControl>
             </Grid>
-            <Grid item md={6}>
+            <Grid item md={4}>
               <FormControl fullWidth>
                 <TextField
                   required
@@ -97,31 +99,45 @@ export const UserRegister: FC = () => {
         </SectionHeader>
         <SectionHeader title="Pago" color={theme.palette.secondary.main}>
           <Grid container my={8}>
-            <Grid item xs={12} display="flex" justifyContent="center">
-              <FormControl>
-                <RadioGroup
-                  row
-                  aria-labelledby="demo-radio-buttons-group-label"
-                  defaultValue="female"
-                  name="radio-buttons-group"
-                >
-                  <FormControlLabel
-                    value="female"
-                    control={<Radio />}
-                    label="Visa"
+            <Grid
+              item
+              xs={12}
+              display="flex"
+              justifyContent="center"
+              flexDirection={"column"}
+              alignItems="center"
+            >
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={onlinePay}
+                    onChange={() => setOnlinePay(!onlinePay)}
+                    name="online_pay"
                   />
-                  <FormControlLabel
-                    value="male"
-                    control={<Radio />}
-                    label="Paypal"
-                  />
-                  <FormControlLabel
-                    value="other"
-                    control={<Radio />}
-                    label="Efectivo"
-                  />
-                </RadioGroup>
-              </FormControl>
+                }
+                label="Pago online"
+              />
+              {onlinePay && (
+                <FormControl>
+                  <RadioGroup
+                    row
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    defaultValue="female"
+                    name="radio-buttons-group"
+                  >
+                    <FormControlLabel
+                      value="female"
+                      control={<Radio />}
+                      label="Visa"
+                    />
+                    <FormControlLabel
+                      value="male"
+                      control={<Radio />}
+                      label="Paypal"
+                    />
+                  </RadioGroup>
+                </FormControl>
+              )}
             </Grid>
           </Grid>
         </SectionHeader>

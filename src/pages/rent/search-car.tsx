@@ -9,18 +9,16 @@ import { Layout } from "../../components/templates/layout";
 import { CommonSection } from "../../components/templates/layout/common-section";
 import { RentStepper } from "../../components/templates/layout/rent-stepper";
 import { useRentCarService } from "../../service/rent-car/application";
-import { useVehicleService } from "../../service/vehicle/application";
 import { useStore } from "../../store";
 
 export const SearchCar: FC = () => {
-  const { finder } = useVehicleService();
-  const { filterer } = useRentCarService();
+  const { filterer, finder } = useRentCarService();
   const theme = useTheme();
   const navigate = useNavigate();
   const {
     data: { data },
     filter,
-  } = useStore((state) => state.vehicles);
+  } = useStore((state) => state.availableVehicles);
 
   const {
     selectedOffice: { originOffice },
@@ -30,8 +28,7 @@ export const SearchCar: FC = () => {
     if (!originOffice) {
       navigate("/rent/location-date");
     }
-    finder.filterOffice = originOffice;
-    finder.fetchVehicles();
+    finder.list();
   }, []);
 
   return (

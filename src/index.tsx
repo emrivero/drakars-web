@@ -26,6 +26,7 @@ import { AditionalServices } from "./pages/rent/aditional-services";
 import { Confirm } from "./pages/rent/confirm";
 import { LocationDate } from "./pages/rent/location-date";
 import { SearchCar } from "./pages/rent/search-car";
+import { RentSuccess } from "./pages/rent/success";
 import { ManageBooking } from "./pages/services/manage-booking";
 import { Offices } from "./pages/services/offices";
 import { RentCar } from "./pages/services/rent-car";
@@ -76,6 +77,7 @@ ReactDOM.render(
                 path="aditional-services"
                 element={<AditionalServices />}
               />
+              <Route path="success" element={<RentSuccess />} />
             </Route>
 
             <Route path="/admin">

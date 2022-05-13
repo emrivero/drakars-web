@@ -5,5 +5,5 @@ export interface FilterVehicle {
   fuel: "" | "fuel" | "diesel" | "electric";
   sort: "better" | "cheap" | "expensive";
   transmission: "" | "manual" | "automatic";
-  "office.id": string;
+  "office.id"?: string;
 }

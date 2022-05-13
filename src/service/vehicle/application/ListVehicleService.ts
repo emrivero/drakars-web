@@ -1,4 +1,5 @@
 import { changeState } from "../../../store";
+import { FilterService } from "../../base/application/FilterService";
 import { PaginateVm } from "../../base/client/view/PaginateVm";
 import { VehicleClient } from "../client";
 import { VehicleVm } from "../client/view/VehicleVm";
@@ -6,14 +7,8 @@ import { getVehicleState } from "../state";
 import { FilterVehicle } from "./model/filter-vehicle";
 import { PaginateVehicleBuilder } from "./PaginateVehicleBuilder";
 
-export class ListVehicleService {
+export class ListVehicleService implements FilterService<FilterVehicle> {
   private readonly client = new VehicleClient();
-
-  private FILTER_OFFICE: number = null;
-
-  set filterOffice(value: number) {
-    this.FILTER_OFFICE = value;
-  }
 
   async fetchVehicles() {
     this.filterVehicle({});
@@ -43,7 +38,6 @@ export class ListVehicleService {
         ...paginateQuery.json,
         paginateOptions: {
           groupBy: ["mark", "model"],
-          where: this.FILTER_OFFICE > 0 ? { office: this.FILTER_OFFICE } : {},
         },
       });
 
@@ -52,7 +46,6 @@ export class ListVehicleService {
         ...newFilter,
       });
     } catch (e) {
-      console.error(e);
       this.setVehicleDataState(null, { ...filter, ...newFilter });
     }
   }

@@ -13,7 +13,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { FC, useState } from "react";
-import { ListVehicleService } from "../../../service/vehicle/application/ListVehicleService";
+import { FilterService } from "../../../service/base/application/FilterService";
 import { FilterVehicle } from "../../../service/vehicle/application/model/filter-vehicle";
 import { FilterIcon } from "../../atoms/filter-icon";
 import { CustomTypography } from "../../molecules/custom-typography";
@@ -21,7 +21,7 @@ import { CustomTypography } from "../../molecules/custom-typography";
 export interface CarFilterProps {
   sx?: SxProps;
   filter: FilterVehicle;
-  paginator?: ListVehicleService;
+  paginator?: FilterService<FilterVehicle>;
 }
 
 export type SelectVehicleTypeEvent = SelectChangeEvent<

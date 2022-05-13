@@ -1,6 +1,7 @@
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import { Box, Button, Paper, Typography } from "@mui/material";
-import { FC } from "react";
+import { FC, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useStore } from "../../../store";
 import { CustomTypography } from "../../molecules/custom-typography";
 import { PrimaryTypography } from "../../molecules/primary-typography";
@@ -17,6 +18,13 @@ export const RentData: FC = () => {
     searchDestinyOffice,
   } = useStore((state) => state.selectedOffice);
   const { selectedVehicle, totalPrice } = useStore();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!selectedVehicle) {
+      navigate("/rent/location-date");
+    }
+  }, []);
   return (
     <Box
       display="flex"

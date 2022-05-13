@@ -25,4 +25,18 @@ export class VehicleClient extends Client<
       body: data,
     });
   }
+
+  async list(
+    data: PaginateVO & {
+      office?: number;
+      startDate?: string;
+      endDate?: string;
+    } = {}
+  ) {
+    return await this.genericRequest<PaginateVm<VehicleVm>, PaginateVO>({
+      method: "post",
+      resource: "available",
+      body: data,
+    });
+  }
 }

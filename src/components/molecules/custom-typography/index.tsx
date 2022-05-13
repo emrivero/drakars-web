@@ -1,11 +1,11 @@
-import { styled, Typography, TypographyProps } from "@mui/material";
-
+import { styled, Theme, Typography, TypographyProps } from "@mui/material";
 export interface CustomTypographyProps extends TypographyProps {
   type?: "roboto" | "open" | "acme" | "comic";
+  themeColor?: (theme: Theme) => string;
 }
 
 export const CustomTypography = styled(Typography)<CustomTypographyProps>(
-  ({ type = "roboto" }) => {
+  ({ type = "roboto", themeColor = () => "#000", theme }) => {
     const fontFamily: Record<CustomTypographyProps["type"], string> = {
       roboto: `"Roboto","Helvetica","Arial",sans-serif`,
       acme: `"Acme","Helvetica","Arial",sans-serif`,
@@ -15,6 +15,7 @@ export const CustomTypography = styled(Typography)<CustomTypographyProps>(
 
     return {
       fontFamily: fontFamily[type],
+      color: themeColor(theme),
     };
   }
 );
