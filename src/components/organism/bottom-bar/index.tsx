@@ -22,7 +22,7 @@ export const BottomBar: FC = () => {
       <BottomNavigationAction
         label={<Capitalize>{t("manage_booking")}</Capitalize>}
         icon={<CarRental />}
-        href="/services/manage-booking"
+        href="/home/services/manage-booking"
       />
       <BottomNavigationAction
         onClick={login}

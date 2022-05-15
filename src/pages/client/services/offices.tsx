@@ -1,13 +1,13 @@
 import { Search } from "@mui/icons-material";
 import { Grid, TextField, useTheme } from "@mui/material";
 import { FC, useEffect } from "react";
-import { Upper } from "../../components/atoms/transforms/upper";
-import { CustomTypography } from "../../components/molecules/custom-typography";
-import { OfficeSection } from "../../components/organism/office-section";
-import { Layout } from "../../components/templates/layout";
-import { CommonSection } from "../../components/templates/layout/common-section";
-import { useOfficeService } from "../../service/office/application";
-import { useStore } from "../../store";
+import { Upper } from "../../../components/atoms/transforms/upper";
+import { CustomTypography } from "../../../components/molecules/custom-typography";
+import { OfficeSection } from "../../../components/organism/office-section";
+import { Layout } from "../../../components/templates/layout";
+import { CommonSection } from "../../../components/templates/layout/common-section";
+import { useOfficeService } from "../../../service/office/application";
+import { useStore } from "../../../store";
 
 export const Offices: FC = () => {
   const theme = useTheme();

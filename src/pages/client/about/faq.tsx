@@ -1,9 +1,9 @@
 import { Grid, Typography, useTheme } from "@mui/material";
-import { Upper } from "../../components/atoms/transforms/upper";
-import { CustomTypography } from "../../components/molecules/custom-typography";
-import { FaqItem } from "../../components/molecules/faq-item";
-import { Layout } from "../../components/templates/layout";
-import { CommonSection } from "../../components/templates/layout/common-section";
+import { Upper } from "../../../components/atoms/transforms/upper";
+import { CustomTypography } from "../../../components/molecules/custom-typography";
+import { FaqItem } from "../../../components/molecules/faq-item";
+import { Layout } from "../../../components/templates/layout";
+import { CommonSection } from "../../../components/templates/layout/common-section";
 
 const Faq = () => {
   const theme = useTheme();

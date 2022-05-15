@@ -27,7 +27,7 @@ export const ManageBookingForm: FC = () => {
       });
       return;
     }
-    navigate("/services/edit-booking");
+    navigate("/home/services/edit-booking");
   };
 
   return (

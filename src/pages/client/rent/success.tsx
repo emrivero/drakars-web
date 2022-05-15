@@ -2,15 +2,15 @@ import { CheckCircle } from "@mui/icons-material";
 import { Box, Grid, Typography } from "@mui/material";
 import { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Upper } from "../../components/atoms/transforms/upper";
-import { CustomTypography } from "../../components/molecules/custom-typography";
-import { LoadingPage } from "../../components/molecules/loading-page";
-import { PrimaryTypography } from "../../components/molecules/primary-typography";
-import { SecondaryTypography } from "../../components/molecules/secondary-typography";
-import { Layout } from "../../components/templates/layout";
-import { CommonSection } from "../../components/templates/layout/common-section";
-import { useRentCarService } from "../../service/rent-car/application";
-import { useStore } from "../../store";
+import { Upper } from "../../../components/atoms/transforms/upper";
+import { CustomTypography } from "../../../components/molecules/custom-typography";
+import { LoadingPage } from "../../../components/molecules/loading-page";
+import { PrimaryTypography } from "../../../components/molecules/primary-typography";
+import { SecondaryTypography } from "../../../components/molecules/secondary-typography";
+import { Layout } from "../../../components/templates/layout";
+import { CommonSection } from "../../../components/templates/layout/common-section";
+import { useRentCarService } from "../../../service/rent-car/application";
+import { useStore } from "../../../store";
 
 export const RentSuccess: FC = () => {
   const { clearer } = useRentCarService();

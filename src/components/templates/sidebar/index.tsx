@@ -64,7 +64,7 @@ export const Sidebar: FC = () => {
           </ListItem> */}
           <ListItem>
             <BlackLink
-              to="/services/rent-car"
+              to="/home/services/rent-car"
               sx={{
                 display: "flex",
                 alignItems: "center",
@@ -78,7 +78,7 @@ export const Sidebar: FC = () => {
           </ListItem>
           <ListItem>
             <BlackLink
-              to="/services/offices"
+              to="/home/services/offices"
               sx={{ display: "flex", alignItems: "center" }}
             >
               <CorporateFare />

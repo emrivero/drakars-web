@@ -1,10 +1,10 @@
 import { Box, Grid, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { Upper } from "../../components/atoms/transforms/upper";
-import { Banner } from "../../components/molecules/banner";
-import { CustomTypography } from "../../components/molecules/custom-typography";
-import { Layout } from "../../components/templates/layout";
-import { CommonSection } from "../../components/templates/layout/common-section";
+import { Upper } from "../../../components/atoms/transforms/upper";
+import { Banner } from "../../../components/molecules/banner";
+import { CustomTypography } from "../../../components/molecules/custom-typography";
+import { Layout } from "../../../components/templates/layout";
+import { CommonSection } from "../../../components/templates/layout/common-section";
 
 const Covid19 = () => {
   const theme = useTheme();

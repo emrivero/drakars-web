@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { Layout } from "../components/templates/layout";
-import { NotFoundTemplate } from "../components/templates/not-found";
+import { Layout } from "../../components/templates/layout";
+import { NotFoundTemplate } from "../../components/templates/not-found";
 
 export const NotFoundPage: FC = () => {
   return (

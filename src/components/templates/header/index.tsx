@@ -67,7 +67,7 @@ export const Header: FC = () => {
             </MuiLink>
           </Box>
           <Box sx={{ flexGrow: 1 }} />
-          <BlackLink to="/services/manage-booking">
+          <BlackLink to="/home/services/manage-booking">
             <IconButton
               sx={{ color: "#fff", display: { xs: "none", md: "inherit" } }}
             >
