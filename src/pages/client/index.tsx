@@ -11,6 +11,9 @@ import AboutUs from "./about/about-us";
 import Covid19 from "./about/covid19";
 import Faq from "./about/faq";
 import Home from "./home";
+import { Profile } from "./profile";
+import { Booking } from "./profile/booking";
+import { History } from "./profile/history";
 import { AditionalServices } from "./rent/aditional-services";
 import { Confirm } from "./rent/confirm";
 import { LocationDate } from "./rent/location-date";
@@ -60,14 +63,19 @@ export const ClientWebApp: FC = () => {
           <Route path="aditional-services" element={<AditionalServices />} />
           <Route path="success" element={<RentSuccess />} />
         </Route>
-        <Route path="*" element={<NotFoundPage />}></Route>
 
         <Route path="/about">
           <Route path="about-us" element={<AboutUs />} />
           <Route path="covid19" element={<Covid19 />} />
           <Route path="faq" element={<Faq />} />
         </Route>
+        <Route path="/profile">
+          <Route path="" element={<Profile />} />
+          <Route path="booking" element={<Booking />} />
+          <Route path="history" element={<History />} />
+        </Route>
         <Route path="/vehicles"></Route>
+        <Route path="*" element={<NotFoundPage />}></Route>
       </Routes>
     </ReactKeycloakProvider>
   );

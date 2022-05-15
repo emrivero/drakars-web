@@ -7,8 +7,8 @@ import { CustomTypography } from "../../../components/molecules/custom-typograph
 import { LoadingPage } from "../../../components/molecules/loading-page";
 import { PrimaryTypography } from "../../../components/molecules/primary-typography";
 import { EditManageModal } from "../../../components/organism/edit-booking-form";
-import { Layout } from "../../../components/templates/layout";
-import { CommonSection } from "../../../components/templates/layout/common-section";
+import { Layout } from "../../../components/templates/client/layout";
+import { CommonSection } from "../../../components/templates/client/layout/common-section";
 import { useRentCarService } from "../../../service/rent-car/application";
 import { useStore } from "../../../store";
 

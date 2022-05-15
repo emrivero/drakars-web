@@ -18,7 +18,7 @@ import { PrimaryTypography } from "../../molecules/primary-typography";
 import { SecondaryBox } from "../../molecules/secondary-box";
 
 export interface CarDataProps {
-  data: VehicleVm;
+  data: Omit<VehicleVm, "office">;
   imageSrc: string;
   actionText: string;
   onAction?: MouseEventHandler;

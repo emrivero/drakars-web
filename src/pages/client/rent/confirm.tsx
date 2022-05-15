@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { LoadingPage } from "../../../components/molecules/loading-page";
 import { RentData } from "../../../components/organism/rent-data";
 import { UserRegister } from "../../../components/organism/user-register";
-import { Layout } from "../../../components/templates/layout";
-import { CommonSection } from "../../../components/templates/layout/common-section";
-import { RentStepper } from "../../../components/templates/layout/rent-stepper";
+import { Layout } from "../../../components/templates/client/layout";
+import { CommonSection } from "../../../components/templates/client/layout/common-section";
+import { RentStepper } from "../../../components/templates/client/layout/rent-stepper";
+
 import { useStore } from "../../../store";
 
 export const Confirm: FC = () => {

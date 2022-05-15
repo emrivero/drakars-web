@@ -3,9 +3,9 @@ import { FC } from "react";
 import { Upper } from "../../../components/atoms/transforms/upper";
 import { CustomTypography } from "../../../components/molecules/custom-typography";
 import { Filter } from "../../../components/organism/rent-filter/filter";
-import { Layout } from "../../../components/templates/layout";
-import { CommonSection } from "../../../components/templates/layout/common-section";
-import { RentStepper } from "../../../components/templates/layout/rent-stepper";
+import { Layout } from "../../../components/templates/client/layout";
+import { CommonSection } from "../../../components/templates/client/layout/common-section";
+import { RentStepper } from "../../../components/templates/client/layout/rent-stepper";
 
 export const LocationDate: FC = () => {
   const theme = useTheme();

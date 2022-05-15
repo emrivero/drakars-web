@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { Layout } from "../../../components/templates/layout";
-import { RentStepper } from "../../../components/templates/layout/rent-stepper";
+import { Layout } from "../../../components/templates/client/layout";
+import { RentStepper } from "../../../components/templates/client/layout/rent-stepper";
 
 export const AditionalServices: FC = () => {
   return (

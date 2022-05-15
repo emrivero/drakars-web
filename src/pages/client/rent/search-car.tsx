@@ -6,10 +6,10 @@ import { CustomTypography } from "../../../components/molecules/custom-typograph
 import { LoadingPage } from "../../../components/molecules/loading-page";
 import { CarFilter } from "../../../components/organism/car-filter";
 import { CarData } from "../../../components/organism/rent-car-data";
-import { Layout } from "../../../components/templates/layout";
-import { CommonSection } from "../../../components/templates/layout/common-section";
-import { RentStepper } from "../../../components/templates/layout/rent-stepper";
-import { VehiclesNotFound } from "../../../components/templates/not-found/vehicles";
+import { Layout } from "../../../components/templates/client/layout";
+import { CommonSection } from "../../../components/templates/client/layout/common-section";
+import { RentStepper } from "../../../components/templates/client/layout/rent-stepper";
+import { VehiclesNotFound } from "../../../components/templates/client/not-found/vehicles";
 import { useRentCarService } from "../../../service/rent-car/application";
 import { useStore } from "../../../store";
 

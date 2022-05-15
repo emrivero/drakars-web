@@ -4,8 +4,8 @@ import { Capitalize } from "../../../components/atoms/transforms/capitalize";
 import { Upper } from "../../../components/atoms/transforms/upper";
 import { CustomTypography } from "../../../components/molecules/custom-typography";
 import { ManageBookingForm } from "../../../components/organism/manage-booking-form";
-import { Layout } from "../../../components/templates/layout";
-import { CommonSection } from "../../../components/templates/layout/common-section";
+import { Layout } from "../../../components/templates/client/layout";
+import { CommonSection } from "../../../components/templates/client/layout/common-section";
 import { useVehicleService } from "../../../service/vehicle/application";
 
 export const ManageBooking: FC = () => {

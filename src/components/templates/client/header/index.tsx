@@ -1,4 +1,8 @@
-import { CarRentalRounded, LanguageRounded } from "@mui/icons-material";
+import {
+  CarRentalRounded,
+  KeyboardArrowDown,
+  LanguageRounded,
+} from "@mui/icons-material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Button, Divider, Fade, Typography, useTheme } from "@mui/material";
@@ -9,14 +13,14 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import { FC, useState } from "react";
-import { useAuth } from "../../../auth/use-auth";
-import { useTranslate } from "../../../i18n/useTranslate";
-import { Routes } from "../../../routes/routes";
-import { toggleSidebar } from "../../../store/sidebar/actions/toggle-sidebar";
-import { Logo } from "../../atoms/logo";
-import { Capitalize } from "../../atoms/transforms/capitalize";
-import { BlackLink } from "../../molecules/black-link";
-import { MuiLink } from "../../molecules/link";
+import { useAuth } from "../../../../auth/use-auth";
+import { useTranslate } from "../../../../i18n/useTranslate";
+import { Routes } from "../../../../routes/routes";
+import { toggleSidebar } from "../../../../store/sidebar/actions/toggle-sidebar";
+import { Logo } from "../../../atoms/logo";
+import { Capitalize } from "../../../atoms/transforms/capitalize";
+import { BlackLink } from "../../../molecules/black-link";
+import { MuiLink } from "../../../molecules/link";
 
 export const Header: FC = () => {
   const { login, logout, isAuthenticated } = useAuth();
@@ -28,12 +32,23 @@ export const Header: FC = () => {
   );
   const openLanguageMenu = Boolean(languageAnchor);
 
+  const [profileAnchor, setProfileAnchor] = useState<null | HTMLElement>(null);
+  const openProfileMenu = Boolean(profileAnchor);
+
   const handleMenuLanguage = (event: React.MouseEvent<HTMLElement>) => {
     setLanguageAnchor(event.currentTarget);
   };
 
   const handleCloseMenuLanguage = () => {
     setLanguageAnchor(null);
+  };
+
+  const handleMenuProfile = (event: React.MouseEvent<HTMLElement>) => {
+    setProfileAnchor(event.currentTarget);
+  };
+
+  const handleCloseMenuProfile = () => {
+    setProfileAnchor(null);
   };
 
   const changeLang = (lang: string) => {
@@ -158,17 +173,31 @@ export const Header: FC = () => {
                 {t("enter")}
               </Button>
             ) : (
-              <Button
-                onClick={logout}
-                variant="outlined"
-                size="large"
-                endIcon={<AccountCircle />}
-                aria-label="account of current user"
-                aria-haspopup="true"
-                color="inherit"
-              >
-                {t("exit")}
-              </Button>
+              <>
+                <IconButton color="secondary" onClick={handleMenuProfile}>
+                  <AccountCircle fontSize="large" />
+                  <KeyboardArrowDown />
+                </IconButton>
+                <Menu
+                  open={openProfileMenu}
+                  anchorEl={profileAnchor}
+                  onClose={handleCloseMenuProfile}
+                  TransitionComponent={Fade}
+                >
+                  <MenuItem>
+                    <BlackLink to="/home/profile">
+                      <Button>
+                        <Capitalize>mi perfil</Capitalize>
+                      </Button>
+                    </BlackLink>
+                  </MenuItem>
+                  <MenuItem>
+                    <Button onClick={logout}>
+                      <Capitalize>desconectar</Capitalize>
+                    </Button>
+                  </MenuItem>
+                </Menu>
+              </>
             )}
           </Box>
         </Toolbar>

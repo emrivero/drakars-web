@@ -1,6 +1,6 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { FC } from "react";
-import { NotFoundIcon } from "../../atoms/not-found";
+import { NotFoundIcon } from "../../../atoms/not-found";
 
 export const VehiclesNotFound: FC = () => {
   const theme = useTheme();

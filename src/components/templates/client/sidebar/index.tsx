@@ -15,10 +15,10 @@ import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import { Theme } from "@mui/system";
 import { FC } from "react";
-import { Routes } from "../../../routes/routes";
-import { useStore } from "../../../store";
-import { toggleSidebar } from "../../../store/sidebar/actions/toggle-sidebar";
-import { BlackLink } from "../../molecules/black-link";
+import { Routes } from "../../../../routes/routes";
+import { useStore } from "../../../../store";
+import { toggleSidebar } from "../../../../store/sidebar/actions/toggle-sidebar";
+import { BlackLink } from "../../../molecules/black-link";
 
 const DrawerHeader = styled("div")(() => ({
   display: "flex",
@@ -48,20 +48,6 @@ export const Sidebar: FC = () => {
           Servicios
         </Typography>
         <List>
-          {/* <ListItem>
-            <BlackLink
-              to="/local"
-              sx={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <Percent />
-              <Box sx={{ ml: 1 }}>
-                <Typography variant="h6">Ofertas</Typography>
-              </Box>
-            </BlackLink>
-          </ListItem> */}
           <ListItem>
             <BlackLink
               to="/home/services/rent-car"

@@ -1,7 +1,7 @@
 import { Error } from "@mui/icons-material";
 import { Box, Typography, useTheme } from "@mui/material";
 import { FC } from "react";
-import { CustomTypography } from "../../molecules/custom-typography";
+import { CustomTypography } from "../../../molecules/custom-typography";
 
 export const NotFoundTemplate: FC = () => {
   const theme = useTheme();

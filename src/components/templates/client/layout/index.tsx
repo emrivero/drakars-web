@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { FC, useEffect } from "react";
-import { toggleSidebar } from "../../../store/sidebar/actions/toggle-sidebar";
-import { BottomBar } from "../../organism/bottom-bar";
+import { toggleSidebar } from "../../../../store/sidebar/actions/toggle-sidebar";
+import { BottomBar } from "../../../organism/bottom-bar";
 import { Footer } from "../footer";
 import { Header } from "../header";
 import { Sidebar } from "../sidebar";
