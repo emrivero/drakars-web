@@ -1,72 +1,111 @@
-import { CheckCircle } from "@mui/icons-material";
-import { Box, Grid, Typography } from "@mui/material";
-import { FC, useEffect } from "react";
+import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
+import { useConfirm } from "material-ui-confirm";
+import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Upper } from "../../components/atoms/transforms/upper";
 import { CustomTypography } from "../../components/molecules/custom-typography";
 import { LoadingPage } from "../../components/molecules/loading-page";
 import { PrimaryTypography } from "../../components/molecules/primary-typography";
-import { SecondaryTypography } from "../../components/molecules/secondary-typography";
+import { EditManageModal } from "../../components/organism/edit-booking-form";
 import { Layout } from "../../components/templates/layout";
 import { CommonSection } from "../../components/templates/layout/common-section";
 import { useRentCarService } from "../../service/rent-car/application";
 import { useStore } from "../../store";
 
-export const RentSuccess: FC = () => {
-  const { clearer } = useRentCarService();
-  const { selectedOffice, selectedVehicle, userData } = useStore(
-    (state) => state.rentData
-  );
+export const EditBooking: FC = () => {
+  const [dialogState, setDialogState] = useState({ open: false });
   const {
-    total,
     reference,
+    total,
     rentedVehicle,
     startDate,
     endDate,
     originOffice,
     destinyOffice,
+    renterUser,
   } = useStore((state) => state.rentConfirmData);
+
+  const { clearer, cancelRent } = useRentCarService();
   const navigate = useNavigate();
+  const theme = useTheme();
+
+  const confirm = useConfirm();
+
   useEffect(() => {
-    if (
-      !selectedOffice?.originOffice &&
-      !selectedVehicle?.id &&
-      !userData?.dni
-    ) {
-      navigate("/rent/location-date");
+    if (!reference) {
+      navigate(-1);
     }
     return () => clearer.clear();
-  });
+  }, []);
 
-  if (!selectedOffice?.originOffice && !selectedVehicle?.id && !userData?.dni) {
+  if (!reference) {
     return <LoadingPage />;
   }
+
+  const onRemove = () => {
+    confirm({
+      title: (
+        <Typography variant="h5" color={"error"}>
+          Atención
+        </Typography>
+      ),
+      description: (
+        <Typography variant="h6">
+          ¿Está seguro de que quiere cancelar la reserva?
+        </Typography>
+      ),
+      cancellationText: "Atrás",
+      confirmationText: "Confirmar cancelación",
+      confirmationButtonProps: {
+        color: "error",
+      },
+      cancellationButtonProps: {
+        variant: "contained",
+        color: "primary",
+      },
+    }).then(async () => {
+      await cancelRent(renterUser.dni, reference);
+      confirm({
+        title: "",
+        cancellationButtonProps: {
+          sx: { display: "none" },
+        },
+        confirmationText: "Vale",
+        description: (
+          <>
+            <PrimaryTypography variant="h5">
+              Reserva cancelada
+            </PrimaryTypography>
+            <PrimaryTypography>¡Hasta la proxima!</PrimaryTypography>
+          </>
+        ),
+      })
+        .then(() => {
+          setTimeout(() => {
+            navigate("/");
+          }, 300);
+        })
+        .catch(() => {
+          setTimeout(() => {
+            navigate("/");
+          }, 300);
+        });
+    });
+  };
 
   return (
     <Layout showFooter={false}>
       <CommonSection>
-        <Grid container width={"100%"}>
-          <Grid item xs={12} display="flex" justifyContent="center">
-            <CheckCircle sx={{ fontSize: 84, mb: 1 }} color="success" />
-          </Grid>
-          <Grid item xs={12}>
-            <SecondaryTypography variant="h2" align="center">
-              ¡Reserva Confirmada!
-            </SecondaryTypography>
-          </Grid>
+        <Grid container rowSpacing={3}>
           <Grid item xs={12}>
             <CustomTypography
-              variant="h4"
+              type="open"
               align="center"
-              customColor={(theme) => theme.palette.primary.main}
+              color={theme.palette.primary.dark}
+              variant="h3"
             >
-              Su reserva se ha confirmado exitosamente.
+              <Upper>Información de tu reserva</Upper>
             </CustomTypography>
-            <Grid item xs={12}>
-              <Typography align="center">
-                <a href="#">Descargar resguardo</a>
-              </Typography>
-            </Grid>
           </Grid>
         </Grid>
         <Box width={"100%"}>
@@ -98,7 +137,7 @@ export const RentSuccess: FC = () => {
                 <CustomTypography customColor={() => "#888"}>
                   Nombre
                 </CustomTypography>
-                <Typography fontWeight={600}>{userData.name}</Typography>
+                <Typography fontWeight={600}>{renterUser.name}</Typography>
               </Box>
             </Grid>
             <Grid
@@ -113,7 +152,9 @@ export const RentSuccess: FC = () => {
                 <CustomTypography customColor={() => "#888"}>
                   Apellidos
                 </CustomTypography>
-                <Typography fontWeight={600}>{userData.lastName}</Typography>
+                <Typography fontWeight={600}>
+                  {renterUser.family_name}
+                </Typography>
               </Box>
             </Grid>
             <Grid
@@ -128,7 +169,7 @@ export const RentSuccess: FC = () => {
                 <CustomTypography customColor={() => "#888"}>
                   DNI/NIE
                 </CustomTypography>
-                <Typography fontWeight={600}>{userData.dni}</Typography>
+                <Typography fontWeight={600}>{renterUser.dni}</Typography>
               </Box>
             </Grid>
             <Grid
@@ -143,7 +184,7 @@ export const RentSuccess: FC = () => {
                 <CustomTypography customColor={() => "#888"}>
                   Correo Electrónico:
                 </CustomTypography>
-                <Typography fontWeight={600}>{userData.email}</Typography>
+                <Typography fontWeight={600}>{renterUser.email}</Typography>
               </Box>
             </Grid>
             <Grid
@@ -157,14 +198,14 @@ export const RentSuccess: FC = () => {
                 <CustomTypography customColor={() => "#888"}>
                   Teléfono móvil:
                 </CustomTypography>
-                <Typography fontWeight={600}>{userData.phone}</Typography>
+                <Typography fontWeight={600}>{renterUser.phone}</Typography>
               </Box>
             </Grid>
           </Grid>
         </Box>
         <Box width={"100%"}>
           <Grid container>
-            <Grid item xs={12} sx={{ mt: 12, mb: 8 }}>
+            <Grid item xs={12} sx={{ mt: 6, mb: 8 }}>
               <PrimaryTypography variant="h6">
                 <Upper> Detalles de su reserva</Upper>
               </PrimaryTypography>
@@ -263,6 +304,51 @@ export const RentSuccess: FC = () => {
             </Grid>
           </Grid>
         </Box>
+        <Box width="100%" mt={10}>
+          <Grid container rowSpacing={2}>
+            <Grid
+              item
+              xs={12}
+              sx={{ display: "flex", justifyContent: "center" }}
+            >
+              <Box sx={{ width: { md: 0.2, xs: 1 } }}>
+                <Button
+                  sx={{
+                    py: 2,
+                  }}
+                  variant="contained"
+                  fullWidth
+                  onClick={() => setDialogState({ open: true })}
+                >
+                  Cambiar reserva
+                </Button>
+              </Box>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sx={{ display: "flex", justifyContent: "center", mb: { xs: 12 } }}
+            >
+              <Box sx={{ width: { md: 0.2, xs: 1 } }}>
+                <Button
+                  sx={{
+                    py: 2,
+                  }}
+                  variant="outlined"
+                  color="error"
+                  fullWidth
+                  onClick={onRemove}
+                >
+                  Cancelar reserva
+                </Button>
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+        <EditManageModal
+          open={dialogState.open}
+          onClose={() => setDialogState({ open: false })}
+        />
       </CommonSection>
     </Layout>
   );

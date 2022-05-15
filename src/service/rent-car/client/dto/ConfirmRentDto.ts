@@ -14,6 +14,8 @@ export class ConfirmRentDto {
       };
       readonly startDate: string;
       readonly endDate: string;
+      readonly startHour: string;
+      readonly endHour: string;
       readonly paymentStatus: "pending" | "paid";
       readonly paymentDate?: string;
       readonly paymentType?: "visa" | "paypal";
@@ -30,6 +32,8 @@ export class ConfirmRentDto {
     return new ConfirmRentDto({
       startDate: selectedOffice.startDate,
       endDate: selectedOffice.endDate,
+      startHour: selectedOffice.startHour,
+      endHour: selectedOffice.endHour,
       user: {
         name,
         lastName,

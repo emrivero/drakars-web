@@ -3,6 +3,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { AuthClientEvent } from "@react-keycloak/core/lib/types";
 import { ReactKeycloakProvider } from "@react-keycloak/web";
 import axios from "axios";
+import { ConfirmProvider } from "material-ui-confirm";
 import { SnackbarProvider } from "notistack";
 import { FC } from "react";
 import { Route, Routes } from "react-router";
@@ -34,6 +35,7 @@ import { ClientClient } from "../service/user/client/client";
 import "../styles/Calendar.css";
 import "../styles/DatePicker.css";
 import theme from "../theme";
+import { EditBooking } from "./services/edit-booking";
 
 const eventLogger = (event: AuthClientEvent, error: unknown) => {
   console.log("onKeycloakEvent", event, error);
@@ -60,55 +62,58 @@ export const WebApp: FC = () => {
     >
       <SnackbarProvider maxSnack={3}>
         <ThemeProvider theme={theme.themeClient}>
-          <CssBaseline />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/services">
-                <Route path="offices" element={<Offices />} />
-                <Route path="rent-car" element={<RentCar />} />
-                <Route path="manage-booking" element={<ManageBooking />} />
-              </Route>
-              <Route path="/rent">
-                <Route path="search-car" element={<SearchCar />} />
-                <Route path="location-date" element={<LocationDate />} />
-                <Route path="confirm" element={<Confirm />} />
-                <Route
-                  path="aditional-services"
-                  element={<AditionalServices />}
-                />
-                <Route path="success" element={<RentSuccess />} />
-              </Route>
+          <ConfirmProvider>
+            <CssBaseline />
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/services">
+                  <Route path="offices" element={<Offices />} />
+                  <Route path="rent-car" element={<RentCar />} />
+                  <Route path="manage-booking" element={<ManageBooking />} />
+                  <Route path="edit-booking" element={<EditBooking />} />
+                </Route>
+                <Route path="/rent">
+                  <Route path="search-car" element={<SearchCar />} />
+                  <Route path="location-date" element={<LocationDate />} />
+                  <Route path="confirm" element={<Confirm />} />
+                  <Route
+                    path="aditional-services"
+                    element={<AditionalServices />}
+                  />
+                  <Route path="success" element={<RentSuccess />} />
+                </Route>
 
-              <Route path="/admin">
-                <Route path="" element={<AdminHome />} />
-                <Route path="offices">
-                  <Route path="" element={<ListOffices />} />
-                  <Route path="add" element={<AddOffice />} />
+                <Route path="/admin">
+                  <Route path="" element={<AdminHome />} />
+                  <Route path="offices">
+                    <Route path="" element={<ListOffices />} />
+                    <Route path="add" element={<AddOffice />} />
+                  </Route>
+                  <Route path="vehicles">
+                    <Route path="" element={<ListVehicles />} />
+                    <Route path="add" element={<AddVehicle />} />
+                  </Route>
+                  <Route path="users">
+                    <Route path="" element={<ListOffices />} />
+                    <Route path="add" element={<AddOffice />} />
+                  </Route>
+                  <Route path="statistics">
+                    <Route path="general" element={<GeneralStats />} />
+                    <Route path="users" element={<UserStats />} />
+                    <Route path="vehicles" element={<VehiclesStats />} />
+                    <Route path="offices" element={<OfficesStats />} />
+                  </Route>
                 </Route>
-                <Route path="vehicles">
-                  <Route path="" element={<ListVehicles />} />
-                  <Route path="add" element={<AddVehicle />} />
+                <Route path="/about">
+                  <Route path="about-us" element={<AboutUs />} />
+                  <Route path="covid19" element={<Covid19 />} />
+                  <Route path="faq" element={<Faq />} />
                 </Route>
-                <Route path="users">
-                  <Route path="" element={<ListOffices />} />
-                  <Route path="add" element={<AddOffice />} />
-                </Route>
-                <Route path="statistics">
-                  <Route path="general" element={<GeneralStats />} />
-                  <Route path="users" element={<UserStats />} />
-                  <Route path="vehicles" element={<VehiclesStats />} />
-                  <Route path="offices" element={<OfficesStats />} />
-                </Route>
-              </Route>
-              <Route path="/about">
-                <Route path="about-us" element={<AboutUs />} />
-                <Route path="covid19" element={<Covid19 />} />
-                <Route path="faq" element={<Faq />} />
-              </Route>
-              <Route path="/vehicles"></Route>
-            </Routes>
-          </BrowserRouter>
+                <Route path="/vehicles"></Route>
+              </Routes>
+            </BrowserRouter>
+          </ConfirmProvider>
         </ThemeProvider>
       </SnackbarProvider>
     </ReactKeycloakProvider>

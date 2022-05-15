@@ -16,9 +16,18 @@ export type RentData = {
   availableVehicles: { data: PaginateVm<VehicleVm>; filter: FilterVehicle };
   userData: UserData;
 };
+
 export interface RentCarProps {
   rentData: RentData;
   rentConfirmData: RentDataConfirmVm;
+  editRentData: Pick<
+    SelectedOfficeDto,
+    "destinyOffices" | "searchDestinyOffice"
+  > &
+    Pick<RentDataConfirmVm, "endDate" | "endHour"> & {
+      validation: Pick<RentValidation, "endHour">;
+      destinyOffice: number;
+    };
 }
 
 export const RentCarSlice: RentCarProps = {
@@ -30,8 +39,8 @@ export const RentCarSlice: RentCarProps = {
       destinyOffice: null,
       searchOriginOffice: "",
       searchDestinyOffice: "",
-      startDate: moment().format("YYYY-MM-DD"),
-      endDate: moment().add(7, "day").format("YYYY-MM-DD"),
+      startDate: moment().add(1, "day").format("YYYY-MM-DD"),
+      endDate: moment().add(8, "day").format("YYYY-MM-DD"),
       startHour: "10:00",
       endHour: "10:00",
     },
@@ -70,6 +79,7 @@ export const RentCarSlice: RentCarProps = {
     },
   },
   rentConfirmData: {
+    renterUser: null,
     destinyOffice: null,
     originOffice: null,
     reference: "",
@@ -80,14 +90,30 @@ export const RentCarSlice: RentCarProps = {
     paymentType: "",
     rentedVehicle: null,
     status: "",
+    endHour: "",
+    startHour: "",
+  },
+  editRentData: {
+    searchDestinyOffice: "",
+    destinyOffices: [],
+    destinyOffice: null,
+    endDate: "",
+    endHour: "",
+    validation: {
+      endHour: {
+        valid: true,
+        textError: "Fuera de horario",
+      },
+    },
   },
 };
 
 export const getRentState: () => RentCarProps = () => {
-  const { rentData, rentConfirmData } = get();
+  const { rentData, rentConfirmData, editRentData } = get();
 
   return {
     rentData,
     rentConfirmData,
+    editRentData,
   };
 };

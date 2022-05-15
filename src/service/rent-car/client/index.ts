@@ -1,17 +1,18 @@
 import { Client } from "../../base/client";
 import { ConfirmRentDto } from "./dto/ConfirmRentDto";
+import { EditRentDto } from "./dto/EditRentDto";
 import { RentDataConfirmVm } from "./vm/RentDataConfirmVm";
 
 export class RentCarClient extends Client<
-  unknown,
-  unknown,
   RentDataConfirmVm,
-  unknown,
-  unknown,
-  unknown,
+  RentDataConfirmVm[],
+  RentDataConfirmVm,
+  RentDataConfirmVm,
+  RentDataConfirmVm,
+  RentDataConfirmVm,
   ConfirmRentDto,
   unknown,
-  unknown
+  EditRentDto
 > {
   constructor() {
     super("rent-car");

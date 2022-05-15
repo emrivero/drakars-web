@@ -3,21 +3,23 @@ import { FC, FormEventHandler, ReactNode } from "react";
 
 export interface FormProps {
   handleSubmit?: FormEventHandler<Element>;
-  saveContent: ReactNode;
+  saveContent?: ReactNode;
   sx?: SxProps;
   paperProps?: PaperProps;
   buttomComponent?: JSX.Element;
   disabledSubmit?: boolean;
+  showActions?: boolean;
 }
 
 export const Form: FC<FormProps> = ({
   disabledSubmit = false,
   handleSubmit = () => null,
   children,
-  saveContent,
+  saveContent = "",
   paperProps = {},
   sx = {},
   buttomComponent = null,
+  showActions = true,
 }) => {
   const defaultButton = (
     <Button
@@ -41,7 +43,7 @@ export const Form: FC<FormProps> = ({
             justifyContent: "center",
           }}
         >
-          {buttomComponent || defaultButton}
+          {showActions && (buttomComponent || defaultButton)}
         </Box>
       </Paper>
     </form>
