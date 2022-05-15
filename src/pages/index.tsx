@@ -35,6 +35,7 @@ import { ClientClient } from "../service/user/client/client";
 import "../styles/Calendar.css";
 import "../styles/DatePicker.css";
 import theme from "../theme";
+import { NotFoundPage } from "./404";
 import { EditBooking } from "./services/edit-booking";
 
 const eventLogger = (event: AuthClientEvent, error: unknown) => {
@@ -111,6 +112,7 @@ export const WebApp: FC = () => {
                   <Route path="faq" element={<Faq />} />
                 </Route>
                 <Route path="/vehicles"></Route>
+                <Route path="*" element={<NotFoundPage />}></Route>
               </Routes>
             </BrowserRouter>
           </ConfirmProvider>
