@@ -1,6 +1,7 @@
 import { changeState } from "../../../store";
 import { FilterService } from "../../base/application/FilterService";
 import { PaginateVm } from "../../base/client/view/PaginateVm";
+import { Debounce } from "../../base/utils/debounce";
 import { VehicleClient } from "../client";
 import { VehicleVm } from "../client/view/VehicleVm";
 import { getVehicleState } from "../state";
@@ -34,14 +35,18 @@ export class ListVehicleService implements FilterService<FilterVehicle> {
       ...newFilter,
     });
     try {
-      const { data } = await this.client.paginate({
-        ...paginateQuery.json,
-        paginateOptions: {
-          groupBy: ["mark", "model"],
-        },
-      });
+      Debounce(async () => {
+        const { data } = await this.client.paginate({
+          ...paginateQuery.json,
+          paginateOptions: {
+            groupBy: ["mark", "model"],
+          },
+        });
 
-      this.setVehicleDataState(data, {
+        this.setVehicleDataState(data);
+      }, 300)();
+
+      this.setVehicleDataState(null, {
         ...filter,
         ...newFilter,
       });

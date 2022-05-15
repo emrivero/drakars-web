@@ -26,6 +26,10 @@ export class FilterAvailableVehicleService
     this.listFilter({});
   }
 
+  clear() {
+    this.setAvailableVehicles(new PaginateVm([]));
+  }
+
   onFilter(newFilter: Partial<FilterVehicle>) {
     this.listFilter(newFilter);
   }
