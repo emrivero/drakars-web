@@ -4,7 +4,7 @@ import axios from "axios";
 import { FC } from "react";
 import { Route, Routes } from "react-router-dom";
 import { LoadingPage } from "../../components/molecules/loading-page";
-import keycloakCfg from "../../config/keycloak";
+import keycloakCfg from "../../config/keycloak-admin";
 import { ClientClient } from "../../service/user/client/client";
 import AdminHome from "./home";
 import { ListOffices } from "./offices";
