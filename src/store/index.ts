@@ -3,13 +3,17 @@ import create, { GetState, Mutate, SetState, StoreApi } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
 import { OfficeSlice } from "../service/office/state";
 import { RentCarSlice } from "../service/rent-car/state";
+import { ClientUserSlice } from "../service/user/client/state";
 import { VehicleSlice } from "../service/vehicle/state";
+import { LoggedInfoSlice } from "./logged-info/state";
 import { SidebarSlice } from "./sidebar/state";
 
 type AppState = typeof SidebarSlice &
   typeof VehicleSlice &
   typeof OfficeSlice &
-  typeof RentCarSlice;
+  typeof RentCarSlice &
+  typeof LoggedInfoSlice &
+  typeof ClientUserSlice;
 
 export const useStore = create<
   AppState,
@@ -22,6 +26,8 @@ export const useStore = create<
     ...VehicleSlice,
     ...OfficeSlice,
     ...RentCarSlice,
+    ...LoggedInfoSlice,
+    ...ClientUserSlice,
   }))
 );
 

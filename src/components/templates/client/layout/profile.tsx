@@ -1,6 +1,12 @@
-import { ArrowBackIos, CarRental, History } from "@mui/icons-material";
+import {
+  ArrowBackIos,
+  CarRental,
+  DeleteForever,
+  History,
+} from "@mui/icons-material";
 import {
   Box,
+  Button,
   Container,
   Grid,
   List,
@@ -78,6 +84,16 @@ export const ProfileLayout: FC<ProfileLayoutProps> = ({
                   <Typography variant="h6">Historial</Typography>
                 </Box>
               </BlackLink>
+            </ListItem>
+            <ListItem>
+              <Button
+                size="small"
+                variant="contained"
+                color="error"
+                startIcon={<DeleteForever />}
+              >
+                <Typography>Darse de baja</Typography>
+              </Button>
             </ListItem>
           </List>
         </Grid>

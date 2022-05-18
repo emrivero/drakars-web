@@ -6,6 +6,8 @@ import { Route, Routes } from "react-router-dom";
 import { LoadingPage } from "../../components/molecules/loading-page";
 import keycloakCfg from "../../config/keycloak";
 import { ClientClient } from "../../service/user/client/client";
+import { isLoggedInfo } from "../../store/logged-info/actions/is-logged-info";
+import { setLoggedInfo } from "../../store/logged-info/actions/set-logged-info";
 import { NotFoundPage } from "./404";
 import AboutUs from "./about/about-us";
 import Covid19 from "./about/covid19";
@@ -25,13 +27,16 @@ import { Offices } from "./services/offices";
 import { RentCar } from "./services/rent-car";
 
 const eventLogger = (event: AuthClientEvent, error: unknown) => {
-  console.log("onKeycloakEvent", event, error);
+  if (event === "onAuthLogout") {
+    setLoggedInfo(false);
+  }
 };
 
 const tokenLogger = (tokens: { token: string }) => {
   axios.defaults.headers.common.Authorization = `Bearer ${tokens?.token}`;
-  if (tokens?.token) {
+  if (tokens?.token && !isLoggedInfo()) {
     new ClientClient().post("", {});
+    setLoggedInfo(true);
   }
 };
 
