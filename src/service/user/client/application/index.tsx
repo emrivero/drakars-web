@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useStore } from "../../../../store";
 import { FormValidator } from "../../../base/utils/FormValidator";
 import { ClientUserVm } from "../client/vm/ClientUserVm";
+import { DeleteClientService } from "./DeleteClientService";
 import { GetClientService } from "./GetClientService";
 import { UpdateClientService } from "./UpdateClientService";
 
@@ -20,7 +21,9 @@ export const useClientService = () => {
   const { info } = useStore((state) => state.loggedClient);
   const getter = GetClientService.create();
   const editor = UpdateClientService.create();
+  const deleter = DeleteClientService.create();
   const [clientServices] = useState({
+    deleter,
     getter,
     editor,
     formValidator: new FormValidator<ClientUserVm>({

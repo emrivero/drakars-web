@@ -13,9 +13,14 @@ import {
   ListItem,
   Typography,
 } from "@mui/material";
+import { useConfirm } from "material-ui-confirm";
 import { FC } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../../auth/use-auth";
+import { useClientService } from "../../../../service/user/client/application";
 import { UserIcon } from "../../../atoms/car-info-icons/user";
 import { BlackLink } from "../../../molecules/black-link";
+import { ErrorTypography } from "../../../molecules/error-typography";
 import { PrimaryTypography } from "../../../molecules/primary-typography";
 
 type ProfileLayoutProps = {
@@ -26,6 +31,38 @@ export const ProfileLayout: FC<ProfileLayoutProps> = ({
   children,
   title = "",
 }) => {
+  const confirm = useConfirm();
+  const { deleter } = useClientService();
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+
+  const onDelete = () => {
+    confirm({
+      title: (
+        <ErrorTypography variant="h5" align="center">
+          ¡Atención!
+        </ErrorTypography>
+      ),
+      confirmationButtonProps: {
+        color: "error",
+        variant: "contained",
+      },
+      confirmationText: "Confirmar bajar",
+      cancellationText: "Cancelar",
+      description: (
+        <>
+          <ErrorTypography variant="h6" align="center">
+            Va a borrar todo sus datos permanentemente. ¿Está seguro?
+          </ErrorTypography>
+        </>
+      ),
+    }).then(async () => {
+      await deleter.deleteMe();
+      logout();
+      navigate("/home");
+    });
+  };
+
   return (
     <Container
       maxWidth={false}
@@ -87,6 +124,7 @@ export const ProfileLayout: FC<ProfileLayoutProps> = ({
             </ListItem>
             <ListItem>
               <Button
+                onClick={onDelete}
                 size="small"
                 variant="contained"
                 color="error"
