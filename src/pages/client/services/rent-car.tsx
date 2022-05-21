@@ -7,6 +7,7 @@ import { CarFilter } from "../../../components/organism/car-filter";
 import { CarData } from "../../../components/organism/rent-car-data";
 import { Layout } from "../../../components/templates/client/layout";
 import { CommonSection } from "../../../components/templates/client/layout/common-section";
+import { Routes } from "../../../routes/routes";
 
 import { useVehicleService } from "../../../service/vehicle/application";
 import { useStore } from "../../../store";
@@ -50,7 +51,7 @@ export const RentCar: FC = () => {
                 sx={{ mt: 4, p: 1 }}
               >
                 <CarData
-                  onAction={() => navigate("/rent/location-date")}
+                  onAction={() => navigate(Routes.LOCATION_DATE_PAGE)}
                   actionText="Reservar"
                   data={data}
                   imageSrc="https://www.centauro.net/_next/image/?url=https%3A%2F%2Fcdn.centauro.net%2Fweb%2FA_400738ceb4.jpg&w=384&q=90"

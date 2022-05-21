@@ -5,6 +5,7 @@ import { FC } from "react";
 import { Route, Routes } from "react-router-dom";
 import { LoadingPage } from "../../components/molecules/loading-page";
 import keycloakCfg from "../../config/keycloak";
+import { GetClientService } from "../../service/user/client/application/GetClientService";
 import { ClientClient } from "../../service/user/client/client";
 import { isLoggedInfo } from "../../store/logged-info/actions/is-logged-info";
 import { setLoggedInfo } from "../../store/logged-info/actions/set-logged-info";
@@ -26,7 +27,8 @@ import { ManageBooking } from "./services/manage-booking";
 import { Offices } from "./services/offices";
 import { RentCar } from "./services/rent-car";
 
-const eventLogger = (event: AuthClientEvent, error: unknown) => {
+const eventLogger = (event: AuthClientEvent) => {
+  console.log(event);
   if (event === "onAuthLogout") {
     setLoggedInfo(false);
   }
@@ -37,6 +39,7 @@ const tokenLogger = (tokens: { token: string }) => {
   if (tokens?.token && !isLoggedInfo()) {
     new ClientClient().post("", {});
     setLoggedInfo(true);
+    GetClientService.create().getMe();
   }
 };
 

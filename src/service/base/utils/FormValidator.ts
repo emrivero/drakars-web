@@ -12,7 +12,35 @@ type ValidateResult<T> = {
 
 export class FormValidator<T> {
   private target: T = null;
-  constructor(private validatorProps: FormValidatorProps<T>) {}
+  private _validateInfo: ValidateResult<T> = {};
+  constructor(private validatorProps: FormValidatorProps<T>) {
+    this.setValid();
+  }
+
+  setValid() {
+    this._validateInfo = Object.keys(this.validatorProps).reduce(
+      (prev, current) => {
+        const validateInfo = prev as ValidateResult<T>;
+        prev[current] = {
+          valid: true,
+          errorMessage: "",
+        };
+        return validateInfo;
+      },
+      this._validateInfo
+    );
+  }
+
+  get validateInfo() {
+    return this._validateInfo;
+  }
+
+  validateProp(name: Property<T>) {
+    this._validateInfo = {
+      ...this.validateInfo,
+      ...this.validateProperty(name, this.validatorProps[name]),
+    };
+  }
 
   validate(target: T): ValidateResult<T> {
     this.target = target;
@@ -26,6 +54,7 @@ export class FormValidator<T> {
         ...this.validateProperty(name, value),
       };
     });
+    this._validateInfo = validateResult;
     return validateResult;
   }
 

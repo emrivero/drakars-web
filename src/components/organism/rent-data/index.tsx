@@ -2,6 +2,7 @@ import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import { Box, Button, Paper, Typography } from "@mui/material";
 import { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Routes } from "../../../routes/routes";
 import { useStore } from "../../../store";
 import { CustomTypography } from "../../molecules/custom-typography";
 import { PrimaryTypography } from "../../molecules/primary-typography";
@@ -24,9 +25,8 @@ export const RentData: FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(selectedVehicle);
     if (!selectedVehicle) {
-      navigate("/rent/location-date");
+      navigate(Routes.LOCATION_DATE_PAGE);
     }
   }, []);
 

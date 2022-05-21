@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import interceptors from "./interceptors";
 const isProd: boolean = process.env.NODE_ENV === "production";
 
@@ -45,12 +45,23 @@ export abstract class Client<
     body,
     options = {},
     resource,
-  }: GenericRequestParams<E>) {
-    if (body) {
-      return await axios[method]<T>(this.buildUrl(resource), body, options);
-    }
+  }: GenericRequestParams<E>): Promise<AxiosResponse<T>> {
+    let result = null;
+    try {
+      if (body) {
+        result = await axios[method]<T>(this.buildUrl(resource), body, {
+          ...options,
+        });
+        return result;
+      }
 
-    return await axios[method]<T>(this.buildUrl(resource), options);
+      result = await axios[method]<T>(this.buildUrl(resource), { ...options });
+    } catch (error) {
+      const response = error.response as T;
+
+      result = response;
+    }
+    return result;
   }
 
   async getById(id: string, options: AxiosRequestConfig<any> = {}) {

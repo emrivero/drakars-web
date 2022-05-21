@@ -9,6 +9,7 @@ import { PrimaryTypography } from "../../../components/molecules/primary-typogra
 import { SecondaryTypography } from "../../../components/molecules/secondary-typography";
 import { Layout } from "../../../components/templates/client/layout";
 import { CommonSection } from "../../../components/templates/client/layout/common-section";
+import { Routes } from "../../../routes/routes";
 
 import { useRentCarService } from "../../../service/rent-car/application";
 import { useStore } from "../../../store";
@@ -34,7 +35,7 @@ export const RentSuccess: FC = () => {
       !selectedVehicle?.id &&
       !userData?.dni
     ) {
-      navigate("/rent/location-date");
+      navigate(Routes.LOCATION_DATE_PAGE);
     }
     return () => clearer.clear();
   });

@@ -12,6 +12,7 @@ import { RentValidation } from "./model/RentValidation";
 export class FilterRentOfficeService {
   private readonly client = new OfficeClient();
   private static instance: FilterRentOfficeService = null;
+  private static version = 0;
 
   static create() {
     if (this.instance) {

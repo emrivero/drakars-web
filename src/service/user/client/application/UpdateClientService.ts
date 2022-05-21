@@ -25,6 +25,7 @@ export class UpdateClientService {
       family_name: info.family_name,
       name: info.name,
       phone: info.phone,
+      dni: info.dni,
     });
 
     this.setClient(data);

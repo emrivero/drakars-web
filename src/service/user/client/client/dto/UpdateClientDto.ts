@@ -4,4 +4,6 @@ export class UpdateClientDto {
   family_name: string;
 
   phone: string;
+
+  dni: string;
 }

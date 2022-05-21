@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useStore } from "../../../store";
 import { RentCarClient } from "../client";
 import { ClearRentDataService } from "./ClearRentService";
+import { ConfirmFormValidator } from "./ConfirmFormValidator";
 import { ConfirmRentService } from "./ConfirmRentService";
 import { EditRentService } from "./EditRentService";
 import { FilterAvailableVehicleService } from "./FilterAvailableVehicleService";
@@ -10,6 +12,7 @@ import { SelectedOfficeOption } from "./mappers/SelectedOfficeOption";
 import { SaveUserDataService } from "./SaveUserDataService";
 
 export const useRentCarService = () => {
+  const { userData } = useStore((state) => state.rentData);
   const client = new RentCarClient();
   const filterer = FilterRentOfficeService.create();
   const finder = FilterAvailableVehicleService.create();
@@ -18,7 +21,7 @@ export const useRentCarService = () => {
   const confirm = ConfirmRentService.create();
   const getter = GetConfirmDataService.create();
   const editor = EditRentService.create();
-  const [rentCarServices] = useState({
+  const [rentCarServices, setState] = useState({
     filterer,
     finder,
     clearer,
@@ -26,6 +29,7 @@ export const useRentCarService = () => {
     confirm,
     getter,
     editor,
+    ConfirmFormValidator,
     cancelRent: (dni: string, reference: string) =>
       client.delete(`${dni}/${reference}`),
     mappers: {
@@ -33,5 +37,14 @@ export const useRentCarService = () => {
     },
   });
 
-  return rentCarServices;
+  return {
+    ...rentCarServices,
+    setValidator: () => {
+      ConfirmFormValidator.validate(userData);
+      setState({
+        ...rentCarServices,
+        ConfirmFormValidator,
+      });
+    },
+  };
 };

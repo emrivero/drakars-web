@@ -2,32 +2,41 @@ import { Box, Button, FormControl, Grid, TextField } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Routes } from "../../../routes/routes";
 import { useRentCarService } from "../../../service/rent-car/application";
 
 export const ManageBookingForm: FC = () => {
   const navigate = useNavigate();
   const { getter } = useRentCarService();
 
-  const [{ reference, dni }, setState] = useState<{
+  const [{ reference, email }, setState] = useState<{
     reference?: string;
-    dni?: string;
+    email?: string;
   }>({
     reference: "",
-    dni: "",
+    email: "",
   });
   const { enqueueSnackbar } = useSnackbar();
 
   const onContinue = async () => {
-    const result = await getter.fetch(dni, reference);
-    if (!result) {
+    try {
+      const result = await getter.fetch(email, reference);
+      if (!result) {
+        enqueueSnackbar("Reserva no encontrada", {
+          variant: "error",
+          autoHideDuration: 2000,
+          anchorOrigin: { horizontal: "right", vertical: "top" },
+        });
+        return;
+      }
+      navigate(Routes.EDIT_BOOKING_PAGE);
+    } catch (e) {
       enqueueSnackbar("Reserva no encontrada", {
         variant: "error",
         autoHideDuration: 2000,
         anchorOrigin: { horizontal: "right", vertical: "top" },
       });
-      return;
     }
-    navigate("/home/services/edit-booking");
   };
 
   return (
@@ -36,7 +45,7 @@ export const ManageBookingForm: FC = () => {
         <Grid item xs={12}>
           <FormControl fullWidth>
             <TextField
-              onChange={(e) => setState({ dni, reference: e.target.value })}
+              onChange={(e) => setState({ email, reference: e.target.value })}
               value={reference}
               required
               type="text"
@@ -50,14 +59,19 @@ export const ManageBookingForm: FC = () => {
         <Grid item xs={12}>
           <FormControl fullWidth>
             <TextField
-              onChange={(e) => setState({ dni: e.target.value, reference })}
-              value={dni}
+              onChange={(e) => setState({ email: e.target.value, reference })}
+              value={email}
               required
-              label={"DNI/NIE"}
-              type={"dni"}
+              label={"Correo electrónico"}
+              type={"email"}
               fullWidth
               variant="outlined"
               placeholder="Introduce tu DNI/NIE"
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  onContinue();
+                }
+              }}
             />
           </FormControl>
         </Grid>
@@ -71,7 +85,7 @@ export const ManageBookingForm: FC = () => {
             }}
           >
             <Button
-              disabled={!reference || !dni}
+              disabled={!reference || !email}
               fullWidth
               sx={{ py: 2 }}
               variant="contained"

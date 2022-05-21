@@ -16,8 +16,8 @@ export class GetConfirmDataService {
     }
     return this.instance;
   }
-  async fetch(dni: string, reference: string) {
-    const { data } = await this.client.getById(`${dni}/${reference}`);
+  async fetch(email: string, reference: string) {
+    const { data } = await this.client.getById(`${email}/${reference}`);
 
     this.setState(data);
 

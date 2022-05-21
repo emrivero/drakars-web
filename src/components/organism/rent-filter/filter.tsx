@@ -14,6 +14,7 @@ import moment from "moment";
 import { FC, useEffect, useState } from "react";
 import DatePicker from "react-date-picker/dist/entry.nostyle";
 import { useNavigate } from "react-router-dom";
+import { Routes } from "../../../routes/routes";
 import { useRentCarService } from "../../../service/rent-car/application";
 import { HoursOptions } from "../../../service/rent-car/application/model/HoursOptions";
 import { useStore } from "../../../store";
@@ -81,7 +82,7 @@ export const Filter: FC<FilterProps> = ({ sx = {}, showTitle = true }) => {
   return (
     <Form
       disabledSubmit={!active}
-      handleSubmit={() => navigate("/rent/search-car")}
+      handleSubmit={() => navigate(Routes.SEARCH_CAR_PAGE)}
       saveContent="Buscar"
       sx={sx}
     >

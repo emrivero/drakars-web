@@ -10,6 +10,7 @@ import { Layout } from "../../../components/templates/client/layout";
 import { CommonSection } from "../../../components/templates/client/layout/common-section";
 import { RentStepper } from "../../../components/templates/client/layout/rent-stepper";
 import { VehiclesNotFound } from "../../../components/templates/client/not-found/vehicles";
+import { Routes } from "../../../routes/routes";
 import { useRentCarService } from "../../../service/rent-car/application";
 import { useStore } from "../../../store";
 
@@ -28,7 +29,7 @@ export const SearchCar: FC = () => {
 
   useEffect(() => {
     if (!originOffice) {
-      navigate("/rent/location-date");
+      navigate(Routes.LOCATION_DATE_PAGE);
     }
     finder.list();
     return () => finder.clear();
@@ -42,7 +43,7 @@ export const SearchCar: FC = () => {
     <Layout showFooter={false}>
       <RentStepper
         stepperProps={{ activeStep: 1 }}
-        backLink="/rent/location-date"
+        backLink={Routes.LOCATION_DATE_PAGE}
       />
       <CommonSection>
         {data?.length > 0 ? (
@@ -73,7 +74,7 @@ export const SearchCar: FC = () => {
                       actionText="Elegir"
                       onAction={() => {
                         filterer.selectVehicle(data);
-                        navigate("/rent/confirm");
+                        navigate(Routes.CONFIRM_PAGE);
                       }}
                       data={data}
                       imageSrc="https://www.centauro.net/_next/image/?url=https%3A%2F%2Fcdn.centauro.net%2Fweb%2FA_400738ceb4.jpg&w=384&q=90"

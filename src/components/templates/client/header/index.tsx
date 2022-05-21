@@ -23,7 +23,7 @@ import { BlackLink } from "../../../molecules/black-link";
 import { MuiLink } from "../../../molecules/link";
 
 export const Header: FC = () => {
-  const { login, logout, isAuthenticated } = useAuth();
+  const { login, logout, isAuthenticated, userInfo } = useAuth();
   const theme = useTheme();
   const { t, setLang, lang } = useTranslate();
 
@@ -174,10 +174,20 @@ export const Header: FC = () => {
               </Button>
             ) : (
               <>
-                <IconButton color="secondary" onClick={handleMenuProfile}>
-                  <AccountCircle fontSize="large" />
-                  <KeyboardArrowDown />
-                </IconButton>
+                <Button
+                  variant="outlined"
+                  endIcon={
+                    <>
+                      <AccountCircle />
+                      <KeyboardArrowDown />
+                    </>
+                  }
+                  color="secondary"
+                  onClick={handleMenuProfile}
+                  size="large"
+                >
+                  {userInfo.name}
+                </Button>
                 <Menu
                   open={openProfileMenu}
                   anchorEl={profileAnchor}

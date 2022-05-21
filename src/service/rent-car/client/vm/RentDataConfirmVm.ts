@@ -17,16 +17,4 @@ export class RentDataConfirmVm extends BaseVm {
   total: number;
   startHour: string;
   endHour: string;
-  // "id": 3,
-  // "createdAt": "2022-05-12T23:55:53.027Z",
-  // "updatedAt": "2022-05-12T23:55:53.027Z",
-  // "name": "Emilio",
-  // "family_name": "Perez",
-  // "email": "correo@erm.es",
-  // "role": "client",
-  // "profileImage": null,
-  // "email_verified": false,
-  // "preferred_username": "",
-  // "given_name": "",
-  // "dni": "28849848M"
 }

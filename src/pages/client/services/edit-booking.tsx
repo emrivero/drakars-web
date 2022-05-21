@@ -9,6 +9,7 @@ import { PrimaryTypography } from "../../../components/molecules/primary-typogra
 import { EditManageModal } from "../../../components/organism/edit-booking-form";
 import { Layout } from "../../../components/templates/client/layout";
 import { CommonSection } from "../../../components/templates/client/layout/common-section";
+import { Routes } from "../../../routes/routes";
 import { useRentCarService } from "../../../service/rent-car/application";
 import { useStore } from "../../../store";
 
@@ -82,12 +83,12 @@ export const EditBooking: FC = () => {
       })
         .then(() => {
           setTimeout(() => {
-            navigate("/");
+            navigate(Routes.HOME_PAGE);
           }, 300);
         })
         .catch(() => {
           setTimeout(() => {
-            navigate("/");
+            navigate(Routes.HOME_PAGE);
           }, 300);
         });
     });

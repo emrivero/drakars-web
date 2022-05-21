@@ -7,6 +7,7 @@ import { UserRegister } from "../../../components/organism/user-register";
 import { Layout } from "../../../components/templates/client/layout";
 import { CommonSection } from "../../../components/templates/client/layout/common-section";
 import { RentStepper } from "../../../components/templates/client/layout/rent-stepper";
+import { Routes } from "../../../routes/routes";
 
 import { useStore } from "../../../store";
 
@@ -18,9 +19,9 @@ export const Confirm: FC = () => {
 
   useEffect(() => {
     if (!selectedOffice || !selectedVehicle) {
-      navigate("/rent/location-date");
+      navigate(Routes.LOCATION_DATE_PAGE);
     }
-  });
+  }, []);
 
   if (!selectedOffice || !selectedVehicle) {
     return <LoadingPage />;
@@ -30,7 +31,7 @@ export const Confirm: FC = () => {
     <Layout showFooter={false}>
       <RentStepper
         stepperProps={{ activeStep: 2 }}
-        backLink="/rent/search-car"
+        backLink={Routes.SEARCH_CAR_PAGE}
       />
       <CommonSection>
         <Grid container>
