@@ -34,11 +34,11 @@ export const AdminSidebar: FC = () => {
       variant="permanent"
       PaperProps={{
         sx: {
-          width: "280px",
+          width: { md: "280px", xs: "200px" },
           flexShrink: 0,
           backgroundColor: theme.palette.primary.dark,
           "& .MuiDrawer-paper": {
-            width: "280px",
+            width: { md: "280px", xs: "200px" },
             boxSizing: "border-box",
           },
         },

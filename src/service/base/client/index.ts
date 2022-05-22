@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import interceptors from "./interceptors";
+import { KeyStore } from "./key-store";
 const isProd: boolean = process.env.NODE_ENV === "production";
 
 axios.defaults.headers.common.Accept = "application/json";
@@ -43,14 +44,19 @@ export abstract class Client<
   protected async genericRequest<T, E = null>({
     method,
     body,
-    options = {},
+    options = {
+      headers: {},
+    },
     resource,
   }: GenericRequestParams<E>): Promise<AxiosResponse<T>> {
     let result = null;
     try {
       if (body) {
         result = await axios[method]<T>(this.buildUrl(resource), body, {
-          ...options,
+          headers: {
+            ...options.headers,
+            Authorization: KeyStore.apiKey,
+          },
         });
         return result;
       }
@@ -64,28 +70,34 @@ export abstract class Client<
     return result;
   }
 
-  async getById(id: string, options: AxiosRequestConfig<any> = {}) {
-    return await this.genericRequest<GetResponseData>({
+  async getById<T extends GetResponseData>(
+    id: string,
+    options: AxiosRequestConfig<any> = {}
+  ) {
+    return await this.genericRequest<T>({
       method: "get",
       resource: id,
       options,
     });
   }
 
-  async get(resource: string, options: AxiosRequestConfig<any> = {}) {
-    return await this.genericRequest<GetAllResponseData>({
+  async get<T extends GetAllResponseData>(
+    resource: string,
+    options: AxiosRequestConfig<any> = {}
+  ) {
+    return await this.genericRequest<T>({
       method: "get",
       resource,
       options,
     });
   }
 
-  async post(
+  async post<T extends PostResponseData, E extends PostRequestData>(
     resource: string,
-    body: PostRequestData,
+    body: E,
     options: AxiosRequestConfig<any> = {}
   ) {
-    return await this.genericRequest<PostResponseData, PostRequestData>({
+    return await this.genericRequest<T, E>({
       method: "post",
       body,
       resource,
@@ -93,12 +105,12 @@ export abstract class Client<
     });
   }
 
-  async put(
+  async put<T extends PutResponseData, E extends PutRequestData>(
     resource: string,
-    body: PutRequestData,
+    body: E,
     options: AxiosRequestConfig = {}
   ) {
-    return await this.genericRequest<PutResponseData, PutRequestData>({
+    return await this.genericRequest<T, E>({
       method: "put",
       body,
       resource,
@@ -106,12 +118,12 @@ export abstract class Client<
     });
   }
 
-  async patch(
+  async patch<T extends PatchResponseData, E extends PatchRequestData>(
     resource: string,
-    body: PatchRequestData,
+    body: E,
     options: AxiosRequestConfig = {}
   ) {
-    return await this.genericRequest<PatchResponseData, PatchRequestData>({
+    return await this.genericRequest<T, E>({
       method: "patch",
       body,
       resource,
@@ -119,8 +131,11 @@ export abstract class Client<
     });
   }
 
-  async delete(resource: string, options: AxiosRequestConfig<any> = {}) {
-    return await this.genericRequest<DeleteResponseData>({
+  async delete<T extends DeleteResponseData>(
+    resource: string,
+    options: AxiosRequestConfig<any> = {}
+  ) {
+    return await this.genericRequest<T>({
       method: "delete",
       resource,
       options,
@@ -132,5 +147,49 @@ export abstract class Client<
     eventSourceInitDict?: EventSourceInit
   ): EventSource {
     return new EventSource(this.buildUrl(resource), eventSourceInitDict);
+  }
+}
+
+export abstract class AdminClientAbs<
+  GetResponseData,
+  GetAllResponseData,
+  PostResponseData,
+  PutResponseData,
+  PatchResponseData,
+  DeleteResponseData,
+  PostRequestData,
+  PutRequestData,
+  PatchRequestData
+> extends Client<
+  GetResponseData,
+  GetAllResponseData,
+  PostResponseData,
+  PutResponseData,
+  PatchResponseData,
+  DeleteResponseData,
+  PostRequestData,
+  PutRequestData,
+  PatchRequestData
+> {
+  protected genericRequest<T, E = null>({
+    method,
+    body,
+    options = {
+      headers: {},
+    },
+    resource,
+  }: GenericRequestParams<E>): Promise<AxiosResponse<T, any>> {
+    return super.genericRequest({
+      method,
+      body,
+      options: {
+        ...options,
+        headers: {
+          ...options.headers,
+          Authorization: KeyStore.adminApiKey,
+        },
+      },
+      resource,
+    });
   }
 }

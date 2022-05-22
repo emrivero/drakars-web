@@ -1,10 +1,19 @@
 import { useTheme } from "@emotion/react";
-import { Avatar, Fade, Grid, Menu, MenuItem, Typography } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  Fade,
+  Grid,
+  Menu,
+  MenuItem,
+  Typography,
+} from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import { deepOrange } from "@mui/material/colors";
 import Toolbar from "@mui/material/Toolbar";
 import { Theme } from "@mui/system";
 import { FC, useState } from "react";
+import { useAuth } from "../../../../auth/use-auth";
 import { Capitalize } from "../../../atoms/transforms/capitalize";
 import { BlackLink } from "../../../molecules/black-link";
 
@@ -14,7 +23,7 @@ export interface AdminHeaderProps {
 
 export const AdminHeader: FC<AdminHeaderProps> = ({ title }) => {
   const theme: Partial<Theme> = useTheme();
-  // const { login, logout, isAuthenticated } = useAuth();
+  const { login, logout, isAuthenticated } = useAuth();
 
   const [profileAnchor, setProfileAnchor] = useState<null | HTMLElement>(null);
   const open = Boolean(profileAnchor);
@@ -32,7 +41,7 @@ export const AdminHeader: FC<AdminHeaderProps> = ({ title }) => {
       <AppBar
         position="fixed"
         sx={{
-          width: `calc(100% - 280px)`,
+          width: { md: `calc(100% - 280px)`, xs: `calc(100% - 200px)` },
           ml: "280px",
         }}
       >
@@ -71,9 +80,9 @@ export const AdminHeader: FC<AdminHeaderProps> = ({ title }) => {
           </BlackLink>
         </MenuItem>
         <MenuItem>
-          <BlackLink to="logout">
+          <Button onClick={logout}>
             <Capitalize>desconectar</Capitalize>
-          </BlackLink>
+          </Button>
         </MenuItem>
       </Menu>
     </>

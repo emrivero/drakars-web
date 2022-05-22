@@ -13,7 +13,10 @@ export const AdminLayout: FC<AdminLayoutProps> = ({ children, title }) => {
       <CssBaseline />
       <AdminHeader title={title} />
       <AdminSidebar />
-      <Box component="main" sx={{ flexGrow: 1, ml: "280px", p: 3 }}>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, ml: { md: "280px", sm: "200px" }, p: 3 }}
+      >
         <Toolbar />
         {children}
       </Box>
