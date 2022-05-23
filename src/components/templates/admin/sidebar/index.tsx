@@ -10,7 +10,6 @@ import {
   AccordionDetails,
   AccordionSummary,
   Divider,
-  Link,
   ListItem,
   Toolbar,
   Typography,
@@ -23,6 +22,7 @@ import { FC } from "react";
 import { Capitalize } from "../../../atoms/transforms/capitalize";
 import { Upper } from "../../../atoms/transforms/upper";
 import { BlackLink } from "../../../molecules/black-link";
+import { MuiLink } from "../../../molecules/link";
 
 export const AdminSidebar: FC = () => {
   const theme = useTheme();
@@ -45,7 +45,7 @@ export const AdminSidebar: FC = () => {
       }}
     >
       <Toolbar>
-        <Link href="/admin" sx={{ textDecoration: "none" }}>
+        <MuiLink to={"/admin"}>
           <Typography
             align="center"
             variant="h5"
@@ -56,7 +56,7 @@ export const AdminSidebar: FC = () => {
           >
             <Upper>drakars admin</Upper>
           </Typography>
-        </Link>
+        </MuiLink>
       </Toolbar>
       <Divider />
       <List>

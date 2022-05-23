@@ -3,7 +3,9 @@ import { Box, Button, Grid, Paper, Typography, useTheme } from "@mui/material";
 import { useConfirm } from "material-ui-confirm";
 import { useState } from "react";
 import { useAuth } from "../../auth/use-auth";
+import { BlackLink } from "../../components/molecules/black-link";
 import { PrimaryTypography } from "../../components/molecules/primary-typography";
+import { ManageRent } from "../../components/organism/manage-rent";
 import { RegisterAdmin } from "../../components/organism/register-admin";
 import { RegisterEditor } from "../../components/organism/register-admin/register-editor";
 import { NumberStatistic } from "../../components/organism/statistics/number-statistic";
@@ -15,6 +17,7 @@ const AdminHome = () => {
   const { userInfo } = useAuth();
   const [openRegisterAdmin, setOpenRegisterAdmin] = useState(false);
   const [openRegisterEditor, setOpenRegisterEditor] = useState(false);
+  const [openManageRent, setOpenManageRent] = useState(false);
   const confirm = useConfirm();
   const { creator } = useAdminServices();
 
@@ -65,7 +68,7 @@ const AdminHome = () => {
   };
 
   const onCancelRegisterEditor = () => {
-    setOpenRegisterEditor(false);
+    setOpenManageRent(false);
   };
 
   const onSaveRegisterEditor = async () => {
@@ -108,6 +111,14 @@ const AdminHome = () => {
         </>
       ),
     });
+  };
+
+  const onCancelManageRent = () => {
+    setOpenManageRent(false);
+  };
+
+  const onSaveManageRent = async () => {
+    setOpenManageRent(true);
   };
 
   return (
@@ -160,6 +171,7 @@ const AdminHome = () => {
               </Grid>
               <Grid item sm={12}>
                 <Button
+                  onClick={() => setOpenManageRent(true)}
                   color="info"
                   fullWidth
                   sx={{ py: 2, backgroundColor: "#fff" }}
@@ -194,6 +206,8 @@ const AdminHome = () => {
               </Grid>
               <Grid item sm={12}>
                 <Button
+                  component={BlackLink}
+                  to="/admin/offices/add"
                   color="info"
                   fullWidth
                   sx={{ py: 2, backgroundColor: "#fff" }}
@@ -205,6 +219,8 @@ const AdminHome = () => {
               </Grid>
               <Grid item sm={12}>
                 <Button
+                  component={BlackLink}
+                  to="/admin/vehicles/add"
                   color="info"
                   fullWidth
                   sx={{ py: 2, backgroundColor: "#fff" }}
@@ -212,17 +228,6 @@ const AdminHome = () => {
                   size="large"
                 >
                   <Typography variant="button">Alta de vehículo</Typography>
-                </Button>
-              </Grid>
-              <Grid item sm={12}>
-                <Button
-                  color="info"
-                  fullWidth
-                  sx={{ py: 2, backgroundColor: "#fff" }}
-                  startIcon={<AdminPanelSettings />}
-                  size="large"
-                >
-                  <Typography variant="button">Baja de vehículo</Typography>
                 </Button>
               </Grid>
             </Grid>
@@ -238,6 +243,11 @@ const AdminHome = () => {
         open={openRegisterEditor}
         handleCancel={onCancelRegisterEditor}
         handleSave={onSaveRegisterEditor}
+      />
+      <ManageRent
+        open={openManageRent}
+        handleCancel={onCancelManageRent}
+        handleSave={onSaveManageRent}
       />
     </AdminLayout>
   );
