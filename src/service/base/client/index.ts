@@ -53,15 +53,22 @@ export abstract class Client<
     try {
       if (body) {
         result = await axios[method]<T>(this.buildUrl(resource), body, {
+          ...options,
           headers: {
-            ...options.headers,
             Authorization: KeyStore.apiKey,
+            ...options.headers,
           },
         });
         return result;
       }
 
-      result = await axios[method]<T>(this.buildUrl(resource), { ...options });
+      result = await axios[method]<T>(this.buildUrl(resource), {
+        ...options,
+        headers: {
+          Authorization: KeyStore.apiKey,
+          ...options.headers,
+        },
+      });
     } catch (error) {
       const response = error.response as T;
 
@@ -179,6 +186,7 @@ export abstract class AdminClientAbs<
     },
     resource,
   }: GenericRequestParams<E>): Promise<AxiosResponse<T, any>> {
+    const key = KeyStore.adminApiKey;
     return super.genericRequest({
       method,
       body,
@@ -186,7 +194,7 @@ export abstract class AdminClientAbs<
         ...options,
         headers: {
           ...options.headers,
-          Authorization: KeyStore.adminApiKey,
+          Authorization: key,
         },
       },
       resource,

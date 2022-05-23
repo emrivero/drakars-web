@@ -177,6 +177,17 @@ const AdminHome = () => {
                   sx={{ py: 2, backgroundColor: "#fff" }}
                   size="large"
                 >
+                  <Typography variant="button">Crear reserva</Typography>
+                </Button>
+              </Grid>
+              <Grid item sm={12}>
+                <Button
+                  onClick={() => setOpenManageRent(true)}
+                  color="info"
+                  fullWidth
+                  sx={{ py: 2, backgroundColor: "#fff" }}
+                  size="large"
+                >
                   <Typography variant="button">Gestionar reserva</Typography>
                 </Button>
               </Grid>

@@ -26,16 +26,18 @@ export class AdminClient extends AdminClientAbs<
   }
 
   checkIn(id: number) {
-    return this.genericRequest<RentDataConfirmVm>({
+    return this.genericRequest<RentDataConfirmVm, any>({
       method: "patch",
       resource: `rent/checkIn/${id}`,
+      body: {},
     });
   }
 
   checkOut(id: number) {
-    return this.genericRequest<RentDataConfirmVm>({
+    return this.genericRequest<RentDataConfirmVm, any>({
       method: "patch",
       resource: `rent/checkOut/${id}`,
+      body: {},
     });
   }
 }

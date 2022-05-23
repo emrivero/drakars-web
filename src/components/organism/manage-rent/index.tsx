@@ -27,7 +27,10 @@ export const ManageRent: FC<RegisterEditorProps> = ({
   handleSave,
   handleCancel,
 }) => {
-  const [error, setError] = useState(false);
+  const [error, setError] = useState({
+    msg: "",
+    isError: false,
+  });
   const { manageRent } = useAdminServices();
   const { rentInfo, rentRefValue } = useStore();
 
@@ -36,14 +39,26 @@ export const ManageRent: FC<RegisterEditorProps> = ({
 
   const onGetRent = async () => {
     const { status } = await manageRent.getRent();
-    setError(false);
+    setError({ isError: false, msg: "" });
+    if (status === 409) {
+      setError({
+        isError: true,
+        msg: "La reserva no pertenece a esta oficina",
+      });
+    }
     if (status > 300) {
-      setError(true);
+      setError({
+        isError: true,
+        msg: "No se ha encontrado reserva",
+      });
     }
   };
 
   const cancel = () => {
-    setError(false);
+    setError({
+      isError: false,
+      msg: "",
+    });
     handleCancel(null);
     manageRent.clear();
   };
@@ -73,7 +88,7 @@ export const ManageRent: FC<RegisterEditorProps> = ({
           <TextField
             onChange={(e) => manageRent.changeRentValue(e.target.value)}
             fullWidth
-            error={error}
+            error={error.isError}
             placeholder="Busque reserva por correo, dni o referencia"
             label="Buscar Reserva"
             value={rentRefValue}
@@ -83,9 +98,7 @@ export const ManageRent: FC<RegisterEditorProps> = ({
               }
             }}
           />
-          {error && (
-            <ErrorTypography>No se ha encontrado reserva</ErrorTypography>
-          )}
+          {error.isError && <ErrorTypography>{error.msg}</ErrorTypography>}
           <DialogActions>
             <Button fullWidth variant="contained" onClick={() => onGetRent()}>
               Aceptar
