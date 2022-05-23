@@ -171,6 +171,8 @@ const AdminHome = () => {
               </Grid>
               <Grid item sm={12}>
                 <Button
+                  component={BlackLink}
+                  to="/admin/rents/add"
                   onClick={() => setOpenManageRent(true)}
                   color="info"
                   fullWidth

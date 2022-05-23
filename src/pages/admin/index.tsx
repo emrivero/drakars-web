@@ -8,6 +8,8 @@ import { KeyStore } from "../../service/base/client/key-store";
 import AdminHome from "./home";
 import { ListOffices } from "./offices";
 import { AddOffice } from "./offices/AddOffice";
+import { Rents } from "./rents";
+import { CreateRent } from "./rents/create-rent";
 import { GeneralStats } from "./statistics/general";
 import { OfficesStats } from "./statistics/offices";
 import { UserStats } from "./statistics/users";
@@ -44,6 +46,10 @@ export const AdminWebApp: FC = () => {
           <Route path="offices">
             <Route path="" element={<ListOffices />} />
             <Route path="add" element={<AddOffice />} />
+          </Route>
+          <Route path="rents">
+            <Route path="" element={<Rents />} />
+            <Route path="add" element={<CreateRent />} />
           </Route>
           <Route path="vehicles">
             <Route path="" element={<ListVehicles />} />

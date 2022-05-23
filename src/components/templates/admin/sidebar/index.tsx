@@ -1,6 +1,7 @@
 import {
   BarChart,
   Business,
+  CarRentalRounded,
   DirectionsCar,
   ExpandMore,
   Person,
@@ -60,6 +61,48 @@ export const AdminSidebar: FC = () => {
       </Toolbar>
       <Divider />
       <List>
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMore color="primary" />}>
+            <ListItem>
+              <CarRentalRounded />
+              <Box sx={{ ml: 2 }}>
+                <Typography variant="h6">Reservas</Typography>
+              </Box>
+            </ListItem>
+          </AccordionSummary>
+          <AccordionDetails>
+            <List>
+              <ListItem>
+                <BlackLink
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    ml: 2,
+                  }}
+                  to="/admin/rents/add"
+                >
+                  <Typography>
+                    <Capitalize>Crear reserva</Capitalize>
+                  </Typography>
+                </BlackLink>
+              </ListItem>
+              <ListItem>
+                <BlackLink
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    ml: 2,
+                  }}
+                  to="/admin/rents"
+                >
+                  <Typography>
+                    <Capitalize>Lista de reservas</Capitalize>
+                  </Typography>
+                </BlackLink>
+              </ListItem>
+            </List>
+          </AccordionDetails>
+        </Accordion>
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMore color="primary" />}>
             <ListItem>
