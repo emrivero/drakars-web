@@ -96,7 +96,7 @@ export const AdminSidebar: FC = () => {
                   to="/admin/rents"
                 >
                   <Typography>
-                    <Capitalize>Lista de reservas</Capitalize>
+                    <Capitalize>Gestionar Reserva</Capitalize>
                   </Typography>
                 </BlackLink>
               </ListItem>
@@ -135,7 +135,7 @@ export const AdminSidebar: FC = () => {
                     alignItems: "center",
                     ml: 2,
                   }}
-                  to="/admin/editors"
+                  to="/admin/user/editors"
                 >
                   <Typography>
                     <Capitalize>editores</Capitalize>
@@ -149,7 +149,7 @@ export const AdminSidebar: FC = () => {
                     alignItems: "center",
                     ml: 2,
                   }}
-                  to="/admin/admins"
+                  to="/admin/user/admins"
                 >
                   <Typography>
                     <Capitalize>administradores</Capitalize>

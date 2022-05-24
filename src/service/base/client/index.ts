@@ -1,6 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import interceptors from "./interceptors";
-import { KeyStore } from "./key-store";
 const isProd: boolean = process.env.NODE_ENV === "production";
 
 axios.defaults.headers.common.Accept = "application/json";
@@ -54,20 +53,12 @@ export abstract class Client<
       if (body) {
         result = await axios[method]<T>(this.buildUrl(resource), body, {
           ...options,
-          headers: {
-            Authorization: KeyStore.apiKey,
-            ...options.headers,
-          },
         });
         return result;
       }
 
       result = await axios[method]<T>(this.buildUrl(resource), {
         ...options,
-        headers: {
-          Authorization: KeyStore.apiKey,
-          ...options.headers,
-        },
       });
     } catch (error) {
       const response = error.response as T;
@@ -186,16 +177,11 @@ export abstract class AdminClientAbs<
     },
     resource,
   }: GenericRequestParams<E>): Promise<AxiosResponse<T, any>> {
-    const key = KeyStore.adminApiKey;
     return super.genericRequest({
       method,
       body,
       options: {
         ...options,
-        headers: {
-          ...options.headers,
-          Authorization: key,
-        },
       },
       resource,
     });

@@ -1,20 +1,22 @@
 import { AuthClientEvent } from "@react-keycloak/core/lib/types";
 import { ReactKeycloakProvider } from "@react-keycloak/web";
+import axios from "axios";
 import { FC } from "react";
 import { Route, Routes } from "react-router-dom";
 import { LoadingPage } from "../../components/molecules/loading-page";
 import keycloakCfg from "../../config/keycloak-admin";
-import { KeyStore } from "../../service/base/client/key-store";
 import AdminHome from "./home";
 import { ListOffices } from "./offices";
 import { AddOffice } from "./offices/AddOffice";
 import { Rents } from "./rents";
-import { CreateRent } from "./rents/create-rent";
+import { CreateRent } from "./rents/AddRent";
 import { GeneralStats } from "./statistics/general";
 import { OfficesStats } from "./statistics/offices";
 import { UserStats } from "./statistics/users";
 import { VehiclesStats } from "./statistics/vehicles";
+import { AdminUsers } from "./users/admins";
 import { CreateAdmin } from "./users/admins/create";
+import { EditorUsers } from "./users/editors";
 import { ListVehicles } from "./vehicles";
 import { AddVehicle } from "./vehicles/AddVehicle";
 
@@ -23,8 +25,9 @@ const eventLogger = (event: AuthClientEvent, error: unknown) => {
 };
 
 const tokenLogger = (tokens: { token: string }) => {
-  // axios.defaults.headers.common.Authorization = `Bearer ${tokens?.token}`;
-  KeyStore.adminApiKey = `Bearer ${tokens?.token}`;
+  axios.defaults.headers.common.Authorization = `Bearer ${tokens?.token}`;
+  console.log(tokens?.token);
+  // KeyStore.adminApiKey = `Bearer ${tokens?.token}`;
 };
 
 export const AdminWebApp: FC = () => {
@@ -57,7 +60,8 @@ export const AdminWebApp: FC = () => {
           </Route>
           <Route path="user">
             <Route path="admin/create" element={<CreateAdmin />} />
-            <Route path="admin/list" element={<ListOffices />} />
+            <Route path="admins" element={<AdminUsers />} />
+            <Route path="editors" element={<EditorUsers />} />
           </Route>
           <Route path="statistics">
             <Route path="general" element={<GeneralStats />} />

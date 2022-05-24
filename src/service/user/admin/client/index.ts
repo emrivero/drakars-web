@@ -1,7 +1,10 @@
 import { AdminClientAbs } from "../../../base/client";
+import { PaginateVO } from "../../../base/client/dto/PaginateDto";
+import { PaginateVm } from "../../../base/client/view/PaginateVm";
 import { RentDataConfirmVm } from "../../../rent-car/client/vm/RentDataConfirmVm";
 import { CreateAdminDto } from "./dto/CreateAdminDto";
 import { AdminVm } from "./view/AdminVm";
+import { EditorVm } from "./view/EditorVm";
 
 export class AdminClient extends AdminClientAbs<
   unknown,
@@ -38,6 +41,21 @@ export class AdminClient extends AdminClientAbs<
       method: "patch",
       resource: `rent/checkOut/${id}`,
       body: {},
+    });
+  }
+
+  paginatedAdmin(data: PaginateVO = {}) {
+    return this.genericRequest<PaginateVm<AdminVm>, PaginateVO>({
+      method: "post",
+      resource: "paginate/admin",
+      body: data,
+    });
+  }
+  paginatedEditor(data: PaginateVO = {}) {
+    return this.genericRequest<PaginateVm<EditorVm>, PaginateVO>({
+      method: "post",
+      resource: "paginate/editor",
+      body: data,
     });
   }
 }

@@ -1,10 +1,10 @@
 import { AuthClientEvent } from "@react-keycloak/core/lib/types";
 import { ReactKeycloakProvider } from "@react-keycloak/web";
+import axios from "axios";
 import { FC } from "react";
 import { Route, Routes } from "react-router-dom";
 import { LoadingPage } from "../../components/molecules/loading-page";
 import keycloakCfg from "../../config/keycloak";
-import { KeyStore } from "../../service/base/client/key-store";
 import { GetClientService } from "../../service/user/client/application/GetClientService";
 import { ClientClient } from "../../service/user/client/client";
 import { isLoggedInfo } from "../../store/logged-info/actions/is-logged-info";
@@ -35,8 +35,8 @@ const eventLogger = (event: AuthClientEvent) => {
 };
 
 const tokenLogger = (tokens: { token: string }) => {
-  // axios.defaults.headers.common.Authorization = `Bearer ${tokens?.token}`;
-  KeyStore.apiKey = `Bearer ${tokens?.token}`;
+  axios.defaults.headers.common.Authorization = `Bearer ${tokens?.token}`;
+  // KeyStore.apiKey = `Bearer ${tokens?.token}`;
   if (tokens?.token && !isLoggedInfo()) {
     new ClientClient().post("", {});
     setLoggedInfo(true);
