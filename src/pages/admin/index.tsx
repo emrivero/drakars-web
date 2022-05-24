@@ -16,6 +16,7 @@ import { UserStats } from "./statistics/users";
 import { VehiclesStats } from "./statistics/vehicles";
 import { AdminUsers } from "./users/admins";
 import { CreateAdmin } from "./users/admins/create";
+import { ClientUsers } from "./users/clients";
 import { EditorUsers } from "./users/editors";
 import { ListVehicles } from "./vehicles";
 import { AddVehicle } from "./vehicles/AddVehicle";
@@ -25,8 +26,8 @@ const eventLogger = (event: AuthClientEvent, error: unknown) => {
 };
 
 const tokenLogger = (tokens: { token: string }) => {
+  console.log(tokens.token);
   axios.defaults.headers.common.Authorization = `Bearer ${tokens?.token}`;
-  console.log(tokens?.token);
   // KeyStore.adminApiKey = `Bearer ${tokens?.token}`;
 };
 
@@ -62,6 +63,7 @@ export const AdminWebApp: FC = () => {
             <Route path="admin/create" element={<CreateAdmin />} />
             <Route path="admins" element={<AdminUsers />} />
             <Route path="editors" element={<EditorUsers />} />
+            <Route path="clients" element={<ClientUsers />} />
           </Route>
           <Route path="statistics">
             <Route path="general" element={<GeneralStats />} />

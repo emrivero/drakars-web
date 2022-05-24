@@ -21,6 +21,10 @@ export const EditorUsers: FC = () => {
     paginatorEditor.paginate();
   }, [currentPage, itemsPerPage, search]);
 
+  useEffect(() => {
+    paginatorEditor.paginate();
+  }, []);
+
   return (
     <AdminLayout title="Editores">
       <AdminPagination
@@ -47,13 +51,16 @@ export const EditorUsers: FC = () => {
           ActionsProps: {
             onEdit: (row) => console.log(row),
           },
-          rows: data.data.map((value) => ({
-            index: `${value.id}`,
-            name: value.name,
-            family_name: value.family_name,
-            email: value.email,
-            office: value.office.address,
-          })),
+          rows:
+            data.data?.length > 0
+              ? data.data.map((value) => ({
+                  index: `${value?.id}`,
+                  name: value?.name,
+                  family_name: value?.family_name,
+                  email: value?.email,
+                  // office: value?.office?.address,
+                }))
+              : [],
         }}
       />
     </AdminLayout>

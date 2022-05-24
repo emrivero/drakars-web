@@ -1,5 +1,4 @@
 import {
-  BarChart,
   Business,
   CarRentalRounded,
   DirectionsCar,
@@ -51,6 +50,7 @@ export const AdminSidebar: FC = () => {
             align="center"
             variant="h5"
             sx={{
+              textDecoration: "none",
               color: theme.palette.common.white,
               fontFamily: `"Open Sans", sans-serif`,
             }}
@@ -121,7 +121,7 @@ export const AdminSidebar: FC = () => {
                     alignItems: "center",
                     ml: 2,
                   }}
-                  to="/admin/users"
+                  to="/admin/user/clients"
                 >
                   <Typography>
                     <Capitalize>clientes</Capitalize>
@@ -257,7 +257,7 @@ export const AdminSidebar: FC = () => {
             </List>
           </AccordionDetails>
         </Accordion>
-        <Accordion>
+        {/* <Accordion>
           <AccordionSummary expandIcon={<ExpandMore color="primary" />}>
             <ListItem>
               <BarChart />
@@ -326,7 +326,7 @@ export const AdminSidebar: FC = () => {
               </ListItem>
             </List>
           </AccordionDetails>
-        </Accordion>
+        </Accordion> */}
       </List>
     </Drawer>
   );

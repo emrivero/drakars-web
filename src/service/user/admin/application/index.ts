@@ -2,6 +2,7 @@ import { useState } from "react";
 import { CreateAdminService } from "./CreateAdminService";
 import { ManageRentService } from "./ManageRentService";
 import { PaginateAdminService } from "./PaginateAdminService";
+import { PaginateClientService } from "./PaginateClientService";
 import { PaginateEditorService } from "./PaginateEditorService";
 
 export const useAdminServices = () => {
@@ -10,6 +11,7 @@ export const useAdminServices = () => {
     manageRent: ManageRentService.create(),
     paginatorAdmin: PaginateAdminService.create(),
     paginatorEditor: PaginateEditorService.create(),
+    paginatorClient: PaginateClientService.create(),
   });
 
   return adminServices;

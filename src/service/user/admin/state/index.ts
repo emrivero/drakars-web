@@ -3,6 +3,7 @@ import { PaginateVm } from "../../../base/client/view/PaginateVm";
 import { PaginateOpts } from "../../../office/application/model/paginate-office";
 import { OfficeVm } from "../../../office/client/view/OfficeVm";
 import { RentDataConfirmVm } from "../../../rent-car/client/vm/RentDataConfirmVm";
+import { ClientUserVm } from "../../client/client/vm/ClientUserVm";
 import { CreateAdminDto } from "../client/dto/CreateAdminDto";
 import { CreateEditorDto } from "../client/dto/CreateEditorDto";
 import { AdminVm } from "../client/view/AdminVm";
@@ -21,6 +22,10 @@ export interface AdminUserProps {
   };
   paginatedAdmins: {
     data: PaginateVm<AdminVm>;
+    paginationOptions: PaginateOpts;
+  };
+  paginatedClients: {
+    data: PaginateVm<ClientUserVm>;
     paginationOptions: PaginateOpts;
   };
 }
@@ -59,6 +64,15 @@ export const AdminUserSlice: AdminUserProps = {
     },
     data: new PaginateVm(),
   },
+  paginatedClients: {
+    paginationOptions: {
+      currentPage: 0,
+      itemsPerPage: 10,
+      search: "",
+      totalItems: 0,
+    },
+    data: new PaginateVm(),
+  },
 };
 
 export const getAdminState: () => AdminUserProps = () => {
@@ -69,6 +83,7 @@ export const getAdminState: () => AdminUserProps = () => {
     rentRefValue,
     paginatedEditors,
     paginatedAdmins,
+    paginatedClients,
   } = get();
 
   return {
@@ -78,5 +93,6 @@ export const getAdminState: () => AdminUserProps = () => {
     rentRefValue,
     paginatedEditors,
     paginatedAdmins,
+    paginatedClients,
   };
 };

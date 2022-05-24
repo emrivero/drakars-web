@@ -43,23 +43,18 @@ export abstract class Client<
   protected async genericRequest<T, E = null>({
     method,
     body,
-    options = {
-      headers: {},
-    },
+    options = {},
     resource,
   }: GenericRequestParams<E>): Promise<AxiosResponse<T>> {
     let result = null;
+    console.log(axios.defaults.headers.common.Authorization);
     try {
       if (body) {
-        result = await axios[method]<T>(this.buildUrl(resource), body, {
-          ...options,
-        });
+        result = await axios[method]<T>(this.buildUrl(resource), body, options);
         return result;
       }
 
-      result = await axios[method]<T>(this.buildUrl(resource), {
-        ...options,
-      });
+      result = await axios[method]<T>(this.buildUrl(resource), options);
     } catch (error) {
       const response = error.response as T;
 

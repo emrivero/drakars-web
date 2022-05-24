@@ -158,12 +158,14 @@ export const TableGrid: FC<TableGridProps> = ({
   onSelect = () => null,
   paginationProps,
 }) => {
+  const _rows = rows || [];
   const [selectedRows, setSelectedRows] = useState<TableGridRow[]>([]);
-  const headerSelected = rows.length === selectedRows.length && rows.length > 0;
+  const headerSelected =
+    _rows.length === selectedRows.length && _rows.length > 0;
 
   const handleCheckAll = (_, checked) => {
     if (checked) {
-      setSelectedRows(rows);
+      setSelectedRows(_rows);
     } else {
       setSelectedRows([]);
     }
@@ -181,10 +183,10 @@ export const TableGrid: FC<TableGridProps> = ({
           onCheck={handleCheckAll}
           selectable={selectable}
           selected={headerSelected}
-          disabled={rows.length === 0}
+          disabled={_rows.length === 0}
         />
         <TableGridRow
-          rows={rows}
+          rows={_rows}
           cols={columns}
           selectable={selectable}
           onCheck={setSelectedRows}
