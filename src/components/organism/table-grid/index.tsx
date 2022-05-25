@@ -199,6 +199,3 @@ export const TableGrid: FC<TableGridProps> = ({
     </TableContainer>
   );
 };
-
-// count total de elementos
-//

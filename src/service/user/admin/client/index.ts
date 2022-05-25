@@ -2,6 +2,7 @@ import { Client } from "../../../base/client";
 import { PaginateVO } from "../../../base/client/dto/PaginateDto";
 import { PaginateVm } from "../../../base/client/view/PaginateVm";
 import { RentDataConfirmVm } from "../../../rent-car/client/vm/RentDataConfirmVm";
+import { VehicleVm } from "../../../vehicle/client/view/VehicleVm";
 import { ClientUserVm } from "../../client/client/vm/ClientUserVm";
 import { CreateAdminDto } from "./dto/CreateAdminDto";
 import { AdminVm } from "./view/AdminVm";
@@ -72,5 +73,13 @@ export class AdminClient extends Client<
     });
 
     return response;
+  }
+
+  async paginateVehicles(data: PaginateVO = {}) {
+    return await this.genericRequest<PaginateVm<VehicleVm>, PaginateVO>({
+      method: "post",
+      resource: "vehicle/paginate",
+      body: data,
+    });
   }
 }

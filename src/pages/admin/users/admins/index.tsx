@@ -1,10 +1,64 @@
-import { FC, useEffect } from "react";
-import { useNavigate } from "react-router";
+import { KeyboardArrowDown } from "@mui/icons-material";
+import { Button, Fade, Menu, MenuItem } from "@mui/material";
+import { FC, useEffect, useState } from "react";
+import { Capitalize } from "../../../../components/atoms/transforms/capitalize";
+import { BlackLink } from "../../../../components/molecules/black-link";
+import { TableGridRow } from "../../../../components/organism/table-grid";
 import { AdminLayout } from "../../../../components/templates/admin/layout";
 import { AdminPagination } from "../../../../components/templates/admin/pagination";
 import { useAdminServices } from "../../../../service/user/admin/application";
 import { adminColumns } from "../../../../service/user/admin/application/model/AdminGridColumn";
 import { useStore } from "../../../../store";
+
+const ActionsMenu: FC<{ row: TableGridRow }> = ({ row }) => {
+  const [profileAnchor, setProfileAnchor] = useState<null | HTMLElement>(null);
+  const open = Boolean(profileAnchor);
+
+  const handleMenuProfile = (event: React.MouseEvent<HTMLElement>) => {
+    setProfileAnchor(event.currentTarget);
+  };
+
+  const handleCloseMenuProfile = () => {
+    setProfileAnchor(null);
+  };
+
+  return (
+    <>
+      <Button
+        variant="outlined"
+        endIcon={
+          <>
+            <KeyboardArrowDown />
+          </>
+        }
+        color="primary"
+        onClick={handleMenuProfile}
+        size="small"
+      >
+        Acciones
+      </Button>
+      <Menu
+        open={open}
+        anchorEl={profileAnchor}
+        onClose={handleCloseMenuProfile}
+        TransitionComponent={Fade}
+      >
+        <MenuItem>
+          <BlackLink to="/home/profile">
+            <Button>
+              <Capitalize>{row.index}</Capitalize>
+            </Button>
+          </BlackLink>
+        </MenuItem>
+        <MenuItem>
+          <Button>
+            <Capitalize>desconectar</Capitalize>
+          </Button>
+        </MenuItem>
+      </Menu>
+    </>
+  );
+};
 
 export const AdminUsers: FC = () => {
   const {
@@ -15,8 +69,6 @@ export const AdminUsers: FC = () => {
   } = useStore();
   const { paginatorAdmin } = useAdminServices();
 
-  const navigation = useNavigate();
-
   useEffect(() => {
     paginatorAdmin.paginate();
   }, [currentPage, itemsPerPage, search]);
@@ -24,9 +76,6 @@ export const AdminUsers: FC = () => {
   return (
     <AdminLayout title="Editores">
       <AdminPagination
-        onAddItem={() => navigation("/admin/vehicles/add")}
-        onRemoveItems={(row) => console.log(row)}
-        addText="Añadir vehículo"
         textFieldSearch={{
           onChange: (e) => paginatorAdmin.onFilter({ search: e.target.value }),
           value: search,
@@ -47,6 +96,7 @@ export const AdminUsers: FC = () => {
           ActionsProps: {
             onEdit: (row) => console.log(row),
           },
+          ActionsComponent: ActionsMenu,
           rows: data.data.map((value) => ({
             index: `${value.id}`,
             name: value.name,

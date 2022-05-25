@@ -2,6 +2,7 @@ import { Save } from "@mui/icons-material";
 import { Box, Button, FormLabel, Grid, TextField } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { FC, useEffect } from "react";
+import { Securized } from "../../../auth/securized";
 import { PrimaryTypography } from "../../../components/molecules/primary-typography";
 import { SearchInput } from "../../../components/molecules/search";
 import { FormSelect } from "../../../components/organism/form-select";
@@ -96,39 +97,41 @@ export const AddVehicle: FC = () => {
             />
           </Box>
         </Grid>
-        <Grid item xs={4}>
-          <Box sx={{ p: 1 }}>
-            <FormLabel>
-              <PrimaryTypography fontWeight={500}>
-                Asigne una oficina
-              </PrimaryTypography>
-            </FormLabel>
-          </Box>
-          <SearchInput
-            AutocompleteProps={{
-              noOptionsText: "Sin coincidencias",
-              sx: { p: 1 },
-              options: offices.map(OfficeSelectOption),
-              onInputChange: (_, value, reason) => {
-                reason === "input"
-                  ? creator.searchOffice(value)
-                  : creator.clearSearch();
-              },
+        <Securized>
+          <Grid item xs={4}>
+            <Box sx={{ p: 1 }}>
+              <FormLabel>
+                <PrimaryTypography fontWeight={500}>
+                  Asigne una oficina
+                </PrimaryTypography>
+              </FormLabel>
+            </Box>
+            <SearchInput
+              AutocompleteProps={{
+                noOptionsText: "Sin coincidencias",
+                sx: { p: 1 },
+                options: offices.map(OfficeSelectOption),
+                onInputChange: (_, value, reason) => {
+                  reason === "input"
+                    ? creator.searchOffice(value)
+                    : creator.clearSearch();
+                },
 
-              onChange: (e, opt) =>
-                opt &&
-                creator.setState({
-                  officeId: opt?.value,
-                  searchOffice: opt?.label,
-                }),
-              value: {
-                value: officeId,
-                label: searchOffice,
-              },
-            }}
-            TextFieldProps={{ label: "Oficina" }}
-          />
-        </Grid>
+                onChange: (e, opt) =>
+                  opt &&
+                  creator.setState({
+                    officeId: opt?.value,
+                    searchOffice: opt?.label,
+                  }),
+                value: {
+                  value: officeId,
+                  label: searchOffice,
+                },
+              }}
+              TextFieldProps={{ label: "Oficina" }}
+            />
+          </Grid>
+        </Securized>
         <Grid item xs={4}>
           <Box sx={{ p: 1 }}>
             <FormLabel>

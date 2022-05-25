@@ -47,7 +47,6 @@ export abstract class Client<
     resource,
   }: GenericRequestParams<E>): Promise<AxiosResponse<T>> {
     let result = null;
-    console.log(axios.defaults.headers.common.Authorization);
     try {
       if (body) {
         result = await axios[method]<T>(this.buildUrl(resource), body, options);

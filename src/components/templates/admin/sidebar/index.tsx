@@ -18,7 +18,10 @@ import {
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
+import axios from "axios";
 import { FC } from "react";
+import { Securized } from "../../../../auth/securized";
+import { useAuth } from "../../../../auth/use-auth";
 import { Capitalize } from "../../../atoms/transforms/capitalize";
 import { Upper } from "../../../atoms/transforms/upper";
 import { BlackLink } from "../../../molecules/black-link";
@@ -26,6 +29,10 @@ import { MuiLink } from "../../../molecules/link";
 
 export const AdminSidebar: FC = () => {
   const theme = useTheme();
+  const { token, isTokenExpired } = useAuth();
+  if (!isTokenExpired) {
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  }
   return (
     <Drawer
       anchor="left"
@@ -45,12 +52,11 @@ export const AdminSidebar: FC = () => {
       }}
     >
       <Toolbar>
-        <MuiLink to={"/admin"}>
+        <MuiLink to={"/admin"} sx={{ textDecoration: "none" }}>
           <Typography
             align="center"
             variant="h5"
             sx={{
-              textDecoration: "none",
               color: theme.palette.common.white,
               fontFamily: `"Open Sans", sans-serif`,
             }}
@@ -128,34 +134,38 @@ export const AdminSidebar: FC = () => {
                   </Typography>
                 </BlackLink>
               </ListItem>
-              <ListItem>
-                <BlackLink
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    ml: 2,
-                  }}
-                  to="/admin/user/editors"
-                >
-                  <Typography>
-                    <Capitalize>editores</Capitalize>
-                  </Typography>
-                </BlackLink>
-              </ListItem>
-              <ListItem>
-                <BlackLink
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    ml: 2,
-                  }}
-                  to="/admin/user/admins"
-                >
-                  <Typography>
-                    <Capitalize>administradores</Capitalize>
-                  </Typography>
-                </BlackLink>
-              </ListItem>
+              <Securized>
+                <ListItem>
+                  <BlackLink
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      ml: 2,
+                    }}
+                    to="/admin/user/editors"
+                  >
+                    <Typography>
+                      <Capitalize>editores</Capitalize>
+                    </Typography>
+                  </BlackLink>
+                </ListItem>
+              </Securized>
+              <Securized>
+                <ListItem>
+                  <BlackLink
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      ml: 2,
+                    }}
+                    to="/admin/user/admins"
+                  >
+                    <Typography>
+                      <Capitalize>administradores</Capitalize>
+                    </Typography>
+                  </BlackLink>
+                </ListItem>
+              </Securized>
             </List>
           </AccordionDetails>
         </Accordion>
@@ -191,20 +201,6 @@ export const AdminSidebar: FC = () => {
                     alignItems: "center",
                     ml: 2,
                   }}
-                  to="/admin/vehicles/add"
-                >
-                  <Typography>
-                    <Capitalize>reservar vehículo</Capitalize>
-                  </Typography>
-                </BlackLink>
-              </ListItem>
-              <ListItem>
-                <BlackLink
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    ml: 2,
-                  }}
                   to="/admin/vehicles"
                 >
                   <Typography>
@@ -215,48 +211,51 @@ export const AdminSidebar: FC = () => {
             </List>
           </AccordionDetails>
         </Accordion>
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMore color="primary" />}>
-            <ListItem>
-              <Business />
-              <Box sx={{ ml: 2 }}>
-                <Typography variant="h6">Oficinas</Typography>
-              </Box>
-            </ListItem>
-          </AccordionSummary>
-          <AccordionDetails>
-            <List>
+        <Securized>
+          <Accordion>
+            <AccordionSummary expandIcon={<ExpandMore color="primary" />}>
               <ListItem>
-                <BlackLink
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    ml: 2,
-                  }}
-                  to="/admin/offices/add"
-                >
-                  <Typography>
-                    <Capitalize>Añadir oficina</Capitalize>
-                  </Typography>
-                </BlackLink>
+                <Business />
+                <Box sx={{ ml: 2 }}>
+                  <Typography variant="h6">Oficinas</Typography>
+                </Box>
               </ListItem>
-              <ListItem>
-                <BlackLink
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    ml: 2,
-                  }}
-                  to="/admin/offices"
-                >
-                  <Typography>
-                    <Capitalize>Lista de oficinas</Capitalize>
-                  </Typography>
-                </BlackLink>
-              </ListItem>
-            </List>
-          </AccordionDetails>
-        </Accordion>
+            </AccordionSummary>
+
+            <AccordionDetails>
+              <List>
+                <ListItem>
+                  <BlackLink
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      ml: 2,
+                    }}
+                    to="/admin/offices/add"
+                  >
+                    <Typography>
+                      <Capitalize>Añadir oficina</Capitalize>
+                    </Typography>
+                  </BlackLink>
+                </ListItem>
+                <ListItem>
+                  <BlackLink
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      ml: 2,
+                    }}
+                    to="/admin/offices"
+                  >
+                    <Typography>
+                      <Capitalize>Lista de oficinas</Capitalize>
+                    </Typography>
+                  </BlackLink>
+                </ListItem>
+              </List>
+            </AccordionDetails>
+          </Accordion>
+        </Securized>
         {/* <Accordion>
           <AccordionSummary expandIcon={<ExpandMore color="primary" />}>
             <ListItem>
@@ -265,7 +264,7 @@ export const AdminSidebar: FC = () => {
                 <Typography variant="h6">Estadísticas</Typography>
               </Box>
             </ListItem>
-          </AccordionSummary>
+            </AccordionSummary>
           <AccordionDetails>
             <List>
               <ListItem>

@@ -26,7 +26,6 @@ const eventLogger = (event: AuthClientEvent, error: unknown) => {
 };
 
 const tokenLogger = (tokens: { token: string }) => {
-  console.log(tokens.token);
   axios.defaults.headers.common.Authorization = `Bearer ${tokens?.token}`;
   // KeyStore.adminApiKey = `Bearer ${tokens?.token}`;
 };

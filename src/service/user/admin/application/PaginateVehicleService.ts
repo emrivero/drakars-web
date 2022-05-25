@@ -1,28 +1,27 @@
 import { changeState } from "../../../../store";
 import { PaginateVm } from "../../../base/client/view/PaginateVm";
-import { Debounce } from "../../../base/utils/debounce";
 import { PaginateOpts } from "../../../office/application/model/paginate-office";
-import { ClientUserVm } from "../../client/client/vm/ClientUserVm";
+import { PaginateVehicleBuilder } from "../../../vehicle/application/PaginateVehicleBuilder";
+import { VehicleVm } from "../../../vehicle/client/view/VehicleVm";
 import { AdminClient } from "../client";
 import { getAdminState } from "../state";
-import { PaginateAdminBuilder } from "./PaginateAdminBuilder";
 
-export class PaginateClientService {
+export class PaginateAdminVehicleService {
   private readonly client = new AdminClient();
-  private static instance: PaginateClientService = null;
+  private static instance: PaginateAdminVehicleService = null;
   private constructor() {
     //
   }
 
-  static create(): PaginateClientService {
+  static create(): PaginateAdminVehicleService {
     if (!this.instance) {
-      this.instance = new PaginateClientService();
+      this.instance = new PaginateAdminVehicleService();
     }
     return this.instance;
   }
   async paginate() {
     const {
-      paginatedClients: { paginationOptions },
+      paginatedAdminVehicles: { paginationOptions },
     } = getAdminState();
 
     this._paginate(paginationOptions);
@@ -44,38 +43,35 @@ export class PaginateClientService {
   private async _paginate(newFilter: Partial<PaginateOpts>) {
     try {
       const {
-        paginatedClients: { paginationOptions },
+        paginatedAdminVehicles: { paginationOptions },
       } = getAdminState();
-      const dto = PaginateAdminBuilder.createPaginateFilter({
+      const dto = PaginateVehicleBuilder.createPaginateFilter({
         ...paginationOptions,
         ...newFilter,
       });
-      Debounce(async () => {
-        const { data } = await this.client.paginatedClient(dto.json);
-        this.setData(data);
+      const { data } = await this.client.paginateVehicles(dto.json);
+      this.setData(data);
 
-        const { meta } = data;
-        this.setFilter({ totalItems: meta?.totalItems || 0 });
-      }, 100)();
+      const { meta } = data;
+      this.setFilter({ totalItems: meta.totalItems });
     } catch (e) {
-      console.error(e);
       this.setData(null);
     }
   }
 
-  private setData(data: PaginateVm<ClientUserVm>) {
-    changeState(({ paginatedClients }) => {
+  private setData(data: PaginateVm<VehicleVm>) {
+    changeState(({ paginatedAdminVehicles }) => {
       if (data) {
-        paginatedClients.data = data;
+        paginatedAdminVehicles.data = data;
       }
     });
   }
 
   private setFilter(filter: Partial<PaginateOpts>) {
-    changeState(({ paginatedClients }) => {
+    changeState(({ paginatedAdminVehicles }) => {
       if (filter) {
-        paginatedClients.paginationOptions = {
-          ...paginatedClients.paginationOptions,
+        paginatedAdminVehicles.paginationOptions = {
+          ...paginatedAdminVehicles.paginationOptions,
           ...filter,
         };
       }

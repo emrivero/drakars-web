@@ -12,23 +12,25 @@ import { TableGridRow } from "../../../organism/table-grid";
 import { CrudCheckboxTable, CrudCheckboxTableProps } from "../dk-table";
 
 export interface AdminPaginationProps {
-  addText: string;
+  addText?: string;
+  removeText?: string;
   textFieldSearch?: TextFieldProps;
   containerProps?: GridProps;
   containerTableProps?: BoxProps;
   tableProps: CrudCheckboxTableProps;
-  onAddItem: () => void;
-  onRemoveItems: (row: TableGridRow[]) => void;
+  onAddItem?: () => void;
+  onRemoveItems?: (row: TableGridRow[]) => void;
 }
 
 export const AdminPagination: FC<AdminPaginationProps> = ({
-  addText,
+  addText = null,
+  removeText = null,
   textFieldSearch = {},
   containerProps = {},
   containerTableProps = {},
   tableProps,
-  onAddItem,
-  onRemoveItems,
+  onAddItem = () => null,
+  onRemoveItems = () => null,
 }) => {
   const [selectedRows, setSelected] = useState<TableGridRow[]>([]);
 
@@ -48,20 +50,24 @@ export const AdminPagination: FC<AdminPaginationProps> = ({
         />
       </Grid>
       <Grid item xs={12} display="flex">
-        <Box mr={1}>
-          <Button variant="contained" color="primary" onClick={onAddItem}>
-            {addText}
-          </Button>
-        </Box>
-        <Box>
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={() => onRemoveItems(selectedRows)}
-          >
-            Eliminar seleccionados
-          </Button>
-        </Box>
+        {addText && (
+          <Box mr={1}>
+            <Button variant="contained" color="primary" onClick={onAddItem}>
+              {addText}
+            </Button>
+          </Box>
+        )}
+        {removeText && (
+          <Box>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => onRemoveItems(selectedRows)}
+            >
+              {removeText}
+            </Button>
+          </Box>
+        )}
       </Grid>
       <Grid item xs={12}>
         <Box sx={{ width: "100%", height: "70vh" }} {...containerTableProps}>

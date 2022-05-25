@@ -6,9 +6,13 @@ import {
   TableGridRow,
 } from "../../../organism/table-grid";
 
-export type CheckboxTableProps = Omit<TableGridProps, "selectable"> & {
-  onSelect: (rows: TableGridRow[]) => void;
+export type CheckboxTableProps = TableGridProps & {
+  onSelect?: (rows: TableGridRow[]) => void;
 };
+
+export interface ActionsComponentProps {
+  row: TableGridRow;
+}
 
 export type CrudActionEvent = (row: TableGridRow) => void;
 
@@ -27,10 +31,10 @@ export interface CrudActionProps {
 
 export interface CrudTableProps extends TableGridProps {
   ActionsProps?: CrudActionProps;
+  ActionsComponent?: FC<ActionsComponentProps>;
 }
 
-export type CrudCheckboxTableProps = Omit<CrudTableProps, "selectable"> &
-  CheckboxTableProps;
+export type CrudCheckboxTableProps = CrudTableProps & CheckboxTableProps;
 
 export const CheckboxTable: FC<CheckboxTableProps> = (props) => {
   return <TableGrid selectable {...props} />;
@@ -38,6 +42,7 @@ export const CheckboxTable: FC<CheckboxTableProps> = (props) => {
 
 export const CrudTable: FC<CrudTableProps> = ({
   ActionsProps = {},
+  ActionsComponent = null,
   ...props
 }) => {
   const defaultActionsProps = {
@@ -109,12 +114,21 @@ export const CrudTable: FC<CrudTableProps> = ({
   const columnsWithButtons = props.columns.concat({
     field: "actions",
     label: "Acciones",
-    render: (row) => <Actions {...defaultActionsProps} row={row} />,
+    render: (row) =>
+      ActionsComponent ? (
+        <ActionsComponent row={row} />
+      ) : (
+        <Actions {...defaultActionsProps} row={row} />
+      ),
   });
 
   return <TableGrid {...props} columns={columnsWithButtons} />;
 };
 
-export const CrudCheckboxTable: FC<CrudCheckboxTableProps> = (props) => {
-  return <CrudTable {...props} selectable />;
+export const CrudCheckboxTable: FC<CrudCheckboxTableProps> = ({
+  selectable,
+  onSelect = () => null,
+  ...rest
+}) => {
+  return <CrudTable {...rest} selectable={selectable} onSelect={onSelect} />;
 };

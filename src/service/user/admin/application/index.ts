@@ -4,6 +4,7 @@ import { ManageRentService } from "./ManageRentService";
 import { PaginateAdminService } from "./PaginateAdminService";
 import { PaginateClientService } from "./PaginateClientService";
 import { PaginateEditorService } from "./PaginateEditorService";
+import { PaginateAdminVehicleService } from "./PaginateVehicleService";
 
 export const useAdminServices = () => {
   const [adminServices] = useState({
@@ -12,6 +13,7 @@ export const useAdminServices = () => {
     paginatorAdmin: PaginateAdminService.create(),
     paginatorEditor: PaginateEditorService.create(),
     paginatorClient: PaginateClientService.create(),
+    paginatorVehicle: PaginateAdminVehicleService.create(),
   });
 
   return adminServices;
