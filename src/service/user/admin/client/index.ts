@@ -82,4 +82,13 @@ export class AdminClient extends Client<
       body: data,
     });
   }
+  async paginateRents(data: PaginateVO = {}) {
+    return await this.genericRequest<PaginateVm<RentDataConfirmVm>, PaginateVO>(
+      {
+        method: "post",
+        resource: "rent/paginate",
+        body: data,
+      }
+    );
+  }
 }

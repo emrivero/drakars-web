@@ -33,6 +33,10 @@ export interface AdminUserProps {
     data: PaginateVm<VehicleVm>;
     paginationOptions: PaginateOpts;
   };
+  paginatedRents: {
+    data: PaginateVm<RentDataConfirmVm>;
+    paginationOptions: PaginateOpts;
+  };
 }
 
 export const AdminUserSlice: AdminUserProps = {
@@ -87,6 +91,15 @@ export const AdminUserSlice: AdminUserProps = {
     },
     data: new PaginateVm(),
   },
+  paginatedRents: {
+    paginationOptions: {
+      currentPage: 0,
+      itemsPerPage: 10,
+      search: "",
+      totalItems: 0,
+    },
+    data: new PaginateVm(),
+  },
 };
 
 export const getAdminState: () => AdminUserProps = () => {
@@ -99,6 +112,7 @@ export const getAdminState: () => AdminUserProps = () => {
     paginatedAdmins,
     paginatedClients,
     paginatedAdminVehicles,
+    paginatedRents,
   } = get();
 
   return {
@@ -110,5 +124,6 @@ export const getAdminState: () => AdminUserProps = () => {
     paginatedAdmins,
     paginatedClients,
     paginatedAdminVehicles,
+    paginatedRents,
   };
 };

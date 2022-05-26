@@ -10,10 +10,7 @@ import { ListOffices } from "./offices";
 import { AddOffice } from "./offices/AddOffice";
 import { Rents } from "./rents";
 import { CreateRent } from "./rents/AddRent";
-import { GeneralStats } from "./statistics/general";
-import { OfficesStats } from "./statistics/offices";
-import { UserStats } from "./statistics/users";
-import { VehiclesStats } from "./statistics/vehicles";
+import { RentManage } from "./rents/ManageRent";
 import { AdminUsers } from "./users/admins";
 import { CreateAdmin } from "./users/admins/create";
 import { ClientUsers } from "./users/clients";
@@ -52,6 +49,7 @@ export const AdminWebApp: FC = () => {
           </Route>
           <Route path="rents">
             <Route path="" element={<Rents />} />
+            <Route path="manage" element={<RentManage />} />
             <Route path="add" element={<CreateRent />} />
           </Route>
           <Route path="vehicles">
@@ -63,12 +61,6 @@ export const AdminWebApp: FC = () => {
             <Route path="admins" element={<AdminUsers />} />
             <Route path="editors" element={<EditorUsers />} />
             <Route path="clients" element={<ClientUsers />} />
-          </Route>
-          <Route path="statistics">
-            <Route path="general" element={<GeneralStats />} />
-            <Route path="users" element={<UserStats />} />
-            <Route path="vehicles" element={<VehiclesStats />} />
-            <Route path="offices" element={<OfficesStats />} />
           </Route>
           <Route path="*" element={<>not found admin</>}></Route>
         </Route>

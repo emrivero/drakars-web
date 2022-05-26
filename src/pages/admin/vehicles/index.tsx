@@ -84,7 +84,7 @@ export const ListVehicles: FC = () => {
     <AdminLayout title="Vehículos">
       <AdminPagination
         onAddItem={() => navigation("/admin/vehicles/add")}
-        onRemoveItems={(row) => console.log(row)}
+        onRemoveItems={(row) => row}
         addText="Añadir vehículo"
         removeText="Eliminar seleccionados"
         textFieldSearch={{
@@ -94,7 +94,7 @@ export const ListVehicles: FC = () => {
           placeholder: "Introduce marca o modelo de vehículo",
         }}
         tableProps={{
-          onSelect: (rows) => console.log(rows),
+          onSelect: (rows) => rows,
           columns: vehicleColumns,
           paginationProps: {
             count: totalItems,

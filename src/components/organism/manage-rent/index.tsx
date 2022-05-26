@@ -18,8 +18,8 @@ import { PrimaryTypography } from "../../molecules/primary-typography";
 
 interface RegisterEditorProps {
   open: boolean;
-  handleSave: MouseEventHandler;
-  handleCancel: MouseEventHandler;
+  handleSave?: MouseEventHandler;
+  handleCancel?: MouseEventHandler;
 }
 
 export const ManageRent: FC<RegisterEditorProps> = ({
@@ -150,12 +150,22 @@ export const ManageRent: FC<RegisterEditorProps> = ({
         </Box>
         <Box>
           <PrimaryTypography display="inline" fontWeight={500}>
-            Oficina:{" "}
+            Origen:{" "}
           </PrimaryTypography>
           <Typography fontWeight={500} display="inline">
             {rentInfo.originOffice.address},{" "}
             {rentInfo.originOffice.municipality.name},{" "}
             {rentInfo.originOffice.municipality.city.name}
+          </Typography>
+        </Box>
+        <Box>
+          <PrimaryTypography display="inline" fontWeight={500}>
+            Destino:{" "}
+          </PrimaryTypography>
+          <Typography fontWeight={500} display="inline">
+            {rentInfo.destinyOffice.address},{" "}
+            {rentInfo.destinyOffice.municipality.name},{" "}
+            {rentInfo.destinyOffice.municipality.city.name}
           </Typography>
         </Box>
         <Box>
@@ -186,11 +196,13 @@ export const ManageRent: FC<RegisterEditorProps> = ({
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button onClick={cancel}>Cancelar</Button>
-        <Button variant="contained" onClick={accept}>
-          {rentInfo.status === "pending" && "Check In"}
-          {rentInfo.status === "checkedin" && "Check Out"}
-        </Button>
+        {handleCancel && <Button onClick={cancel}>Cancelar</Button>}
+        {handleSave && (
+          <Button variant="contained" onClick={accept}>
+            {rentInfo.status === "pending" && "Check In"}
+            {rentInfo.status === "checkedin" && "Check Out"}
+          </Button>
+        )}
       </DialogActions>
     </Dialog>
   );

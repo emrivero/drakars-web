@@ -65,7 +65,7 @@ export const EditBooking: FC = () => {
         color: "primary",
       },
     }).then(async () => {
-      await cancelRent(renterUser.dni, reference);
+      await cancelRent(renterUser.email, reference);
       confirm({
         title: "",
         cancellationButtonProps: {

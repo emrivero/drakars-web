@@ -2,27 +2,27 @@ import { changeState } from "../../../../store";
 import { PaginateVm } from "../../../base/client/view/PaginateVm";
 import { Debounce } from "../../../base/utils/debounce";
 import { PaginateOpts } from "../../../office/application/model/paginate-office";
+import { RentDataConfirmVm } from "../../../rent-car/client/vm/RentDataConfirmVm";
 import { PaginateVehicleBuilder } from "../../../vehicle/application/PaginateVehicleBuilder";
-import { VehicleVm } from "../../../vehicle/client/view/VehicleVm";
 import { AdminClient } from "../client";
 import { getAdminState } from "../state";
 
-export class PaginateAdminVehicleService {
+export class PaginateRentService {
   private readonly client = new AdminClient();
-  private static instance: PaginateAdminVehicleService = null;
+  private static instance: PaginateRentService = null;
   private constructor() {
     //
   }
 
-  static create(): PaginateAdminVehicleService {
+  static create(): PaginateRentService {
     if (!this.instance) {
-      this.instance = new PaginateAdminVehicleService();
+      this.instance = new PaginateRentService();
     }
     return this.instance;
   }
   async paginate() {
     const {
-      paginatedAdminVehicles: { paginationOptions },
+      paginatedRents: { paginationOptions },
     } = getAdminState();
 
     this._paginate(paginationOptions);
@@ -44,14 +44,14 @@ export class PaginateAdminVehicleService {
   private async _paginate(newFilter: Partial<PaginateOpts>) {
     try {
       const {
-        paginatedAdminVehicles: { paginationOptions },
+        paginatedRents: { paginationOptions },
       } = getAdminState();
       const dto = PaginateVehicleBuilder.createPaginateFilter({
         ...paginationOptions,
         ...newFilter,
       });
       Debounce(async () => {
-        const { data } = await this.client.paginateVehicles(dto.json);
+        const { data } = await this.client.paginateRents(dto.json);
         this.setData(data);
 
         const { meta } = data;
@@ -62,19 +62,19 @@ export class PaginateAdminVehicleService {
     }
   }
 
-  private setData(data: PaginateVm<VehicleVm>) {
-    changeState(({ paginatedAdminVehicles }) => {
+  private setData(data: PaginateVm<RentDataConfirmVm>) {
+    changeState(({ paginatedRents }) => {
       if (data) {
-        paginatedAdminVehicles.data = data;
+        paginatedRents.data = data;
       }
     });
   }
 
   private setFilter(filter: Partial<PaginateOpts>) {
-    changeState(({ paginatedAdminVehicles }) => {
+    changeState(({ paginatedRents }) => {
       if (filter) {
-        paginatedAdminVehicles.paginationOptions = {
-          ...paginatedAdminVehicles.paginationOptions,
+        paginatedRents.paginationOptions = {
+          ...paginatedRents.paginationOptions,
           ...filter,
         };
       }

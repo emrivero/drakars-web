@@ -1,5 +1,6 @@
 import { changeState } from "../../../../store";
 import { PaginateVm } from "../../../base/client/view/PaginateVm";
+import { Debounce } from "../../../base/utils/debounce";
 import { PaginateOpts } from "../../../office/application/model/paginate-office";
 import { AdminClient } from "../client";
 import { AdminVm } from "../client/view/AdminVm";
@@ -50,11 +51,13 @@ export class PaginateAdminService {
         ...paginationOptions,
         ...newFilter,
       });
-      const { data } = await this.client.paginatedAdmin(dto.json);
-      this.setData(data);
+      Debounce(async () => {
+        const { data } = await this.client.paginatedAdmin(dto.json);
+        this.setData(data);
 
-      const { meta } = data;
-      this.setFilter({ totalItems: meta.totalItems });
+        const { meta } = data;
+        this.setFilter({ totalItems: meta.totalItems });
+      }, 200)();
     } catch (e) {
       console.error(e);
       this.setData(null);

@@ -56,7 +56,7 @@ export class PaginateClientService {
 
         const { meta } = data;
         this.setFilter({ totalItems: meta?.totalItems || 0 });
-      }, 100)();
+      }, 200)();
     } catch (e) {
       console.error(e);
       this.setData(null);

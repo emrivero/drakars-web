@@ -30,8 +30,8 @@ export const useRentCarService = () => {
     getter,
     editor,
     ConfirmFormValidator,
-    cancelRent: (dni: string, reference: string) =>
-      client.delete(`${dni}/${reference}`),
+    cancelRent: (email: string, reference: string) =>
+      client.delete(`${email}/${reference}`),
     mappers: {
       SelectedOfficeOption,
     },

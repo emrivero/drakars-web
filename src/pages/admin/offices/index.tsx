@@ -84,7 +84,7 @@ export const ListOffices: FC = () => {
     <AdminLayout title="Oficinas">
       <AdminPagination
         onAddItem={() => navigation("/admin/offices/add")}
-        onRemoveItems={(row) => console.log(row)}
+        onRemoveItems={(row) => row}
         addText="Añadir oficina"
         removeText="Eliminar seleccionados"
         textFieldSearch={{
@@ -94,7 +94,7 @@ export const ListOffices: FC = () => {
             "Introduce nombre, dirección o código postal de la oficina",
         }}
         tableProps={{
-          onSelect: (rows) => console.log(rows),
+          onSelect: (rows) => rows,
           columns: officeColumns,
           paginationProps: {
             count: totalItems,
@@ -104,9 +104,6 @@ export const ListOffices: FC = () => {
               paginator.changeRows(parseInt(e.target.value)),
             rowsPerPage: itemsPerPage,
             rowsPerPageOptions: [10, 25],
-          },
-          ActionsProps: {
-            onEdit: (row) => console.log(row),
           },
           ActionsComponent: ActionsMenu,
           rows: data.data.map(OfficeGridRowMapper),

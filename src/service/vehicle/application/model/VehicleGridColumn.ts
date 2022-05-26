@@ -1,5 +1,16 @@
 import { TableGridColumn } from "../../../../components/organism/table-grid";
 
+export interface VehicleGridRow {
+  fullName: string;
+  seats: string;
+  type: string;
+  doors: string;
+  year: string;
+  fuel: string;
+  pricePerDay: string;
+  office: string;
+}
+
 export const vehicleColumns: TableGridColumn[] = [
   // {
   //   field: "id",
