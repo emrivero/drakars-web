@@ -194,7 +194,7 @@ export const Header: FC = () => {
                   onClose={handleCloseMenuProfile}
                   TransitionComponent={Fade}
                 >
-                  <MenuItem>
+                  <MenuItem href="/home/profile">
                     <BlackLink to="/home/profile">
                       <Button>
                         <Capitalize>mi perfil</Capitalize>

@@ -15,6 +15,29 @@ import { useStore } from "../../../store";
 
 export const EditBooking: FC = () => {
   const [dialogState, setDialogState] = useState({ open: false });
+  const { loggedClient } = useStore();
+
+  const activeRent = loggedClient.activeRent;
+
+  const notDelete = loggedClient?.activeRent?.status === "checkedin";
+
+  const { clearer, cancelRent } = useRentCarService();
+  const navigate = useNavigate();
+  const theme = useTheme();
+
+  const confirm = useConfirm();
+
+  useEffect(() => {
+    if (!activeRent?.reference) {
+      navigate(-1);
+    }
+    return () => clearer.clear();
+  }, []);
+
+  if (!activeRent?.reference) {
+    return <LoadingPage />;
+  }
+
   const {
     reference,
     total,
@@ -24,24 +47,7 @@ export const EditBooking: FC = () => {
     originOffice,
     destinyOffice,
     renterUser,
-  } = useStore((state) => state.rentConfirmData);
-
-  const { clearer, cancelRent } = useRentCarService();
-  const navigate = useNavigate();
-  const theme = useTheme();
-
-  const confirm = useConfirm();
-
-  useEffect(() => {
-    if (!reference) {
-      navigate(-1);
-    }
-    return () => clearer.clear();
-  }, []);
-
-  if (!reference) {
-    return <LoadingPage />;
-  }
+  } = loggedClient.activeRent;
 
   const onRemove = () => {
     confirm({
@@ -320,6 +326,7 @@ export const EditBooking: FC = () => {
                   variant="contained"
                   fullWidth
                   onClick={() => setDialogState({ open: true })}
+                  disabled={notDelete}
                 >
                   Cambiar reserva
                 </Button>
@@ -339,6 +346,7 @@ export const EditBooking: FC = () => {
                   color="error"
                   fullWidth
                   onClick={onRemove}
+                  disabled={notDelete}
                 >
                   Cancelar reserva
                 </Button>

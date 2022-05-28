@@ -29,6 +29,12 @@ export class AdminClient extends Client<
       resource: `rent/${value}`,
     });
   }
+  getRentByReference(value: string) {
+    return this.genericRequest<RentDataConfirmVm>({
+      method: "get",
+      resource: `rent-by-reference/${value}`,
+    });
+  }
 
   checkIn(id: number) {
     return this.genericRequest<RentDataConfirmVm, any>({

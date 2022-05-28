@@ -82,7 +82,6 @@ export const AdminUsers: FC = () => {
           placeholder: "Introduce nombre o correo eléctronico",
         }}
         tableProps={{
-          onSelect: (rows) => console.log(rows),
           columns: adminColumns,
           paginationProps: {
             count: totalItems,
@@ -92,9 +91,6 @@ export const AdminUsers: FC = () => {
               paginatorAdmin.changeRows(parseInt(e.target.value)),
             rowsPerPage: itemsPerPage,
             rowsPerPageOptions: [10, 25],
-          },
-          ActionsProps: {
-            onEdit: (row) => console.log(row),
           },
           ActionsComponent: ActionsMenu,
           rows: data.data.map((value) => ({

@@ -24,6 +24,15 @@ export const rentColumns: TableGridColumn[] = [
     field: "fullNameVehicle",
     label: "Vehículo",
   },
+
+  {
+    field: "startDate",
+    label: "Inicio del alquiler",
+  },
+  {
+    field: "endDate",
+    label: "Fin del alquiler",
+  },
   {
     field: "status",
     label: "Estado",

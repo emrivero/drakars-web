@@ -11,14 +11,15 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import moment from "moment";
 import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Capitalize } from "../../../components/atoms/transforms/capitalize";
-import { FormatDate } from "../../../components/atoms/transforms/format-date";
 import { PrimaryTypography } from "../../../components/molecules/primary-typography";
 import { TableGridRow } from "../../../components/organism/table-grid";
 import { AdminLayout } from "../../../components/templates/admin/layout";
 import { AdminPagination } from "../../../components/templates/admin/pagination";
+import { RentStatusMapper } from "../../../service/rent-car/application/mappers/RentStatusMapper";
 import { rentColumns } from "../../../service/rent-car/application/model/rent-grid-column";
 import { RentDataConfirmVm } from "../../../service/rent-car/client/vm/RentDataConfirmVm";
 import { useAdminServices } from "../../../service/user/admin/application";
@@ -83,7 +84,8 @@ const ViewInfo: FC<ViewInfoProps> = ({ open, cancel, rentInfo }) => {
             Fecha y hora:{" "}
           </PrimaryTypography>
           <Typography fontWeight={500} display="inline">
-            <FormatDate>{rentInfo?.startDate}</FormatDate> {rentInfo?.startHour}
+            {moment(rentInfo?.startDate).format("DD-MM-YYYY")}{" "}
+            {rentInfo?.startHour}
           </Typography>
         </Box>
         <Box>
@@ -101,7 +103,7 @@ const ViewInfo: FC<ViewInfoProps> = ({ open, cancel, rentInfo }) => {
             Fecha y hora:{" "}
           </PrimaryTypography>
           <Typography fontWeight={500} display="inline">
-            <FormatDate>{rentInfo?.endDate}</FormatDate> {rentInfo?.endHour}
+            {moment(rentInfo?.endDate).format("DD-MM-YYYY")} {rentInfo?.endHour}
           </Typography>
         </Box>
         <Box>
@@ -126,8 +128,7 @@ const ViewInfo: FC<ViewInfoProps> = ({ open, cancel, rentInfo }) => {
             Estado:{" "}
           </PrimaryTypography>
           <Typography fontWeight={500} display="inline">
-            {rentInfo?.status === "pending" && "Pendiente"}
-            {rentInfo?.status === "checkedin" && "Entregado"}
+            {RentStatusMapper(rentInfo?.status)}
           </Typography>
         </Box>
       </DialogContent>
@@ -150,7 +151,7 @@ const ActionsMenu: FC<{ row: TableGridRow }> = ({ row }) => {
   const { manageRent } = useAdminServices();
   const { rentInfo } = useStore();
   const onOpen = (row) => {
-    manageRent.changeRentValue(row.email);
+    manageRent.changeRentValue(row.reference);
     manageRent.getRent();
     setOpenManageRent(true);
   };
@@ -190,6 +191,39 @@ const ActionsMenu: FC<{ row: TableGridRow }> = ({ row }) => {
       <ViewInfo open={openManageRent} cancel={onCancel} rentInfo={rentInfo} />
     </>
   );
+};
+
+const StatusValueColumn: FC<{ value: string }> = ({ value }) => {
+  const theme = useTheme();
+  const mapper = {
+    pending: (
+      <Typography color={theme.palette.secondary.dark}>
+        {RentStatusMapper(value)}
+      </Typography>
+    ),
+    checkedin: (
+      <Typography color={theme.palette.primary.main}>
+        {RentStatusMapper(value)}
+      </Typography>
+    ),
+    checkedout: (
+      <Typography color={theme.palette.success.main}>
+        {RentStatusMapper(value)}
+      </Typography>
+    ),
+    delayed: (
+      <Typography color={theme.palette.error.main}>
+        {RentStatusMapper(value)}
+      </Typography>
+    ),
+    canceled: (
+      <Typography sx={{ color: "#888" }} fontStyle="italic">
+        {RentStatusMapper(value)}
+      </Typography>
+    ),
+  };
+
+  return <>{mapper[value]}</>;
 };
 
 export const Rents: FC = () => {
@@ -234,16 +268,32 @@ export const Rents: FC = () => {
             rowsPerPageOptions: [10, 25],
           },
           ActionsComponent: ActionsMenu,
-          rows: data.data.map((value) => ({
-            index: `${value.id}`,
-            // reference: value.reference,
-            fullNameUser: `${value.renterUser?.name} ${value.renterUser?.family_name}`,
-            email: `${value.renterUser.email}`,
-            originAddress: `${value.originOffice.address}`,
-            destinyAddress: `${value.destinyOffice.address}`,
-            fullNameVehicle: `${value.rentedVehicle.mark} ${value.rentedVehicle.model}`,
-            status: value.status,
-          })),
+          rows: data.data.map((value) => {
+            let status = value.status;
+            const now = moment();
+            const startDate = moment(value.startDate);
+            const endDate = moment(value.endDate);
+            if (status === "pending" && now.isAfter(startDate)) {
+              status = "canceled";
+            }
+
+            if (status === "checkedin" && now.isAfter(endDate)) {
+              status = "delayed";
+            }
+
+            return {
+              index: `${value.id}`,
+              reference: value.reference,
+              fullNameUser: `${value.renterUser?.name} ${value.renterUser?.family_name}`,
+              email: `${value.renterUser.email}`,
+              originAddress: `${value.originOffice.address}`,
+              destinyAddress: `${value.destinyOffice.address}`,
+              fullNameVehicle: `${value.rentedVehicle.mark} ${value.rentedVehicle.model}`,
+              startDate: moment(value.startDate).format("DD-MM-YYYY"),
+              endDate: moment(value.endDate).format("DD-MM-YYYY"),
+              status: <StatusValueColumn value={status} />,
+            };
+          }),
         }}
       />
     </AdminLayout>

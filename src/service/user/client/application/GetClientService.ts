@@ -27,6 +27,7 @@ export class GetClientService {
     const { data } = await this.client.getRent();
 
     this.setRent(data);
+    return data;
   }
 
   async getRents() {

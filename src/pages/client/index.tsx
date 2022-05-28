@@ -41,6 +41,7 @@ const tokenLogger = (tokens: { token: string }) => {
     new ClientClient().post("", {});
     setLoggedInfo(true);
     GetClientService.create().getMe();
+    GetClientService.create().getRent();
   }
 };
 

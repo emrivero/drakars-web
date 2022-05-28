@@ -20,7 +20,7 @@ export class ManageRentService {
 
   async getRent() {
     const { rentRefValue } = getAdminState();
-    const { data, status } = await this.client.getRentByValue(rentRefValue);
+    const { data, status } = await this.client.getRentByReference(rentRefValue);
     if (status < 300) {
       changeState((state) => {
         state.rentInfo = data;
