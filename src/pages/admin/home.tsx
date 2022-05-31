@@ -122,7 +122,7 @@ const AdminHome = () => {
   };
 
   return (
-    <AdminLayout title={`Bienvenido, ${userInfo.given_name}`}>
+    <AdminLayout title={`Hola, ${userInfo.given_name}`}>
       <Grid container rowSpacing={4} display="flex" justifyContent="center">
         <Grid item md={8} xs={12}>
           <Grid container rowSpacing={4}>

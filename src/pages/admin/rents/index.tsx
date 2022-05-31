@@ -243,7 +243,7 @@ export const Rents: FC = () => {
   }, [currentPage, itemsPerPage, search]);
 
   return (
-    <AdminLayout title="Oficinas">
+    <AdminLayout title="Reservas">
       <AdminPagination
         onAddItem={() => navigation("/admin/offices/add")}
         onRemoveItems={(row) => row}

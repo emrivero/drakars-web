@@ -5,6 +5,7 @@ import { PaginateAdminService } from "./PaginateAdminService";
 import { PaginateClientService } from "./PaginateClientService";
 import { PaginateEditorService } from "./PaginateEditorService";
 import { PaginateRentService } from "./PaginateRentService";
+import { PaginatedVehicleImage } from "./PaginateVehicleImage";
 import { PaginateAdminVehicleService } from "./PaginateVehicleService";
 
 export const useAdminServices = () => {
@@ -16,6 +17,7 @@ export const useAdminServices = () => {
     paginatorClient: PaginateClientService.create(),
     paginatorVehicle: PaginateAdminVehicleService.create(),
     paginatorRents: PaginateRentService.create(),
+    paginatorVehicleImage: PaginatedVehicleImage.create(),
   });
 
   return adminServices;

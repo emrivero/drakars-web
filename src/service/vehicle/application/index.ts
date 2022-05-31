@@ -2,6 +2,7 @@ import { useState } from "react";
 import { CreateVehicleService } from "./CreateVehicleService";
 import { ListVehicleService } from "./ListVehicleService";
 import { VehicleGridRowMapper } from "./mappers/VehicleGridRowMapper";
+import { NewVehicleValidator } from "./NewVehicleValidator";
 import { PaginateVehicleService } from "./PaginateVehicleService";
 
 export const useVehicleService = () => {
@@ -9,6 +10,7 @@ export const useVehicleService = () => {
     finder: new ListVehicleService(),
     creator: new CreateVehicleService(),
     paginator: new PaginateVehicleService(),
+    vehicleValidator: NewVehicleValidator,
     mappers: {
       VehicleGridRowMapper,
     },

@@ -1,4 +1,5 @@
 import { OfficeVm } from "../../../office/client/view/OfficeVm";
+import { VehicleImageVm } from "../../../user/admin/client/view/VehicleImageVm";
 
 export class VehicleDto {
   year: number;
@@ -7,6 +8,7 @@ export class VehicleDto {
   transmission: string;
   type: string;
   offices: OfficeVm[];
+  image: VehicleImageVm;
   officeId: number;
   seats: number;
   pricePerDay: number;

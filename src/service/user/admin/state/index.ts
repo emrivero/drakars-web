@@ -9,6 +9,7 @@ import { CreateAdminDto } from "../client/dto/CreateAdminDto";
 import { CreateEditorDto } from "../client/dto/CreateEditorDto";
 import { AdminVm } from "../client/view/AdminVm";
 import { EditorVm } from "../client/view/EditorVm";
+import { VehicleImageVm } from "../client/view/VehicleImageVm";
 
 export interface AdminUserProps {
   newAdmin: CreateAdminDto;
@@ -36,6 +37,11 @@ export interface AdminUserProps {
   paginatedRents: {
     data: PaginateVm<RentDataConfirmVm>;
     paginationOptions: PaginateOpts;
+  };
+  paginatedVehicleImage: {
+    data: { results: VehicleImageVm[]; count: number };
+    page: number;
+    size: number;
   };
 }
 
@@ -100,6 +106,11 @@ export const AdminUserSlice: AdminUserProps = {
     },
     data: new PaginateVm(),
   },
+  paginatedVehicleImage: {
+    data: { results: null, count: 0 },
+    page: 0,
+    size: 12,
+  },
 };
 
 export const getAdminState: () => AdminUserProps = () => {
@@ -113,6 +124,7 @@ export const getAdminState: () => AdminUserProps = () => {
     paginatedClients,
     paginatedAdminVehicles,
     paginatedRents,
+    paginatedVehicleImage,
   } = get();
 
   return {
@@ -125,5 +137,6 @@ export const getAdminState: () => AdminUserProps = () => {
     paginatedClients,
     paginatedAdminVehicles,
     paginatedRents,
+    paginatedVehicleImage,
   };
 };

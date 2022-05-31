@@ -11,7 +11,8 @@ export class NewVehicle {
     public readonly seats: number,
     public readonly pricePerDay: number,
     public readonly fuel: string,
-    public readonly doors: number
+    public readonly doors: number,
+    public readonly imageId: number
   ) {}
 
   static create(officeDto: VehicleDto) {
@@ -25,7 +26,8 @@ export class NewVehicle {
       officeDto.seats,
       officeDto.pricePerDay,
       officeDto.fuel,
-      officeDto.doors
+      officeDto.doors,
+      officeDto.image.id
     );
   }
 }

@@ -1,4 +1,5 @@
 export const MarkType = [
+  "Alfa Romeo",
   "Audi",
   "BMW",
   "Citroën",

@@ -13,9 +13,9 @@ export class CreateVehicleService {
     const { newVehicle } = getVehicleState();
     const vehicle = NewVehicle.create(newVehicle);
     try {
-      await this.client.post("", vehicle);
+      const response = await this.client.post("", vehicle);
       this.setState({ status: "success" });
-      this.clear();
+      return response;
     } catch (e) {
       this.setState({ status: "error" });
     }

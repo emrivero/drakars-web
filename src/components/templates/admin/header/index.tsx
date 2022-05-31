@@ -15,7 +15,6 @@ import { Theme } from "@mui/system";
 import { FC, useState } from "react";
 import { useAuth } from "../../../../auth/use-auth";
 import { Capitalize } from "../../../atoms/transforms/capitalize";
-import { BlackLink } from "../../../molecules/black-link";
 
 export interface AdminHeaderProps {
   title?: string;
@@ -75,9 +74,9 @@ export const AdminHeader: FC<AdminHeaderProps> = ({ title }) => {
         TransitionComponent={Fade}
       >
         <MenuItem>
-          <BlackLink to="profile">
-            <Capitalize>editar perfil</Capitalize>
-          </BlackLink>
+          <Button onClick={logout}>
+            <Capitalize>Mi Perfil</Capitalize>
+          </Button>
         </MenuItem>
         <MenuItem>
           <Button onClick={logout}>

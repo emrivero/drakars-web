@@ -2,7 +2,6 @@ import { KeyboardArrowDown } from "@mui/icons-material";
 import { Button, Fade, Menu, MenuItem } from "@mui/material";
 import { FC, useEffect, useState } from "react";
 import { Capitalize } from "../../../../components/atoms/transforms/capitalize";
-import { BlackLink } from "../../../../components/molecules/black-link";
 import { TableGridRow } from "../../../../components/organism/table-grid";
 import { AdminLayout } from "../../../../components/templates/admin/layout";
 import { AdminPagination } from "../../../../components/templates/admin/pagination";
@@ -44,15 +43,13 @@ const ActionsMenu: FC<{ row: TableGridRow }> = ({ row }) => {
         TransitionComponent={Fade}
       >
         <MenuItem>
-          <BlackLink to="/home/profile">
-            <Button>
-              <Capitalize>{row.index}</Capitalize>
-            </Button>
-          </BlackLink>
+          <Button>
+            <Capitalize>Ver cliente</Capitalize>
+          </Button>
         </MenuItem>
         <MenuItem>
-          <Button>
-            <Capitalize>desconectar</Capitalize>
+          <Button color="error">
+            <Capitalize>Dar de baja</Capitalize>
           </Button>
         </MenuItem>
       </Menu>
@@ -74,7 +71,7 @@ export const ClientUsers: FC = () => {
   }, [currentPage, itemsPerPage, search]);
 
   return (
-    <AdminLayout title="Editores">
+    <AdminLayout title="Clientes">
       <AdminPagination
         textFieldSearch={{
           onChange: (e) => paginatorClient.onFilter({ search: e.target.value }),
