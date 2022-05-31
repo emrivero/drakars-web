@@ -67,7 +67,7 @@ export const SearchCar: FC = () => {
                     key={data.title}
                     xs={12}
                     sm={6}
-                    md={3}
+                    md={4}
                     sx={{ mt: 4, p: 1 }}
                   >
                     <CarData
@@ -77,7 +77,7 @@ export const SearchCar: FC = () => {
                         navigate(Routes.CONFIRM_PAGE);
                       }}
                       data={data}
-                      imageSrc="https://www.centauro.net/_next/image/?url=https%3A%2F%2Fcdn.centauro.net%2Fweb%2FA_400738ceb4.jpg&w=384&q=90"
+                      imageSrc={`${process.env.REACT_APP_API_URL}${data?.image?.url}`}
                     />
                   </Grid>
                 );

@@ -2,6 +2,8 @@ import { AdminPanelSettings } from "@mui/icons-material";
 import { Box, Button, Grid, Paper, Typography, useTheme } from "@mui/material";
 import { useConfirm } from "material-ui-confirm";
 import { useState } from "react";
+import { Securized } from "../../auth/securized";
+import { Rol } from "../../auth/types/rol";
 import { useAuth } from "../../auth/use-auth";
 import { BlackLink } from "../../components/molecules/black-link";
 import { PrimaryTypography } from "../../components/molecules/primary-typography";
@@ -169,54 +171,49 @@ const AdminHome = () => {
                   Acciones frecuentes
                 </Typography>
               </Grid>
-              <Grid item sm={12}>
-                <Button
-                  component={BlackLink}
-                  to="/admin/rents/add"
-                  onClick={() => setOpenManageRent(true)}
-                  color="info"
-                  fullWidth
-                  sx={{ py: 2, backgroundColor: "#fff" }}
-                  size="large"
-                >
-                  <Typography variant="button">Crear reserva</Typography>
-                </Button>
-              </Grid>
-              <Grid item sm={12}>
-                <Button
-                  onClick={() => setOpenManageRent(true)}
-                  color="info"
-                  fullWidth
-                  sx={{ py: 2, backgroundColor: "#fff" }}
-                  size="large"
-                >
-                  <Typography variant="button">Gestionar reserva</Typography>
-                </Button>
-              </Grid>
-              <Grid item sm={12}>
-                <Button
-                  color="info"
-                  fullWidth
-                  sx={{ py: 2, backgroundColor: "#fff" }}
-                  startIcon={<AdminPanelSettings />}
-                  size="large"
-                  onClick={() => setOpenRegisterAdmin(true)}
-                >
-                  <Typography variant="button">Añadir administrador</Typography>
-                </Button>
-              </Grid>
-              <Grid item sm={12}>
-                <Button
-                  color="info"
-                  fullWidth
-                  sx={{ py: 2, backgroundColor: "#fff" }}
-                  startIcon={<AdminPanelSettings />}
-                  size="large"
-                  onClick={() => setOpenRegisterEditor(true)}
-                >
-                  <Typography variant="button">Añadir editor</Typography>
-                </Button>
-              </Grid>
+              <Securized rol={Rol.EDITOR}>
+                <Grid item sm={12}>
+                  <Button
+                    onClick={() => setOpenManageRent(true)}
+                    color="info"
+                    fullWidth
+                    sx={{ py: 2, backgroundColor: "#fff" }}
+                    size="large"
+                  >
+                    <Typography variant="button">Gestionar reserva</Typography>
+                  </Button>
+                </Grid>
+              </Securized>
+              <Securized>
+                <Grid item sm={12}>
+                  <Button
+                    color="info"
+                    fullWidth
+                    sx={{ py: 2, backgroundColor: "#fff" }}
+                    startIcon={<AdminPanelSettings />}
+                    size="large"
+                    onClick={() => setOpenRegisterAdmin(true)}
+                  >
+                    <Typography variant="button">
+                      Añadir administrador
+                    </Typography>
+                  </Button>
+                </Grid>
+              </Securized>
+              <Securized>
+                <Grid item sm={12}>
+                  <Button
+                    color="info"
+                    fullWidth
+                    sx={{ py: 2, backgroundColor: "#fff" }}
+                    startIcon={<AdminPanelSettings />}
+                    size="large"
+                    onClick={() => setOpenRegisterEditor(true)}
+                  >
+                    <Typography variant="button">Añadir editor</Typography>
+                  </Button>
+                </Grid>
+              </Securized>
               <Grid item sm={12}>
                 <Button
                   component={BlackLink}

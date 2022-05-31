@@ -1,20 +1,26 @@
 import { KeyboardArrowDown } from "@mui/icons-material";
 import { Button, Fade, Menu, MenuItem } from "@mui/material";
+import { useConfirm } from "material-ui-confirm";
 import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Capitalize } from "../../../components/atoms/transforms/capitalize";
-import { BlackLink } from "../../../components/molecules/black-link";
+import { ErrorTypography } from "../../../components/molecules/error-typography";
 import { TableGridRow } from "../../../components/organism/table-grid";
 import { AdminLayout } from "../../../components/templates/admin/layout";
 import { AdminPagination } from "../../../components/templates/admin/pagination";
 import { useAdminServices } from "../../../service/user/admin/application";
 import { useVehicleService } from "../../../service/vehicle/application";
 import { vehicleColumns } from "../../../service/vehicle/application/model/VehicleGridColumn";
+import { VehicleClient } from "../../../service/vehicle/client";
 import { useStore } from "../../../store";
 
 const ActionsMenu: FC<{ row: TableGridRow }> = ({ row }) => {
   const [profileAnchor, setProfileAnchor] = useState<null | HTMLElement>(null);
   const open = Boolean(profileAnchor);
+  const { updater } = useVehicleService();
+  const confirm = useConfirm();
+  const vehicleClient = new VehicleClient();
+  const { paginatorVehicle } = useAdminServices();
 
   const handleMenuProfile = (event: React.MouseEvent<HTMLElement>) => {
     setProfileAnchor(event.currentTarget);
@@ -22,6 +28,41 @@ const ActionsMenu: FC<{ row: TableGridRow }> = ({ row }) => {
 
   const handleCloseMenuProfile = () => {
     setProfileAnchor(null);
+  };
+
+  const navigate = useNavigate();
+
+  const onEdit = async () => {
+    await updater.fetch(row.index);
+    navigate("/admin/vehicles/edit");
+  };
+
+  const onRemove = async () => {
+    confirm({
+      title: (
+        <ErrorTypography variant="h5" align="center">
+          ¡Atención!
+        </ErrorTypography>
+      ),
+      confirmationButtonProps: {
+        color: "error",
+        variant: "contained",
+      },
+      confirmationText: "Borrar",
+      cancellationText: "Cancelar",
+      description: (
+        <>
+          <ErrorTypography variant="h6" align="center">
+            Va a borrar el coche permanentemente ¿Está seguro?
+          </ErrorTypography>
+        </>
+      ),
+    })
+      .then(async () => {
+        await vehicleClient.delete(row.index);
+        paginatorVehicle.paginate();
+      })
+      .catch(() => null);
   };
 
   return (
@@ -45,16 +86,14 @@ const ActionsMenu: FC<{ row: TableGridRow }> = ({ row }) => {
         onClose={handleCloseMenuProfile}
         TransitionComponent={Fade}
       >
-        <MenuItem>
-          <BlackLink to="/home/profile">
-            <Button>
-              <Capitalize>{row.index}</Capitalize>
-            </Button>
-          </BlackLink>
-        </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={onEdit}>
           <Button>
-            <Capitalize>desconectar</Capitalize>
+            <Capitalize>Editar</Capitalize>
+          </Button>
+        </MenuItem>
+        <MenuItem onClick={onRemove}>
+          <Button color="error">
+            <Capitalize>Eliminar</Capitalize>
           </Button>
         </MenuItem>
       </Menu>
@@ -84,9 +123,7 @@ export const ListVehicles: FC = () => {
     <AdminLayout title="Vehículos">
       <AdminPagination
         onAddItem={() => navigation("/admin/vehicles/add")}
-        onRemoveItems={(row) => row}
         addText="Añadir vehículo"
-        removeText="Eliminar seleccionados"
         textFieldSearch={{
           onChange: (e) =>
             paginatorVehicle.onFilter({ search: e.target.value }),

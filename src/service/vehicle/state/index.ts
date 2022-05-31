@@ -8,6 +8,7 @@ import { VehicleVm } from "../client/view/VehicleVm";
 export interface VehicleStateProps {
   vehicles: { data: PaginateVm<VehicleVm>; filter: FilterVehicle };
   newVehicle: VehicleDto;
+  editVehicle: VehicleDto & { id: number };
   paginatedVehicles: {
     data: PaginateVm<VehicleVm>;
     paginationOptions: PaginateOpts;
@@ -43,6 +44,23 @@ export const VehicleSlice: VehicleStateProps = {
     doors: 5,
     image: null,
   },
+  editVehicle: {
+    id: null,
+    mark: "",
+    model: "",
+    officeId: null,
+    offices: [],
+    pricePerDay: 100.5,
+    seats: 5,
+    status: "",
+    transmission: "manual",
+    type: "small",
+    year: 2021,
+    searchOffice: "",
+    fuel: "fuel",
+    doors: 5,
+    image: null,
+  },
   paginatedVehicles: {
     paginationOptions: {
       currentPage: 0,
@@ -55,7 +73,7 @@ export const VehicleSlice: VehicleStateProps = {
 };
 
 export const getVehicleState: () => VehicleStateProps = () => {
-  const { vehicles, newVehicle, paginatedVehicles } = get();
+  const { vehicles, newVehicle, paginatedVehicles, editVehicle } = get();
 
-  return { vehicles, newVehicle, paginatedVehicles };
+  return { vehicles, newVehicle, paginatedVehicles, editVehicle };
 };

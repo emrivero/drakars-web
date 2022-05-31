@@ -4,22 +4,24 @@ import { FC, useEffect, useState } from "react";
 import { useAdminServices } from "../../../service/user/admin/application";
 import { VehicleImageClient } from "../../../service/user/admin/client/vehicle-image.client";
 import { VehicleImageVm } from "../../../service/user/admin/client/view/VehicleImageVm";
-import { useVehicleService } from "../../../service/vehicle/application";
 import { useStore } from "../../../store";
 import { ImageCard } from "./image-card";
 import { NewImage } from "./new-image";
 
 export interface ImageGalleryProps {
   handleCancel: () => void;
+  onConfirm: (image: VehicleImageVm) => void;
 }
 
-export const ImageGallery: FC<ImageGalleryProps> = ({ handleCancel }) => {
+export const ImageGallery: FC<ImageGalleryProps> = ({
+  handleCancel,
+  onConfirm,
+}) => {
   const adminClient = new VehicleImageClient();
   const [selected, setSelected] = useState<VehicleImageVm>(null);
   const { paginatorVehicleImage } = useAdminServices();
   const { paginatedVehicleImage } = useStore();
   const [openNewImage, setOpenNewImage] = useState(false);
-  const { creator } = useVehicleService();
 
   const remove = async (name: string) => {
     await adminClient.delete(name);
@@ -27,7 +29,7 @@ export const ImageGallery: FC<ImageGalleryProps> = ({ handleCancel }) => {
   };
 
   const handleConfirm = (image: VehicleImageVm) => {
-    creator.setState({ image });
+    onConfirm(image);
     handleCancel();
   };
 

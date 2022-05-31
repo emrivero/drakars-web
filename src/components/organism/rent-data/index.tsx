@@ -47,7 +47,7 @@ export const RentData: FC = () => {
       <Box sx={{ width: "100%" }}>
         <CarData
           data={selectedVehicle}
-          imageSrc="https://www.centauro.net/_next/image/?url=https%3A%2F%2Fcdn.centauro.net%2Fweb%2FA_400738ceb4.jpg&w=384&q=90"
+          imageSrc={`${process.env.REACT_APP_API_URL}${selectedVehicle?.image?.url}`}
           actionText={"Cambiar"}
           onAction={() => null}
         />

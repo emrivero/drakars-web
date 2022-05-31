@@ -12,7 +12,7 @@ export class VehicleClient extends Client<
   VehicleVm,
   VehicleVm,
   NewVehicle,
-  VehicleVm,
+  NewVehicle,
   VehicleVm
 > {
   constructor() {

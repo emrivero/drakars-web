@@ -85,20 +85,6 @@ export const AdminSidebar: FC = () => {
                     alignItems: "center",
                     ml: 2,
                   }}
-                  to="/admin/rents/add"
-                >
-                  <Typography>
-                    <Capitalize>Crear reserva</Capitalize>
-                  </Typography>
-                </BlackLink>
-              </ListItem>
-              <ListItem>
-                <BlackLink
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    ml: 2,
-                  }}
                   to="/admin/rents/manage"
                 >
                   <Typography>

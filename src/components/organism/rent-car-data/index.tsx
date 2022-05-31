@@ -36,7 +36,7 @@ export const CarData: FC<CarDataProps> = ({
   const { t } = useTranslate();
   return (
     <Card>
-      <CardMedia component="img" image={imageSrc} />
+      <CardMedia component="img" image={imageSrc} height="256px" />
       <CardContent>
         <PrimaryTypography variant="h5">{data.title}</PrimaryTypography>
         <PrimaryTypography variant="h6" hidden={!showCategory}>

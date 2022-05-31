@@ -22,7 +22,7 @@ export interface AdminHeaderProps {
 
 export const AdminHeader: FC<AdminHeaderProps> = ({ title }) => {
   const theme: Partial<Theme> = useTheme();
-  const { login, logout, isAuthenticated } = useAuth();
+  const { logout, userInfo } = useAuth();
 
   const [profileAnchor, setProfileAnchor] = useState<null | HTMLElement>(null);
   const open = Boolean(profileAnchor);
@@ -61,7 +61,8 @@ export const AdminHeader: FC<AdminHeaderProps> = ({ title }) => {
               }}
               onClick={handleMenuProfile}
             >
-              ED
+              {userInfo.name[0]}
+              {userInfo.family_name[0]}
             </Avatar>
           </Grid>
         </Toolbar>

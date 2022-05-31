@@ -57,9 +57,15 @@ const ViewInfo: FC<ViewInfoProps> = ({ open, cancel, rentInfo }) => {
           <PrimaryTypography display="inline" fontWeight={500}>
             Cliente:{" "}
           </PrimaryTypography>
-          <Typography fontWeight={500} display="inline">
-            {rentInfo?.renterUser.name} {rentInfo?.renterUser.family_name}
-          </Typography>
+          {rentInfo?.renterUser ? (
+            <Typography fontWeight={500} display="inline">
+              {rentInfo?.renterUser.name} {rentInfo?.renterUser.family_name}
+            </Typography>
+          ) : (
+            <Typography fontWeight={500} display="inline">
+              Usuario eliminado
+            </Typography>
+          )}
         </Box>
         <Box>
           <PrimaryTypography display="inline" fontWeight={500}>
@@ -110,10 +116,16 @@ const ViewInfo: FC<ViewInfoProps> = ({ open, cancel, rentInfo }) => {
           <PrimaryTypography display="inline" fontWeight={500}>
             Vehículo:{" "}
           </PrimaryTypography>
-          <Typography fontWeight={500} display="inline">
-            {rentInfo?.rentedVehicle.mark} {rentInfo?.rentedVehicle.model},
-            Llave nº {rentInfo?.rentedVehicle.id}
-          </Typography>
+          {rentInfo?.rentedVehicle ? (
+            <Typography fontWeight={500} display="inline">
+              {rentInfo?.rentedVehicle?.mark} {rentInfo?.rentedVehicle?.model},
+              Llave nº {rentInfo?.rentedVehicle?.id}
+            </Typography>
+          ) : (
+            <Typography fontWeight={500} display="inline">
+              Vehículo eliminado
+            </Typography>
+          )}
         </Box>
         <Box>
           <PrimaryTypography display="inline" fontWeight={500}>
@@ -245,10 +257,6 @@ export const Rents: FC = () => {
   return (
     <AdminLayout title="Reservas">
       <AdminPagination
-        onAddItem={() => navigation("/admin/offices/add")}
-        onRemoveItems={(row) => row}
-        addText="Añadir oficina"
-        removeText="Eliminar seleccionados"
         textFieldSearch={{
           onChange: (e) => paginatorRents.onFilter({ search: e.target.value }),
           value: search,
@@ -284,11 +292,17 @@ export const Rents: FC = () => {
             return {
               index: `${value.id}`,
               reference: value.reference,
-              fullNameUser: `${value.renterUser?.name} ${value.renterUser?.family_name}`,
+              fullNameUser: value.renterUser
+                ? `${value.renterUser?.name} ${value.renterUser?.family_name}`
+                : "Usuario eliminado",
               email: `${value.renterUser.email}`,
               originAddress: `${value.originOffice.address}`,
               destinyAddress: `${value.destinyOffice.address}`,
-              fullNameVehicle: `${value.rentedVehicle.mark} ${value.rentedVehicle.model}`,
+              fullNameVehicle: value.rentedVehicle
+                ? `${value.rentedVehicle?.mark || ""} ${
+                    value.rentedVehicle?.model || ""
+                  }`
+                : "Vehículo eliminado",
               startDate: moment(value.startDate).format("DD-MM-YYYY"),
               endDate: moment(value.endDate).format("DD-MM-YYYY"),
               status: <StatusValueColumn value={status} />,

@@ -45,7 +45,7 @@ export const NewImage: FC<NewImageProps> = ({ open, onClose }) => {
       return;
     }
     formData.append("image", tempImage);
-    formData.append("name", markAndModel.replace(/\s+/, "_"));
+    formData.append("name", markAndModel.replaceAll(/\s+/g, "_"));
     const response = await adminClient.create(formData);
     if (response.status < 300) {
       reset();

@@ -11,8 +11,10 @@ import {
 } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { FC, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Securized } from "../../../auth/securized";
 import { ErrorTypography } from "../../../components/molecules/error-typography";
+import { LoadingPage } from "../../../components/molecules/loading-page";
 import { PrimaryTypography } from "../../../components/molecules/primary-typography";
 import { SearchInput } from "../../../components/molecules/search";
 import { FormSelect } from "../../../components/organism/form-select";
@@ -25,17 +27,17 @@ import { MarkTypeOptions } from "../../../service/vehicle/application/enum/mark"
 import { VehicleYearsOption } from "../../../service/vehicle/application/enum/year";
 import { useStore } from "../../../store";
 
-export const AddVehicle: FC = () => {
+export const EditVehicle: FC = () => {
   const [openGallery, setOpenGallery] = useState(false);
   const { paginatorVehicleImage } = useAdminServices();
-  const { creator, vehicleValidator } = useVehicleService();
+  const { updater, vehicleValidator } = useVehicleService();
   const {
     mappers: { OfficeSelectOption },
   } = useOfficeService();
   const [firstValidate, setFirstValidate] = useState(false);
-
+  const navigation = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
-  const { newVehicle } = useStore((state) => state);
+  const { editVehicle } = useStore((state) => state);
   const {
     mark,
     model,
@@ -50,23 +52,23 @@ export const AddVehicle: FC = () => {
     pricePerDay,
     doors,
     image,
-  } = newVehicle;
+    id,
+  } = editVehicle;
 
   useEffect(() => {
     paginatorVehicleImage.paginate();
     return () => {
-      creator.clear();
+      updater.clear();
       setFirstValidate(false);
       vehicleValidator.setValid();
     };
   }, []);
 
-  const createVehicle = async () => {
+  const updateVehicle = async () => {
     setFirstValidate(true);
-    const response = await creator.create();
+    const response = await updater.update();
     if (response.status < 300) {
-      creator.clear();
-      enqueueSnackbar("Vehículo creado", {
+      enqueueSnackbar("Vehículo modificado", {
         variant: "success",
         autoHideDuration: 2000,
       });
@@ -81,13 +83,18 @@ export const AddVehicle: FC = () => {
   };
 
   if (firstValidate) {
-    vehicleValidator.validate(newVehicle);
+    vehicleValidator.validate(editVehicle);
   }
 
   const validation = vehicleValidator.validateInfo;
 
+  if (!id) {
+    navigation(-1);
+    return <LoadingPage />;
+  }
+
   return (
-    <AdminLayout title="Añadir vehículo">
+    <AdminLayout title="Editar vehículo">
       <Grid container columnSpacing={2} rowSpacing={2}>
         <Grid item xs={3}>
           <Box sx={{ p: 1 }}>
@@ -154,7 +161,7 @@ export const AddVehicle: FC = () => {
                     value: { label: mark, value: mark },
                     onChange: (e, opt) =>
                       opt &&
-                      creator.setState({
+                      updater.setState({
                         mark: opt?.value,
                       }),
                   }}
@@ -182,7 +189,7 @@ export const AddVehicle: FC = () => {
                   placeholder="Escriba el nombre de modelo del vehículo"
                   label="Modelo"
                   value={model}
-                  onChange={(e) => creator.setState({ model: e.target.value })}
+                  onChange={(e) => updater.setState({ model: e.target.value })}
                   error={!validation.model.valid}
                 />
                 <ErrorTypography hidden={validation.model.valid}>
@@ -206,13 +213,13 @@ export const AddVehicle: FC = () => {
                     options: offices.map(OfficeSelectOption),
                     onInputChange: (_, value, reason) => {
                       reason === "input"
-                        ? creator.searchOffice(value)
-                        : creator.clearSearch();
+                        ? updater.searchOffice(value)
+                        : updater.clearSearch();
                     },
 
                     onChange: (e, opt) =>
                       opt &&
-                      creator.setState({
+                      updater.setState({
                         officeId: opt?.value,
                         searchOffice: opt?.label,
                       }),
@@ -239,7 +246,7 @@ export const AddVehicle: FC = () => {
                   labelId="seats"
                   selectInputProps={{
                     value: type,
-                    onChange: (e) => creator.setState({ type: e.target.value }),
+                    onChange: (e) => updater.setState({ type: e.target.value }),
                     items: [
                       { label: "Pequeño", value: "small" },
                       { label: "Mediano", value: "medium" },
@@ -264,7 +271,7 @@ export const AddVehicle: FC = () => {
                   labelId="year"
                   selectInputProps={{
                     value: year,
-                    onChange: (e) => creator.setState({ year: e.target.value }),
+                    onChange: (e) => updater.setState({ year: e.target.value }),
                     items: VehicleYearsOption,
                   }}
                 />
@@ -287,7 +294,7 @@ export const AddVehicle: FC = () => {
                   value={pricePerDay}
                   error={!validation.pricePerDay.valid}
                   onChange={(e) =>
-                    creator.setState({
+                    updater.setState({
                       pricePerDay: parseFloat(e.target.value),
                     })
                   }
@@ -312,7 +319,7 @@ export const AddVehicle: FC = () => {
                   selectInputProps={{
                     value: seats,
                     onChange: (e) =>
-                      creator.setState({ seats: e.target.value }),
+                      updater.setState({ seats: e.target.value }),
                     items: [
                       { label: "2", value: 2 },
                       { label: "4", value: 4 },
@@ -338,7 +345,7 @@ export const AddVehicle: FC = () => {
                   selectInputProps={{
                     value: doors,
                     onChange: (e) =>
-                      creator.setState({ doors: e.target.value }),
+                      updater.setState({ doors: e.target.value }),
                     items: [
                       { label: "2", value: 2 },
                       { label: "3", value: 3 },
@@ -363,7 +370,7 @@ export const AddVehicle: FC = () => {
                   labelId="fuel"
                   selectInputProps={{
                     value: fuel,
-                    onChange: (e) => creator.setState({ fuel: e.target.value }),
+                    onChange: (e) => updater.setState({ fuel: e.target.value }),
                     items: [
                       { label: "Gasolina", value: "fuel" },
                       { label: "Diésel", value: "diesel" },
@@ -389,7 +396,7 @@ export const AddVehicle: FC = () => {
                   selectInputProps={{
                     value: transmission,
                     onChange: (e) =>
-                      creator.setState({ transmission: e.target.value }),
+                      updater.setState({ transmission: e.target.value }),
                     items: [
                       { label: "Manual", value: "manual" },
                       { label: "Automático", value: "automatic" },
@@ -405,10 +412,10 @@ export const AddVehicle: FC = () => {
             <Button
               color="success"
               variant="contained"
-              onClick={createVehicle}
+              onClick={updateVehicle}
               startIcon={<Save />}
             >
-              Añadir vehículo
+              Modificar vehículo
             </Button>
           </Box>
         </Grid>
@@ -427,7 +434,7 @@ export const AddVehicle: FC = () => {
         <DialogContent>
           <ImageGallery
             handleCancel={() => setOpenGallery(false)}
-            onConfirm={(image) => creator.setState({ image })}
+            onConfirm={(image) => updater.setState({ image })}
           />
         </DialogContent>
       </Dialog>

@@ -17,6 +17,7 @@ import { ClientUsers } from "./users/clients";
 import { EditorUsers } from "./users/editors";
 import { ListVehicles } from "./vehicles";
 import { AddVehicle } from "./vehicles/AddVehicle";
+import { EditVehicle } from "./vehicles/EditVehicle";
 
 const eventLogger = (event: AuthClientEvent, error: unknown) => {
   console.log("onKeycloakEvent", event, error);
@@ -55,6 +56,7 @@ export const AdminWebApp: FC = () => {
           <Route path="vehicles">
             <Route path="" element={<ListVehicles />} />
             <Route path="add" element={<AddVehicle />} />
+            <Route path="edit" element={<EditVehicle />} />
           </Route>
           <Route path="user">
             <Route path="admin/create" element={<CreateAdmin />} />
