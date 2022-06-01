@@ -1,6 +1,7 @@
 import { AdminPanelSettings } from "@mui/icons-material";
 import { Button, Grid, Paper, Typography, useTheme } from "@mui/material";
 import { FC } from "react";
+import { Securized } from "../../../auth/securized";
 
 export const FrequentActions: FC = () => {
   const theme = useTheme();
@@ -49,17 +50,19 @@ export const FrequentActions: FC = () => {
             <Typography variant="button">Añadir editor</Typography>
           </Button>
         </Grid>
-        <Grid item sm={12}>
-          <Button
-            color="info"
-            fullWidth
-            sx={{ py: 2, backgroundColor: "#fff" }}
-            startIcon={<AdminPanelSettings />}
-            size="large"
-          >
-            <Typography variant="button">Añadir oficina</Typography>
-          </Button>
-        </Grid>
+        <Securized>
+          <Grid item sm={12}>
+            <Button
+              color="info"
+              fullWidth
+              sx={{ py: 2, backgroundColor: "#fff" }}
+              startIcon={<AdminPanelSettings />}
+              size="large"
+            >
+              <Typography variant="button">Añadir oficina</Typography>
+            </Button>
+          </Grid>
+        </Securized>
         <Grid item sm={12}>
           <Button
             color="info"

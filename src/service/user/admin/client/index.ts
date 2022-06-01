@@ -88,6 +88,7 @@ export class AdminClient extends Client<
       body: data,
     });
   }
+
   async paginateRents(data: PaginateVO = {}) {
     return await this.genericRequest<PaginateVm<RentDataConfirmVm>, PaginateVO>(
       {
@@ -96,5 +97,12 @@ export class AdminClient extends Client<
         body: data,
       }
     );
+  }
+
+  async removeClient(id: string, email: string) {
+    return this.genericRequest({
+      method: "delete",
+      resource: `client/${id}/${email}`,
+    });
   }
 }

@@ -12,7 +12,6 @@ import { Rents } from "./rents";
 import { CreateRent } from "./rents/AddRent";
 import { RentManage } from "./rents/ManageRent";
 import { AdminUsers } from "./users/admins";
-import { CreateAdmin } from "./users/admins/create";
 import { ClientUsers } from "./users/clients";
 import { EditorUsers } from "./users/editors";
 import { ListVehicles } from "./vehicles";
@@ -59,7 +58,6 @@ export const AdminWebApp: FC = () => {
             <Route path="edit" element={<EditVehicle />} />
           </Route>
           <Route path="user">
-            <Route path="admin/create" element={<CreateAdmin />} />
             <Route path="admins" element={<AdminUsers />} />
             <Route path="editors" element={<EditorUsers />} />
             <Route path="clients" element={<ClientUsers />} />

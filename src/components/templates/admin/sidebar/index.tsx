@@ -1,16 +1,18 @@
 import {
+  Add,
+  AttachMoney,
   Business,
   CarRentalRounded,
   DirectionsCar,
-  ExpandMore,
+  Edit,
+  ListAltOutlined,
   Person,
+  Shield,
 } from "@mui/icons-material";
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
   Divider,
   ListItem,
+  ListSubheader,
   Toolbar,
   Typography,
   useTheme,
@@ -56,6 +58,7 @@ export const AdminSidebar: FC = () => {
           <Typography
             align="center"
             variant="h5"
+            fontWeight={600}
             sx={{
               color: theme.palette.common.white,
               fontFamily: `"Open Sans", sans-serif`,
@@ -67,265 +70,232 @@ export const AdminSidebar: FC = () => {
       </Toolbar>
       <Divider />
       <List>
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMore color="primary" />}>
-            <ListItem>
-              <CarRentalRounded />
-              <Box sx={{ ml: 2 }}>
-                <Typography variant="h6">Reservas</Typography>
-              </Box>
-            </ListItem>
-          </AccordionSummary>
-          <AccordionDetails>
-            <List>
-              <ListItem>
-                <BlackLink
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    ml: 2,
-                  }}
-                  to="/admin/rents/manage"
-                >
-                  <Typography>
-                    <Capitalize>Gestionar Reserva</Capitalize>
-                  </Typography>
-                </BlackLink>
-              </ListItem>
-              <ListItem>
-                <BlackLink
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    ml: 2,
-                  }}
-                  to="/admin/rents"
-                >
-                  <Typography>
-                    <Capitalize>Listado de reservas</Capitalize>
-                  </Typography>
-                </BlackLink>
-              </ListItem>
-            </List>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMore color="primary" />}>
-            <ListItem>
-              <Person />
-              <Box sx={{ ml: 2 }}>
-                <Typography variant="h6">Usuarios</Typography>
-              </Box>
-            </ListItem>
-          </AccordionSummary>
-          <AccordionDetails>
-            <List>
-              <ListItem>
-                <BlackLink
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    ml: 2,
-                  }}
-                  to="/admin/user/clients"
-                >
-                  <Typography>
-                    <Capitalize>clientes</Capitalize>
-                  </Typography>
-                </BlackLink>
-              </ListItem>
-              <Securized>
-                <ListItem>
-                  <BlackLink
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      ml: 2,
-                    }}
-                    to="/admin/user/editors"
-                  >
-                    <Typography>
-                      <Capitalize>editores</Capitalize>
-                    </Typography>
-                  </BlackLink>
-                </ListItem>
-              </Securized>
-              <Securized>
-                <ListItem>
-                  <BlackLink
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      ml: 2,
-                    }}
-                    to="/admin/user/admins"
-                  >
-                    <Typography>
-                      <Capitalize>administradores</Capitalize>
-                    </Typography>
-                  </BlackLink>
-                </ListItem>
-              </Securized>
-            </List>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMore color="primary" />}>
-            <ListItem>
-              <DirectionsCar />
-              <Box sx={{ ml: 2 }}>
-                <Typography variant="h6">Vehículos</Typography>
-              </Box>
-            </ListItem>
-          </AccordionSummary>
-          <AccordionDetails>
-            <List>
-              <ListItem>
-                <BlackLink
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    ml: 2,
-                  }}
-                  to="/admin/vehicles/add"
-                >
-                  <Typography>
-                    <Capitalize>añadir vehículo</Capitalize>
-                  </Typography>
-                </BlackLink>
-              </ListItem>
-              <ListItem>
-                <BlackLink
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    ml: 2,
-                  }}
-                  to="/admin/vehicles"
-                >
-                  <Typography>
-                    <Capitalize>listar vehículos</Capitalize>
-                  </Typography>
-                </BlackLink>
-              </ListItem>
-            </List>
-          </AccordionDetails>
-        </Accordion>
+        <ListSubheader
+          sx={{
+            backgroundColor: theme.palette.primary.dark,
+            color: "rgba(255, 255, 255, 0.4)",
+          }}
+        >
+          <Typography variant="h6" fontWeight={600}>
+            <Capitalize>Reservas</Capitalize>
+          </Typography>
+        </ListSubheader>
+        <ListItem>
+          <BlackLink
+            sx={{
+              color: "#fff",
+              display: "flex",
+              alignItems: "center",
+              ml: 2,
+              "&:hover": {
+                color: theme.palette.secondary.main,
+              },
+            }}
+            to="/admin/rents"
+          >
+            <CarRentalRounded />
+            <ListAltOutlined />
+            <Box sx={{ ml: 2 }}>
+              <Typography>
+                <Capitalize>Listado de reservas</Capitalize>
+              </Typography>
+            </Box>
+          </BlackLink>
+        </ListItem>
+        <Divider sx={{ backgroundColor: "#fff", width: "100%", mb: 2 }} />
+        <ListSubheader
+          sx={{
+            backgroundColor: theme.palette.primary.dark,
+            color: "rgba(255, 255, 255, 0.4)",
+          }}
+        >
+          <Typography variant="h6" fontWeight={600}>
+            <Capitalize>Usuarios</Capitalize>
+          </Typography>
+        </ListSubheader>
+        <ListItem>
+          <BlackLink
+            sx={{
+              color: "#fff",
+              display: "flex",
+              alignItems: "center",
+              ml: 2,
+              "&:hover": {
+                color: theme.palette.secondary.main,
+              },
+            }}
+            to="/admin/user/clients"
+          >
+            <Person />
+            <AttachMoney />
+            <Box sx={{ ml: 2 }}>
+              <Typography>
+                <Capitalize>clientes</Capitalize>
+              </Typography>
+            </Box>
+          </BlackLink>
+        </ListItem>
         <Securized>
-          <Accordion>
-            <AccordionSummary expandIcon={<ExpandMore color="primary" />}>
-              <ListItem>
-                <Business />
-                <Box sx={{ ml: 2 }}>
-                  <Typography variant="h6">Oficinas</Typography>
-                </Box>
-              </ListItem>
-            </AccordionSummary>
-
-            <AccordionDetails>
-              <List>
-                <ListItem>
-                  <BlackLink
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      ml: 2,
-                    }}
-                    to="/admin/offices/add"
-                  >
-                    <Typography>
-                      <Capitalize>Añadir oficina</Capitalize>
-                    </Typography>
-                  </BlackLink>
-                </ListItem>
-                <ListItem>
-                  <BlackLink
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      ml: 2,
-                    }}
-                    to="/admin/offices"
-                  >
-                    <Typography>
-                      <Capitalize>Lista de oficinas</Capitalize>
-                    </Typography>
-                  </BlackLink>
-                </ListItem>
-              </List>
-            </AccordionDetails>
-          </Accordion>
-        </Securized>
-        {/* <Accordion>
-          <AccordionSummary expandIcon={<ExpandMore color="primary" />}>
-            <ListItem>
-              <BarChart />
+          <ListItem>
+            <BlackLink
+              sx={{
+                color: "#fff",
+                display: "flex",
+                alignItems: "center",
+                ml: 2,
+                "&:hover": {
+                  color: theme.palette.secondary.main,
+                },
+              }}
+              to="/admin/user/editors"
+            >
+              <Person />
+              <Edit />
               <Box sx={{ ml: 2 }}>
-                <Typography variant="h6">Estadísticas</Typography>
+                <Typography>
+                  <Capitalize>editores</Capitalize>
+                </Typography>
               </Box>
-            </ListItem>
-            </AccordionSummary>
-          <AccordionDetails>
-            <List>
-              <ListItem>
-                <BlackLink
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    ml: 2,
-                  }}
-                  to="/admin/statistics/general"
-                >
-                  <Typography>
-                    <Capitalize>general</Capitalize>
-                  </Typography>
-                </BlackLink>
-              </ListItem>
-              <ListItem>
-                <BlackLink
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    ml: 2,
-                  }}
-                  to="/admin/statistics/users"
-                >
-                  <Typography>
-                    <Capitalize>usuarios</Capitalize>
-                  </Typography>
-                </BlackLink>
-              </ListItem>
-              <ListItem>
-                <BlackLink
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    ml: 2,
-                  }}
-                  to="/admin/statistics/vehicles"
-                >
-                  <Typography>
-                    <Capitalize>vehículos</Capitalize>
-                  </Typography>
-                </BlackLink>
-              </ListItem>
-              <ListItem>
-                <BlackLink
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    ml: 2,
-                  }}
-                  to="/admin/statistics/offices"
-                >
-                  <Typography>
-                    <Capitalize>oficinas</Capitalize>
-                  </Typography>
-                </BlackLink>
-              </ListItem>
-            </List>
-          </AccordionDetails>
-        </Accordion> */}
+            </BlackLink>
+          </ListItem>
+        </Securized>
+        <Securized>
+          <ListItem>
+            <BlackLink
+              sx={{
+                color: "#fff",
+                display: "flex",
+                alignItems: "center",
+                ml: 2,
+                "&:hover": {
+                  color: theme.palette.secondary.main,
+                },
+              }}
+              to="/admin/user/admins"
+            >
+              <Person />
+              <Shield />
+              <Box sx={{ ml: 2 }}>
+                <Typography>
+                  <Capitalize>administradores</Capitalize>
+                </Typography>
+              </Box>
+            </BlackLink>
+          </ListItem>
+        </Securized>
+        <Divider sx={{ backgroundColor: "#fff", width: "100%", mb: 2 }} />
+        <ListSubheader
+          sx={{
+            backgroundColor: theme.palette.primary.dark,
+            color: "rgba(255, 255, 255, 0.4)",
+          }}
+        >
+          <Typography variant="h6" fontWeight={600}>
+            <Capitalize>Vehículos</Capitalize>
+          </Typography>
+        </ListSubheader>
+        <ListItem>
+          <BlackLink
+            sx={{
+              color: "#fff",
+              display: "flex",
+              alignItems: "center",
+              ml: 2,
+              "&:hover": {
+                color: theme.palette.secondary.main,
+              },
+            }}
+            to="/admin/vehicles/add"
+          >
+            <DirectionsCar />
+            <Add />
+            <Box sx={{ ml: 2 }}>
+              <Typography>
+                <Capitalize>añadir vehículo</Capitalize>
+              </Typography>
+            </Box>
+          </BlackLink>
+        </ListItem>
+        <ListItem>
+          <BlackLink
+            sx={{
+              color: "#fff",
+              display: "flex",
+              alignItems: "center",
+              ml: 2,
+              "&:hover": {
+                color: theme.palette.secondary.main,
+              },
+            }}
+            to="/admin/vehicles"
+          >
+            <DirectionsCar />
+            <ListAltOutlined />
+            <Box sx={{ ml: 2 }}>
+              <Typography>
+                <Capitalize>listar vehículos</Capitalize>
+              </Typography>
+            </Box>
+          </BlackLink>
+        </ListItem>
+        <Divider sx={{ backgroundColor: "#fff", width: "100%", mb: 2 }} />
+        <Securized>
+          <ListSubheader
+            sx={{
+              backgroundColor: theme.palette.primary.dark,
+              color: "rgba(255, 255, 255, 0.4)",
+            }}
+          >
+            <Typography variant="h6" fontWeight={600}>
+              <Capitalize>Oficinas</Capitalize>
+            </Typography>
+          </ListSubheader>
+          <ListItem>
+            <BlackLink
+              sx={{
+                color: "#fff",
+                display: "flex",
+                alignItems: "center",
+                ml: 2,
+                "&:hover": {
+                  color: theme.palette.secondary.main,
+                },
+              }}
+              to="/admin/offices/add"
+            >
+              <Business />
+              <Add />
+              <Box sx={{ ml: 2 }}>
+                <Typography>
+                  <Capitalize>Añadir oficina</Capitalize>
+                </Typography>
+              </Box>
+            </BlackLink>
+          </ListItem>
+          <ListItem>
+            <BlackLink
+              sx={{
+                color: "#fff",
+                display: "flex",
+                alignItems: "center",
+                ml: 2,
+                "&:hover": {
+                  color: theme.palette.secondary.main,
+                },
+              }}
+              to="/admin/offices"
+            >
+              <Business />
+              <ListAltOutlined />
+              <Box sx={{ ml: 2 }}>
+                <Typography>
+                  <Capitalize>Lista de oficinas</Capitalize>
+                </Typography>
+              </Box>
+            </BlackLink>
+          </ListItem>
+          <Divider sx={{ backgroundColor: "#fff", width: "100%", mb: 2 }} />
+        </Securized>
       </List>
     </Drawer>
   );

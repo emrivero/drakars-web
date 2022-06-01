@@ -195,8 +195,13 @@ const ActionsMenu: FC<{ row: TableGridRow }> = ({ row }) => {
         TransitionComponent={Fade}
       >
         <MenuItem onClick={() => onOpen(row)}>
-          <Button size="small">
+          <Button>
             <Capitalize>Ver</Capitalize>
+          </Button>
+        </MenuItem>
+        <MenuItem onClick={() => onOpen(row)}>
+          <Button color="error">
+            <Capitalize>Cancelar</Capitalize>
           </Button>
         </MenuItem>
       </Menu>
@@ -295,7 +300,7 @@ export const Rents: FC = () => {
               fullNameUser: value.renterUser
                 ? `${value.renterUser?.name} ${value.renterUser?.family_name}`
                 : "Usuario eliminado",
-              email: `${value.renterUser.email}`,
+              email: `${value?.renterUser?.email || ""}`,
               originAddress: `${value.originOffice.address}`,
               destinyAddress: `${value.destinyOffice.address}`,
               fullNameVehicle: value.rentedVehicle

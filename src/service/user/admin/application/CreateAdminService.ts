@@ -34,6 +34,7 @@ export class CreateAdminService {
     changeState(({ newEditor }) => {
       newEditor.offices = [];
       newEditor.officeId = null;
+      newEditor.searchOffice = "";
     });
   }
 
@@ -75,5 +76,14 @@ export class CreateAdminService {
     });
 
     return response;
+  }
+
+  clear() {
+    changeState((state) => {
+      state.newEditor = AdminUserSlice.newEditor;
+    });
+    changeState((state) => {
+      state.newAdmin = AdminUserSlice.newAdmin;
+    });
   }
 }

@@ -21,7 +21,7 @@ import { SearchInput } from "../../molecules/search";
 interface RegisterEditorProps {
   open: boolean;
   handleSave: MouseEventHandler;
-  handleCancel: MouseEventHandler;
+  handleCancel: () => void;
 }
 
 export const RegisterEditor: FC<RegisterEditorProps> = ({
@@ -37,14 +37,21 @@ export const RegisterEditor: FC<RegisterEditorProps> = ({
   const theme = useTheme();
 
   return (
-    <Dialog open={open} sx={{ p: 4 }}>
+    <Dialog
+      open={open}
+      sx={{ p: 4 }}
+      onClose={() => {
+        creator.clear();
+        handleCancel();
+      }}
+    >
       <DialogTitle>
         <Typography
           component="p"
           variant="h5"
           color={theme.palette.primary.dark}
         >
-          Añadir administrador
+          Añadir editor
         </Typography>
       </DialogTitle>
       <DialogContent sx={{ minWidth: 500 }}>
@@ -53,7 +60,7 @@ export const RegisterEditor: FC<RegisterEditorProps> = ({
             <Box sx={{ p: 1 }}>
               <FormLabel>
                 <PrimaryTypography fontWeight={500}>
-                  Nombre del usuario
+                  Nombre del editor
                 </PrimaryTypography>
               </FormLabel>
             </Box>
@@ -73,7 +80,7 @@ export const RegisterEditor: FC<RegisterEditorProps> = ({
             <Box sx={{ p: 1 }}>
               <FormLabel>
                 <PrimaryTypography fontWeight={500}>
-                  Apellidos del usuario
+                  Apellidos del editor
                 </PrimaryTypography>
               </FormLabel>
             </Box>
@@ -83,7 +90,7 @@ export const RegisterEditor: FC<RegisterEditorProps> = ({
                 onChange={(e) =>
                   creator.setEditorState({ family_name: e.target.value })
                 }
-                placeholder="Escriba los apellidos del usuario"
+                placeholder="Escriba los apellidos del editor"
                 label="Apellidos"
                 value={newEditor.family_name}
               />
@@ -93,7 +100,7 @@ export const RegisterEditor: FC<RegisterEditorProps> = ({
             <Box sx={{ p: 1 }}>
               <FormLabel>
                 <PrimaryTypography fontWeight={500}>
-                  Correo del usuario
+                  Correo del editor
                 </PrimaryTypography>
               </FormLabel>
             </Box>
@@ -103,7 +110,7 @@ export const RegisterEditor: FC<RegisterEditorProps> = ({
                 onChange={(e) =>
                   creator.setEditorState({ email: e.target.value })
                 }
-                placeholder="Escriba el correo del usuario"
+                placeholder="Escriba el correo del editor"
                 label="Correo eléctronico"
                 value={newEditor.email}
               />

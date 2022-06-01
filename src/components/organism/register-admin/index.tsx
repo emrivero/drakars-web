@@ -19,7 +19,7 @@ import { PrimaryTypography } from "../../molecules/primary-typography";
 interface RegisterAdminProps {
   open: boolean;
   handleSave: MouseEventHandler;
-  handleCancel: MouseEventHandler;
+  handleCancel: () => void;
 }
 
 export const RegisterAdmin: FC<RegisterAdminProps> = ({
@@ -32,7 +32,14 @@ export const RegisterAdmin: FC<RegisterAdminProps> = ({
   const theme = useTheme();
 
   return (
-    <Dialog open={open} sx={{ p: 4 }}>
+    <Dialog
+      open={open}
+      sx={{ p: 4 }}
+      onClose={() => {
+        creator.clear();
+        handleCancel();
+      }}
+    >
       <DialogTitle>
         <Typography
           component="p"
@@ -48,7 +55,7 @@ export const RegisterAdmin: FC<RegisterAdminProps> = ({
             <Box sx={{ p: 1 }}>
               <FormLabel>
                 <PrimaryTypography fontWeight={500}>
-                  Nombre del usuario
+                  Nombre del administrador
                 </PrimaryTypography>
               </FormLabel>
             </Box>
@@ -68,7 +75,7 @@ export const RegisterAdmin: FC<RegisterAdminProps> = ({
             <Box sx={{ p: 1 }}>
               <FormLabel>
                 <PrimaryTypography fontWeight={500}>
-                  Apellidos del usuario
+                  Apellidos del administrador
                 </PrimaryTypography>
               </FormLabel>
             </Box>
@@ -78,7 +85,7 @@ export const RegisterAdmin: FC<RegisterAdminProps> = ({
                 onChange={(e) =>
                   creator.setAdminState({ family_name: e.target.value })
                 }
-                placeholder="Escriba los apellidos del usuario"
+                placeholder="Escriba los apellidos del administrador"
                 label="Apellidos"
                 value={newAdmin.family_name}
               />
@@ -88,7 +95,7 @@ export const RegisterAdmin: FC<RegisterAdminProps> = ({
             <Box sx={{ p: 1 }}>
               <FormLabel>
                 <PrimaryTypography fontWeight={500}>
-                  Correo del usuario
+                  Correo del administrador
                 </PrimaryTypography>
               </FormLabel>
             </Box>
@@ -98,7 +105,7 @@ export const RegisterAdmin: FC<RegisterAdminProps> = ({
                 onChange={(e) =>
                   creator.setAdminState({ email: e.target.value })
                 }
-                placeholder="Escriba el correo del usuario"
+                placeholder="Escriba el correo del administrador"
                 label="Correo eléctronico"
                 value={newAdmin.email}
               />

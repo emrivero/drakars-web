@@ -24,6 +24,7 @@ import { MuiLink } from "../../../molecules/link";
 
 export const Header: FC = () => {
   const { login, logout, isAuthenticated, userInfo } = useAuth();
+  console.log(userInfo);
   const theme = useTheme();
   const { t, setLang, lang } = useTranslate();
 
@@ -186,7 +187,7 @@ export const Header: FC = () => {
                   onClick={handleMenuProfile}
                   size="large"
                 >
-                  {userInfo.name}
+                  {userInfo.given_name}
                 </Button>
                 <Menu
                   open={openProfileMenu}

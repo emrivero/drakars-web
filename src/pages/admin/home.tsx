@@ -10,7 +10,6 @@ import { PrimaryTypography } from "../../components/molecules/primary-typography
 import { ManageRent } from "../../components/organism/manage-rent";
 import { RegisterAdmin } from "../../components/organism/register-admin";
 import { RegisterEditor } from "../../components/organism/register-admin/register-editor";
-import { NumberStatistic } from "../../components/organism/statistics/number-statistic";
 import { AdminLayout } from "../../components/templates/admin/layout";
 import { useAdminServices } from "../../service/user/admin/application";
 
@@ -70,7 +69,7 @@ const AdminHome = () => {
   };
 
   const onCancelRegisterEditor = () => {
-    setOpenManageRent(false);
+    setOpenRegisterEditor(false);
   };
 
   const onSaveRegisterEditor = async () => {
@@ -126,7 +125,7 @@ const AdminHome = () => {
   return (
     <AdminLayout title={`Hola, ${userInfo.given_name}`}>
       <Grid container rowSpacing={4} display="flex" justifyContent="center">
-        <Grid item md={8} xs={12}>
+        {/* <Grid item md={8} xs={12}>
           <Grid container rowSpacing={4}>
             <Grid item sm={12} display="flex" justifyContent="center">
               <Typography variant="h4" align="center">
@@ -157,7 +156,7 @@ const AdminHome = () => {
               <NumberStatistic title="Ganancias" value={30343677} />
             </Grid>
           </Grid>
-        </Grid>
+        </Grid> */}
         <Grid item md={4} xs={8}>
           <Paper sx={{ p: 4, backgroundColor: theme.palette.primary.dark }}>
             <Grid container rowSpacing={4}>
@@ -214,19 +213,21 @@ const AdminHome = () => {
                   </Button>
                 </Grid>
               </Securized>
-              <Grid item sm={12}>
-                <Button
-                  component={BlackLink}
-                  to="/admin/offices/add"
-                  color="info"
-                  fullWidth
-                  sx={{ py: 2, backgroundColor: "#fff" }}
-                  startIcon={<AdminPanelSettings />}
-                  size="large"
-                >
-                  <Typography variant="button">Añadir oficina</Typography>
-                </Button>
-              </Grid>
+              <Securized>
+                <Grid item sm={12}>
+                  <Button
+                    component={BlackLink}
+                    to="/admin/offices/add"
+                    color="info"
+                    fullWidth
+                    sx={{ py: 2, backgroundColor: "#fff" }}
+                    startIcon={<AdminPanelSettings />}
+                    size="large"
+                  >
+                    <Typography variant="button">Añadir oficina</Typography>
+                  </Button>
+                </Grid>
+              </Securized>
               <Grid item sm={12}>
                 <Button
                   component={BlackLink}
