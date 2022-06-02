@@ -105,4 +105,12 @@ export class AdminClient extends Client<
       resource: `client/${id}/${email}`,
     });
   }
+
+  refreshRents() {
+    return this.post("rent/refresh", null);
+  }
+
+  cancelRent(reference: string) {
+    return this.put(`rent/cancel/${reference}`, null);
+  }
 }

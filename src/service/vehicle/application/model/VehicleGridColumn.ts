@@ -12,31 +12,31 @@ export interface VehicleGridRow {
 }
 
 export const vehicleColumns: TableGridColumn[] = [
-  // {
-  //   field: "id",
-  //   label: "ID ",
-  // },
+  {
+    field: "id",
+    label: "Identificador ",
+  },
   {
     field: "fullName",
     label: "Modelo",
   },
-  {
-    field: "seats",
-    label: "Nº de asientos",
-  },
-  {
-    field: "type",
-    label: "Categoría",
-  },
+  // {
+  //   field: "seats",
+  //   label: "Nº de asientos",
+  // },
+  // {
+  //   field: "type",
+  //   label: "Categoría",
+  // },
 
-  {
-    field: "doors",
-    label: "Nº de puertas",
-  },
-  {
-    field: "year",
-    label: "Año de fabricación",
-  },
+  // {
+  //   field: "doors",
+  //   label: "Nº de puertas",
+  // },
+  // {
+  //   field: "year",
+  //   label: "Año de fabricación",
+  // },
   {
     field: "fuel",
     label: "Combustible",

@@ -12,6 +12,7 @@ export interface OfficeStateProps {
     data: PaginateVm<OfficeVm>;
   };
   newOffice: OfficeDto;
+  editOffice: OfficeDto & { id: number };
 }
 
 export const OfficeSlice: OfficeStateProps = {
@@ -47,10 +48,28 @@ export const OfficeSlice: OfficeStateProps = {
     eveningClosingTime: "",
     eveningTime: false,
   },
+  editOffice: {
+    id: null,
+    searchCity: "",
+    searchMunicipality: "",
+    address: "",
+    municipalityId: null,
+    name: "",
+    zipCode: "",
+    cityId: null,
+    cities: [],
+    municipalities: [],
+    status: "",
+    morningOpeningTime: "08:00",
+    morningClosingTime: "15:00",
+    eveningOpeningTime: "",
+    eveningClosingTime: "",
+    eveningTime: false,
+  },
 };
 
 export const getOfficeState: () => OfficeStateProps = () => {
-  const { offices, paginatedOffices, newOffice } = get();
+  const { offices, paginatedOffices, newOffice, editOffice } = get();
 
-  return { offices, paginatedOffices, newOffice };
+  return { offices, paginatedOffices, newOffice, editOffice };
 };

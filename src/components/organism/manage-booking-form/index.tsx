@@ -4,11 +4,12 @@ import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Routes } from "../../../routes/routes";
 import { useRentCarService } from "../../../service/rent-car/application";
+import { useStore } from "../../../store";
 
 export const ManageBookingForm: FC = () => {
   const navigate = useNavigate();
   const { getter } = useRentCarService();
-
+  const { set } = useStore((state) => state.anonActiveRent);
   const [{ reference, email }, setState] = useState<{
     reference?: string;
     email?: string;
@@ -29,6 +30,7 @@ export const ManageBookingForm: FC = () => {
         });
         return;
       }
+      set(result);
       navigate(Routes.EDIT_BOOKING_PAGE);
     } catch (e) {
       enqueueSnackbar("Reserva no encontrada", {
@@ -66,7 +68,7 @@ export const ManageBookingForm: FC = () => {
               type={"email"}
               fullWidth
               variant="outlined"
-              placeholder="Introduce tu DNI/NIE"
+              placeholder="Introduce tu correo eléctronico"
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   onContinue();

@@ -11,43 +11,47 @@ import { Layout } from "../../../components/templates/client/layout";
 import { CommonSection } from "../../../components/templates/client/layout/common-section";
 import { Routes } from "../../../routes/routes";
 import { useRentCarService } from "../../../service/rent-car/application";
+import { useClientService } from "../../../service/user/client/application";
 import { useStore } from "../../../store";
 
 export const EditBooking: FC = () => {
   const [dialogState, setDialogState] = useState({ open: false });
-  const { loggedClient } = useStore();
+  const { loggedClient, anonActiveRent } = useStore();
 
-  const activeRent = loggedClient.activeRent;
-
-  const notDelete = loggedClient?.activeRent?.status === "checkedin";
+  const notDelete = loggedClient?.activeRent?.status !== "pending";
 
   const { clearer, cancelRent } = useRentCarService();
+  const { getter } = useClientService();
   const navigate = useNavigate();
   const theme = useTheme();
 
   const confirm = useConfirm();
 
   useEffect(() => {
-    if (!activeRent?.reference) {
-      navigate(-1);
+    if (loggedClient.info !== null) {
+      getter.getRent().then((data) => {
+        if (!data?.reference) {
+          navigate(Routes.HOME_PAGE);
+        }
+      });
+    } else if (!anonActiveRent.data) {
+      navigate(Routes.HOME_PAGE);
     }
     return () => clearer.clear();
-  }, []);
+  }, [loggedClient]);
 
-  if (!activeRent?.reference) {
-    return <LoadingPage />;
+  const currentActiveRent =
+    loggedClient?.info !== null
+      ? loggedClient?.activeRent
+      : anonActiveRent?.data;
+
+  if (!currentActiveRent) {
+    return (
+      <Layout showFooter={false}>
+        <LoadingPage />
+      </Layout>
+    );
   }
-
-  const {
-    reference,
-    total,
-    rentedVehicle,
-    startDate,
-    endDate,
-    originOffice,
-    destinyOffice,
-    renterUser,
-  } = loggedClient.activeRent;
 
   const onRemove = () => {
     confirm({
@@ -71,7 +75,7 @@ export const EditBooking: FC = () => {
         color: "primary",
       },
     }).then(async () => {
-      await cancelRent(renterUser.email, reference);
+      await cancelRent(currentActiveRent?.reference);
       confirm({
         title: "",
         cancellationButtonProps: {
@@ -121,7 +125,7 @@ export const EditBooking: FC = () => {
               <PrimaryTypography variant="h6" sx={{ mr: 1 }}>
                 <Upper>Importe Total: </Upper>
               </PrimaryTypography>
-              <Typography variant="h6">{total} €</Typography>
+              <Typography variant="h6">{currentActiveRent?.total} €</Typography>
             </Grid>
           </Grid>
         </Box>
@@ -144,7 +148,9 @@ export const EditBooking: FC = () => {
                 <CustomTypography customColor={() => "#888"}>
                   Nombre
                 </CustomTypography>
-                <Typography fontWeight={600}>{renterUser.name}</Typography>
+                <Typography fontWeight={600}>
+                  {currentActiveRent?.renterUser?.name}
+                </Typography>
               </Box>
             </Grid>
             <Grid
@@ -160,7 +166,7 @@ export const EditBooking: FC = () => {
                   Apellidos
                 </CustomTypography>
                 <Typography fontWeight={600}>
-                  {renterUser.family_name}
+                  {currentActiveRent?.renterUser?.family_name}
                 </Typography>
               </Box>
             </Grid>
@@ -176,7 +182,9 @@ export const EditBooking: FC = () => {
                 <CustomTypography customColor={() => "#888"}>
                   DNI/NIE
                 </CustomTypography>
-                <Typography fontWeight={600}>{renterUser.dni}</Typography>
+                <Typography fontWeight={600}>
+                  {currentActiveRent?.renterUser?.dni}
+                </Typography>
               </Box>
             </Grid>
             <Grid
@@ -191,7 +199,9 @@ export const EditBooking: FC = () => {
                 <CustomTypography customColor={() => "#888"}>
                   Correo Electrónico:
                 </CustomTypography>
-                <Typography fontWeight={600}>{renterUser.email}</Typography>
+                <Typography fontWeight={600}>
+                  {currentActiveRent?.renterUser?.email}
+                </Typography>
               </Box>
             </Grid>
             <Grid
@@ -205,7 +215,9 @@ export const EditBooking: FC = () => {
                 <CustomTypography customColor={() => "#888"}>
                   Teléfono móvil:
                 </CustomTypography>
-                <Typography fontWeight={600}>{renterUser.phone}</Typography>
+                <Typography fontWeight={600}>
+                  {currentActiveRent?.renterUser?.phone}
+                </Typography>
               </Box>
             </Grid>
           </Grid>
@@ -229,7 +241,9 @@ export const EditBooking: FC = () => {
                 <CustomTypography customColor={() => "#888"}>
                   Referencia
                 </CustomTypography>
-                <Typography fontWeight={600}>{reference}</Typography>
+                <Typography fontWeight={600}>
+                  {currentActiveRent?.reference}
+                </Typography>
               </Box>
             </Grid>
             <Grid
@@ -245,7 +259,7 @@ export const EditBooking: FC = () => {
                   Fechas
                 </CustomTypography>
                 <Typography fontWeight={600}>
-                  {startDate} / {endDate}
+                  {currentActiveRent?.startDate} / {currentActiveRent?.endDate}
                 </Typography>
               </Box>
             </Grid>
@@ -261,13 +275,15 @@ export const EditBooking: FC = () => {
                 <CustomTypography customColor={() => "#888"}>
                   Recogida:
                 </CustomTypography>
-                <Typography fontWeight={600}>{originOffice?.name}</Typography>
                 <Typography fontWeight={600}>
-                  {originOffice?.address}
+                  {currentActiveRent?.originOffice?.name}
                 </Typography>
                 <Typography fontWeight={600}>
-                  {originOffice?.municipality?.name},
-                  {originOffice?.municipality?.city?.name}
+                  {currentActiveRent?.originOffice?.address}
+                </Typography>
+                <Typography fontWeight={600}>
+                  {currentActiveRent?.originOffice?.municipality?.name},
+                  {currentActiveRent?.originOffice?.municipality?.city?.name}
                 </Typography>
               </Box>
             </Grid>
@@ -283,13 +299,15 @@ export const EditBooking: FC = () => {
                 <CustomTypography customColor={() => "#888"}>
                   Devolución:
                 </CustomTypography>
-                <Typography fontWeight={600}>{destinyOffice?.name}</Typography>
                 <Typography fontWeight={600}>
-                  {destinyOffice?.address}
+                  {currentActiveRent?.destinyOffice?.name}
                 </Typography>
                 <Typography fontWeight={600}>
-                  {destinyOffice?.municipality?.name},
-                  {destinyOffice?.municipality?.city?.name}
+                  {currentActiveRent?.destinyOffice?.address}
+                </Typography>
+                <Typography fontWeight={600}>
+                  {currentActiveRent?.destinyOffice?.municipality?.name},
+                  {currentActiveRent?.destinyOffice?.municipality?.city?.name}
                 </Typography>
               </Box>
             </Grid>
@@ -305,7 +323,8 @@ export const EditBooking: FC = () => {
                   Vehículo:
                 </CustomTypography>
                 <Typography fontWeight={600}>
-                  {rentedVehicle?.mark} {rentedVehicle?.model}
+                  {currentActiveRent?.rentedVehicle?.mark}{" "}
+                  {currentActiveRent?.rentedVehicle?.model}
                 </Typography>
               </Box>
             </Grid>
@@ -313,7 +332,7 @@ export const EditBooking: FC = () => {
         </Box>
         <Box width="100%" mt={10}>
           <Grid container rowSpacing={2}>
-            <Grid
+            {/* <Grid
               item
               xs={12}
               sx={{ display: "flex", justifyContent: "center" }}
@@ -331,7 +350,7 @@ export const EditBooking: FC = () => {
                   Cambiar reserva
                 </Button>
               </Box>
-            </Grid>
+            </Grid> */}
             <Grid
               item
               xs={12}

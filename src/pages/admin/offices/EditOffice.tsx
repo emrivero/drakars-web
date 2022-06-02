@@ -10,7 +10,9 @@ import {
 } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { FC, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ErrorTypography } from "../../../components/molecules/error-typography";
+import { LoadingPage } from "../../../components/molecules/loading-page";
 import { PrimaryTypography } from "../../../components/molecules/primary-typography";
 import { SearchInput } from "../../../components/molecules/search";
 import { AdminLayout } from "../../../components/templates/admin/layout";
@@ -19,8 +21,8 @@ import { useMunicipalityService } from "../../../service/municipality/applicatio
 import { useOfficeService } from "../../../service/office/application";
 import { useStore } from "../../../store";
 
-export const AddOffice: FC = () => {
-  const { creator, validator } = useOfficeService();
+export const EditOffice: FC = () => {
+  const { updater, validator } = useOfficeService();
   const {
     mappers: { CitySelectOptions },
   } = useCityService();
@@ -28,10 +30,11 @@ export const AddOffice: FC = () => {
     mappers: { MunicipalitySelectOptions },
   } = useMunicipalityService();
   const [firstValidate, setFirstValidate] = useState(false);
-
+  const navigation = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
   const {
+    id,
     cities,
     municipalities,
     cityId,
@@ -46,8 +49,8 @@ export const AddOffice: FC = () => {
     eveningOpeningTime,
     eveningClosingTime,
     eveningTime,
-  } = useStore((state) => state.newOffice);
-  const { newOffice } = useStore();
+  } = useStore((state) => state.editOffice);
+  const { editOffice } = useStore();
 
   const cityList = cities
     .map(CitySelectOptions)
@@ -58,7 +61,7 @@ export const AddOffice: FC = () => {
 
   useEffect(() => {
     return () => {
-      creator.clear();
+      updater.clear();
       setFirstValidate(false);
       validator.setValid();
     };
@@ -66,7 +69,7 @@ export const AddOffice: FC = () => {
 
   useEffect(() => {
     if (!eveningTime) {
-      creator.setState({
+      updater.setState({
         eveningClosingTime: "",
         eveningOpeningTime: "",
       });
@@ -82,9 +85,9 @@ export const AddOffice: FC = () => {
       });
       return;
     }
-    const response = await creator.create();
+    const response = await updater.update();
     if (response.status < 300) {
-      creator.clear();
+      updater.clear();
       enqueueSnackbar("Oficina creada", {
         variant: "success",
         autoHideDuration: 2000,
@@ -100,7 +103,12 @@ export const AddOffice: FC = () => {
   };
 
   if (firstValidate) {
-    validator.validate(newOffice);
+    validator.validate(editOffice);
+  }
+
+  if (!id) {
+    navigation(-1);
+    return <LoadingPage />;
   }
 
   const validation = validator.validateInfo;
@@ -122,16 +130,20 @@ export const AddOffice: FC = () => {
               sx: { p: 1 },
               options: cityList,
               onInputChange: (_, value, reason) => {
-                reason === "input"
-                  ? creator.searchCity(value)
-                  : creator.clearSearch();
+                if (reason === "input") {
+                  updater.searchCity(value);
+                }
+
+                if (reason === "clear") {
+                  updater.clearSearch();
+                }
               },
 
               onChange: (e, opt) =>
                 opt &&
-                creator.setState({
-                  cityId: opt?.value,
-                  searchCity: opt?.label,
+                updater.setState({
+                  cityId: opt?.value || null,
+                  searchCity: opt?.label || "",
                 }),
               value: {
                 value: cityId,
@@ -162,15 +174,21 @@ export const AddOffice: FC = () => {
               noOptionsText: "Sin coincidencias",
               sx: { p: 1 },
               options: municipalityList,
-              onInputChange: (_, value, reason) =>
-                reason === "input"
-                  ? creator.searchMunicipality(value)
-                  : creator.clearMunicipalitySerch(),
-              onChange: (e, opt) =>
-                creator.setState({
-                  municipalityId: opt?.value,
-                  searchMunicipality: opt?.label,
-                }),
+              onInputChange: (_, value, reason) => {
+                if (reason === "input") {
+                  updater.searchMunicipality(value);
+                }
+
+                if (reason === "clear") {
+                  updater.clearMunicipalitySerch();
+                }
+              },
+              onChange: (e, opt) => {
+                updater.setState({
+                  municipalityId: opt?.value || null,
+                  searchMunicipality: opt?.label || "",
+                });
+              },
               value: {
                 value: municipalityId,
                 label: searchMunicipality,
@@ -204,7 +222,7 @@ export const AddOffice: FC = () => {
                 placeholder="Escriba el nombre de la oficina"
                 label="Nombre"
                 value={name}
-                onChange={(e) => creator.setState({ name: e.target.value })}
+                onChange={(e) => updater.setState({ name: e.target.value })}
                 error={!validation.name.valid}
               />
               <ErrorTypography hidden={validation.name.valid}>
@@ -217,7 +235,7 @@ export const AddOffice: FC = () => {
                 placeholder="Escriba la dirección de la oficina"
                 label="Dirección"
                 value={address}
-                onChange={(e) => creator.setState({ address: e.target.value })}
+                onChange={(e) => updater.setState({ address: e.target.value })}
                 error={!validation.address.valid}
               />
               <ErrorTypography hidden={validation.address.valid}>
@@ -231,7 +249,7 @@ export const AddOffice: FC = () => {
                 label="Código postal"
                 value={zipCode}
                 error={!validation.zipCode.valid}
-                onChange={(e) => creator.setState({ zipCode: e.target.value })}
+                onChange={(e) => updater.setState({ zipCode: e.target.value })}
               />
               <ErrorTypography hidden={validation.zipCode.valid}>
                 {validation.zipCode.errorMessage}
@@ -252,7 +270,7 @@ export const AddOffice: FC = () => {
               <TextField
                 fullWidth
                 onChange={(e) =>
-                  creator.setState({ morningOpeningTime: e.target.value })
+                  updater.setState({ morningOpeningTime: e.target.value })
                 }
                 type="time"
                 label="Hora de apertura"
@@ -273,7 +291,7 @@ export const AddOffice: FC = () => {
               <TextField
                 fullWidth
                 onChange={(e) =>
-                  creator.setState({ morningClosingTime: e.target.value })
+                  updater.setState({ morningClosingTime: e.target.value })
                 }
                 type="time"
                 label="Hora de cierre"
@@ -296,7 +314,7 @@ export const AddOffice: FC = () => {
                   <Checkbox
                     checked={eveningTime}
                     onChange={(e) =>
-                      creator.setState({ eveningTime: e.target.checked })
+                      updater.setState({ eveningTime: e.target.checked })
                     }
                   />
                 }
@@ -320,7 +338,7 @@ export const AddOffice: FC = () => {
                 <TextField
                   fullWidth
                   onChange={(e) =>
-                    creator.setState({ eveningOpeningTime: e.target.value })
+                    updater.setState({ eveningOpeningTime: e.target.value })
                   }
                   type="time"
                   value={eveningOpeningTime}
@@ -341,7 +359,7 @@ export const AddOffice: FC = () => {
                 <TextField
                   fullWidth
                   onChange={(e) =>
-                    creator.setState({ eveningClosingTime: e.target.value })
+                    updater.setState({ eveningClosingTime: e.target.value })
                   }
                   type="time"
                   label="Hora de cierre"

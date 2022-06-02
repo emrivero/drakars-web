@@ -9,7 +9,11 @@ export class OfficeVm extends BaseVm {
     public readonly name: string,
     public readonly address: string,
     public readonly zipCode: string,
-    public readonly municipality: MunicipalityVm
+    public readonly municipality: MunicipalityVm,
+    public readonly morningOpeningTime: string,
+    public readonly morningClosingTime: string,
+    public readonly eveningOpeningTime: string,
+    public readonly eveningClosingTime: string
   ) {
     super(id, createdAt, updatedAt);
   }
@@ -22,7 +26,11 @@ export class OfficeVm extends BaseVm {
       office.name,
       office.address,
       office.zipCode,
-      office.municipality
+      office.municipality,
+      office.morningOpeningTime,
+      office.morningClosingTime,
+      office.eveningOpeningTime,
+      office.eveningClosingTime
     );
   }
 

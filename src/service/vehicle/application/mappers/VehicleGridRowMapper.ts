@@ -5,6 +5,7 @@ export const VehicleGridRowMapper = (vm: VehicleVm): TableGridRow => {
   return {
     index: `${vm.id}`,
     ...vm,
-    office: vm.office?.name,
+    pricePerDay: `${vm.pricePerDay}€`,
+    office: `${vm.office?.name}, ${vm?.office?.municipality?.name}, ${vm?.office?.municipality?.city?.name}`,
   };
 };

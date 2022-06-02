@@ -17,9 +17,10 @@ export class DeleteClientService {
   }
 
   async deleteMe() {
-    await this.client.delete("deleteme");
+    const response = await this.client.delete("deleteme");
 
     this.setClient(ClientUserSlice);
+    return response;
   }
 
   setClient(client: ClientUserProps) {

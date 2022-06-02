@@ -80,13 +80,7 @@ const ActionsMenu: FC<{ row: TableGridRow }> = ({ row }) => {
         onClose={handleCloseMenuProfile}
         TransitionComponent={Fade}
       >
-        <MenuItem>
-          <BlackLink to="/home/profile">
-            <Button>
-              <Capitalize>hacer administrador</Capitalize>
-            </Button>
-          </BlackLink>
-        </MenuItem>
+        <MenuItem></MenuItem>
         <MenuItem>
           <BlackLink to="/home/profile">
             <Button>
@@ -174,7 +168,11 @@ export const EditorUsers: FC = () => {
         onAddItem={() => setOpenRegisterEditor(true)}
         addText="Añadir editor"
         textFieldSearch={{
-          onChange: (e) => paginatorEditor.onFilter({ search: e.target.value }),
+          onChange: (e) =>
+            paginatorEditor.onFilter({
+              search: e.target.value,
+              currentPage: 0,
+            }),
           value: search,
           placeholder: "Introduce nombre o correo eléctronico",
         }}

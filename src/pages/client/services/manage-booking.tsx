@@ -19,7 +19,7 @@ export const ManageBooking: FC = () => {
 
   const { isAuthenticated } = useAuth();
 
-  if (loggedClient?.activeRent) {
+  if (loggedClient?.info) {
     return <Navigate to={Routes.EDIT_BOOKING_PAGE} />;
   }
 

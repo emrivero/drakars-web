@@ -3,7 +3,6 @@ import { Box, Button, Fade, Menu, MenuItem, Typography } from "@mui/material";
 import { useConfirm } from "material-ui-confirm";
 import { FC, useEffect, useState } from "react";
 import { Capitalize } from "../../../../components/atoms/transforms/capitalize";
-import { BlackLink } from "../../../../components/molecules/black-link";
 import { ErrorTypography } from "../../../../components/molecules/error-typography";
 import { PrimaryTypography } from "../../../../components/molecules/primary-typography";
 import { RegisterAdmin } from "../../../../components/organism/register-admin";
@@ -81,13 +80,6 @@ const ActionsMenu: FC<{ row: TableGridRow }> = ({ row }) => {
         onClose={handleCloseMenuProfile}
         TransitionComponent={Fade}
       >
-        <MenuItem>
-          <BlackLink to="/home/profile">
-            <Button>
-              <Capitalize>Cambiar a editor</Capitalize>
-            </Button>
-          </BlackLink>
-        </MenuItem>
         <MenuItem onClick={() => onRemove(row.index)}>
           <Button color="error">
             <Capitalize>Dar de baja</Capitalize>
@@ -165,7 +157,8 @@ export const AdminUsers: FC = () => {
         onAddItem={() => setOpenRegisterAdmin(true)}
         addText="Añadir administrador"
         textFieldSearch={{
-          onChange: (e) => paginatorAdmin.onFilter({ search: e.target.value }),
+          onChange: (e) =>
+            paginatorAdmin.onFilter({ search: e.target.value, currentPage: 0 }),
           value: search,
           placeholder: "Introduce nombre o correo eléctronico",
         }}

@@ -1,6 +1,7 @@
 import { KeyboardArrowDown } from "@mui/icons-material";
 import { Button, Fade, Menu, MenuItem } from "@mui/material";
 import { useConfirm } from "material-ui-confirm";
+import { useSnackbar } from "notistack";
 import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Capitalize } from "../../../components/atoms/transforms/capitalize";
@@ -36,6 +37,7 @@ const ActionsMenu: FC<{ row: TableGridRow }> = ({ row }) => {
     await updater.fetch(row.index);
     navigate("/admin/vehicles/edit");
   };
+  const { enqueueSnackbar } = useSnackbar();
 
   const onRemove = async () => {
     confirm({
@@ -59,7 +61,20 @@ const ActionsMenu: FC<{ row: TableGridRow }> = ({ row }) => {
       ),
     })
       .then(async () => {
-        await vehicleClient.delete(row.index);
+        const response = await vehicleClient.delete(row.index);
+        if (response.status < 300) {
+          enqueueSnackbar("Vehículo eliminado", {
+            variant: "success",
+            autoHideDuration: 2000,
+            anchorOrigin: { horizontal: "center", vertical: "top" },
+          });
+        } else {
+          enqueueSnackbar("El vehículo tiene una reserva pendiente", {
+            variant: "error",
+            autoHideDuration: 2000,
+            anchorOrigin: { horizontal: "center", vertical: "top" },
+          });
+        }
         paginatorVehicle.paginate();
       })
       .catch(() => null);
@@ -126,7 +141,10 @@ export const ListVehicles: FC = () => {
         addText="Añadir vehículo"
         textFieldSearch={{
           onChange: (e) =>
-            paginatorVehicle.onFilter({ search: e.target.value }),
+            paginatorVehicle.onFilter({
+              search: e.target.value,
+              currentPage: 0,
+            }),
           value: search,
           placeholder: "Introduce marca o modelo de vehículo",
         }}

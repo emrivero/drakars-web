@@ -21,6 +21,7 @@ export class GetClientService {
     const { data } = await this.client.getById("getme");
 
     this.setClient(data);
+    return data;
   }
 
   async getRent() {
@@ -56,6 +57,7 @@ export class GetClientService {
         name: client.name,
         lastName: client.family_name,
         email: client.email,
+        phone: client.phone,
       };
     });
 

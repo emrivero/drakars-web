@@ -1,13 +1,12 @@
 import { Client } from "../../base/client";
 import { PaginateVO } from "../../base/client/dto/PaginateDto";
 import { PaginateVm } from "../../base/client/view/PaginateVm";
-import { VehicleVm } from "../../vehicle/client/view/VehicleVm";
 import { NewOffice } from "../application/model/NewOffice";
 import { OfficeVm } from "./view/OfficeVm";
 
 export class OfficeClient extends Client<
-  VehicleVm,
-  VehicleVm[],
+  OfficeVm,
+  OfficeVm[],
   unknown,
   unknown,
   unknown,

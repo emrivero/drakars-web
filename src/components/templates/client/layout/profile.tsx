@@ -14,6 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useConfirm } from "material-ui-confirm";
+import { useSnackbar } from "notistack";
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../auth/use-auth";
@@ -35,6 +36,7 @@ export const ProfileLayout: FC<ProfileLayoutProps> = ({
   const { deleter } = useClientService();
   const navigate = useNavigate();
   const { logout } = useAuth();
+  const { enqueueSnackbar } = useSnackbar();
 
   const onDelete = () => {
     confirm({
@@ -57,9 +59,20 @@ export const ProfileLayout: FC<ProfileLayoutProps> = ({
         </>
       ),
     }).then(async () => {
-      await deleter.deleteMe();
-      logout();
-      navigate("/home");
+      const response = await deleter.deleteMe();
+      if (response.status < 300) {
+        logout();
+        navigate("/home");
+      } else {
+        enqueueSnackbar(
+          "No puede darse de baja porque tiene reservas pendientes",
+          {
+            variant: "error",
+            autoHideDuration: 3000,
+            anchorOrigin: { horizontal: "center", vertical: "top" },
+          }
+        );
+      }
     });
   };
 

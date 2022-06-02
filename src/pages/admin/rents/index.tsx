@@ -12,8 +12,8 @@ import {
   useTheme,
 } from "@mui/material";
 import moment from "moment";
+import { useSnackbar } from "notistack";
 import { FC, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Capitalize } from "../../../components/atoms/transforms/capitalize";
 import { PrimaryTypography } from "../../../components/molecules/primary-typography";
 import { TableGridRow } from "../../../components/organism/table-grid";
@@ -23,6 +23,7 @@ import { RentStatusMapper } from "../../../service/rent-car/application/mappers/
 import { rentColumns } from "../../../service/rent-car/application/model/rent-grid-column";
 import { RentDataConfirmVm } from "../../../service/rent-car/client/vm/RentDataConfirmVm";
 import { useAdminServices } from "../../../service/user/admin/application";
+import { AdminClient } from "../../../service/user/admin/client";
 import { useStore } from "../../../store";
 
 export interface ViewInfoProps {
@@ -72,7 +73,7 @@ const ViewInfo: FC<ViewInfoProps> = ({ open, cancel, rentInfo }) => {
             DNI:{" "}
           </PrimaryTypography>
           <Typography fontWeight={500} display="inline">
-            {rentInfo?.renterUser.dni}
+            {rentInfo?.renterUser?.dni || ""}
           </Typography>
         </Box>
         <Box>
@@ -151,7 +152,7 @@ const ViewInfo: FC<ViewInfoProps> = ({ open, cancel, rentInfo }) => {
 const ActionsMenu: FC<{ row: TableGridRow }> = ({ row }) => {
   const [profileAnchor, setProfileAnchor] = useState<null | HTMLElement>(null);
   const open = Boolean(profileAnchor);
-
+  const adminClient = new AdminClient();
   const handleMenuProfile = (event: React.MouseEvent<HTMLElement>) => {
     setProfileAnchor(event.currentTarget);
   };
@@ -160,8 +161,10 @@ const ActionsMenu: FC<{ row: TableGridRow }> = ({ row }) => {
     setProfileAnchor(null);
   };
   const [openManageRent, setOpenManageRent] = useState(false);
-  const { manageRent } = useAdminServices();
+  const { manageRent, paginatorRents } = useAdminServices();
   const { rentInfo } = useStore();
+  const { enqueueSnackbar } = useSnackbar();
+
   const onOpen = (row) => {
     manageRent.changeRentValue(row.reference);
     manageRent.getRent();
@@ -170,7 +173,18 @@ const ActionsMenu: FC<{ row: TableGridRow }> = ({ row }) => {
 
   const onCancel = () => {
     setOpenManageRent(false);
-    manageRent.clear();
+    handleCloseMenuProfile();
+  };
+
+  const onCancelRent = async (row) => {
+    await adminClient.cancelRent(row.reference);
+    handleCloseMenuProfile();
+    enqueueSnackbar("Reserva cancelada", {
+      variant: "success",
+      autoHideDuration: 2000,
+      anchorOrigin: { horizontal: "center", vertical: "top" },
+    });
+    paginatorRents.paginate();
   };
 
   return (
@@ -199,7 +213,10 @@ const ActionsMenu: FC<{ row: TableGridRow }> = ({ row }) => {
             <Capitalize>Ver</Capitalize>
           </Button>
         </MenuItem>
-        <MenuItem onClick={() => onOpen(row)}>
+        <MenuItem
+          onClick={() => onCancelRent(row)}
+          disabled={row?.status?.props?.value !== "pending"}
+        >
           <Button color="error">
             <Capitalize>Cancelar</Capitalize>
           </Button>
@@ -245,6 +262,7 @@ const StatusValueColumn: FC<{ value: string }> = ({ value }) => {
 
 export const Rents: FC = () => {
   const { paginatorRents } = useAdminServices();
+  const adminClient = new AdminClient();
 
   const {
     paginatedRents: {
@@ -253,20 +271,20 @@ export const Rents: FC = () => {
     },
   } = useStore();
 
-  const navigation = useNavigate();
-
   useEffect(() => {
-    paginatorRents.paginate();
+    adminClient.refreshRents().then(() => {
+      paginatorRents.paginate();
+    });
   }, [currentPage, itemsPerPage, search]);
 
   return (
     <AdminLayout title="Reservas">
       <AdminPagination
         textFieldSearch={{
-          onChange: (e) => paginatorRents.onFilter({ search: e.target.value }),
+          onChange: (e) =>
+            paginatorRents.onFilter({ search: e.target.value, currentPage: 0 }),
           value: search,
-          placeholder:
-            "Introduce nombre, dirección o código postal de la oficina",
+          placeholder: "Introduce nombre, correo o dni del cliente",
         }}
         tableProps={{
           onSelect: (rows) => rows,
@@ -282,18 +300,6 @@ export const Rents: FC = () => {
           },
           ActionsComponent: ActionsMenu,
           rows: data.data.map((value) => {
-            let status = value.status;
-            const now = moment();
-            const startDate = moment(value.startDate);
-            const endDate = moment(value.endDate);
-            if (status === "pending" && now.isAfter(startDate)) {
-              status = "canceled";
-            }
-
-            if (status === "checkedin" && now.isAfter(endDate)) {
-              status = "delayed";
-            }
-
             return {
               index: `${value.id}`,
               reference: value.reference,
@@ -310,7 +316,7 @@ export const Rents: FC = () => {
                 : "Vehículo eliminado",
               startDate: moment(value.startDate).format("DD-MM-YYYY"),
               endDate: moment(value.endDate).format("DD-MM-YYYY"),
-              status: <StatusValueColumn value={status} />,
+              status: <StatusValueColumn value={value.status} />,
             };
           }),
         }}

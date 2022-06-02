@@ -128,7 +128,11 @@ export const ClientUsers: FC = () => {
     <AdminLayout title="Clientes">
       <AdminPagination
         textFieldSearch={{
-          onChange: (e) => paginatorClient.onFilter({ search: e.target.value }),
+          onChange: (e) =>
+            paginatorClient.onFilter({
+              search: e.target.value,
+              currentPage: 0,
+            }),
           value: search,
           placeholder: "Introduce nombre o correo eléctronico",
         }}

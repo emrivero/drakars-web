@@ -36,7 +36,7 @@ export abstract class Client<
   protected buildUrl(resource: string) {
     return new URL(
       `${this.baseResource}/${resource}`,
-      "http://localhost:5000/api"
+      `${process.env.REACT_APP_API_URL}/api`
     ).toString();
   }
 

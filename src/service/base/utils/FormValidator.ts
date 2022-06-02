@@ -1,11 +1,11 @@
 type Property<T> = keyof T;
 
-type Validator = {
+type Validator<T> = {
   errorMessage: string;
-  isValid: (propertyValue: any) => boolean;
+  isValid: (propertyValue: any, target?: T) => boolean;
 };
 
-type FormValidatorProps<T> = { [x in Property<T>]?: Validator[] };
+type FormValidatorProps<T> = { [x in Property<T>]?: Validator<T>[] };
 type ValidateResult<T> = {
   [x in Property<T>]?: { valid: boolean; errorMessage: string };
 };
@@ -48,7 +48,7 @@ export class FormValidator<T> {
     let validateResult: ValidateResult<T> = {};
 
     entries.forEach((val) => {
-      const [name, value] = val as [Property<T>, Validator[]];
+      const [name, value] = val as [Property<T>, Validator<T>[]];
       validateResult = {
         ...validateResult,
         ...this.validateProperty(name, value),
@@ -60,7 +60,7 @@ export class FormValidator<T> {
 
   private validateProperty(
     name: Property<T>,
-    validators: Validator[]
+    validators: Validator<T>[]
   ): {
     [x: string]: {
       valid: boolean;
@@ -68,7 +68,7 @@ export class FormValidator<T> {
     };
   } {
     const infoValidator = validators.find(({ isValid }) => {
-      return this.target && !isValid(this.target[name]);
+      return this.target && !isValid(this.target[name], this.target);
     });
 
     if (!infoValidator) {

@@ -8,6 +8,7 @@ import keycloakCfg from "../../config/keycloak-admin";
 import AdminHome from "./home";
 import { ListOffices } from "./offices";
 import { AddOffice } from "./offices/AddOffice";
+import { EditOffice } from "./offices/EditOffice";
 import { Rents } from "./rents";
 import { CreateRent } from "./rents/AddRent";
 import { RentManage } from "./rents/ManageRent";
@@ -46,6 +47,7 @@ export const AdminWebApp: FC = () => {
           <Route path="offices">
             <Route path="" element={<ListOffices />} />
             <Route path="add" element={<AddOffice />} />
+            <Route path="edit" element={<EditOffice />} />
           </Route>
           <Route path="rents">
             <Route path="" element={<Rents />} />

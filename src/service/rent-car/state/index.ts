@@ -1,5 +1,5 @@
 import moment from "moment";
-import { get } from "../../../store";
+import { changeState, get } from "../../../store";
 import { PaginateVm } from "../../base/client/view/PaginateVm";
 import { FilterVehicle } from "../../vehicle/application/model/filter-vehicle";
 import { VehicleVm } from "../../vehicle/client/view/VehicleVm";
@@ -18,6 +18,11 @@ export type RentData = {
 };
 
 export interface RentCarProps {
+  anonActiveRent: {
+    data: RentDataConfirmVm;
+    set: (data: RentDataConfirmVm) => void;
+    clear: () => void;
+  };
   rentData: RentData;
   rentConfirmData: RentDataConfirmVm;
   editRentData: Pick<
@@ -106,14 +111,26 @@ export const RentCarSlice: RentCarProps = {
       },
     },
   },
+  anonActiveRent: {
+    data: null,
+    set: (data: RentDataConfirmVm) =>
+      changeState((state) => {
+        state.anonActiveRent.data = data;
+      }),
+    clear: () =>
+      changeState((state) => {
+        state.anonActiveRent.data = null;
+      }),
+  },
 };
 
 export const getRentState: () => RentCarProps = () => {
-  const { rentData, rentConfirmData, editRentData } = get();
+  const { rentData, rentConfirmData, editRentData, anonActiveRent } = get();
 
   return {
     rentData,
     rentConfirmData,
     editRentData,
+    anonActiveRent,
   };
 };

@@ -6,20 +6,38 @@ import { OfficeDto } from "../client/dto/OfficeDto";
 import { getOfficeState, OfficeSlice } from "../state";
 import { NewOffice } from "./model/NewOffice";
 
-export class CreateOfficeService {
+export class UpdateOfficeService {
   private readonly client = new OfficeClient();
   private readonly cityClient = new CityClient();
   private readonly municipalityClient = new MunicipalityClient();
 
-  async create() {
-    const { newOffice } = getOfficeState();
-    const office = NewOffice.create(newOffice);
+  async fetch(id: string) {
+    const response = await this.client.getById(`${id}`);
+    changeState((state) => {
+      state.editOffice = {
+        id: parseInt(id),
+        ...state.editOffice,
+        ...response.data,
+        cityId: response?.data?.municipality?.city?.id,
+        municipalityId: response?.data?.municipality?.id,
+        searchMunicipality: response?.data?.municipality.name,
+        searchCity: response?.data?.municipality?.city?.name,
+        eveningTime:
+          !!response?.data?.eveningOpeningTime &&
+          !!response?.data?.eveningClosingTime,
+      };
+    });
+    return response;
+  }
+
+  async update() {
+    const { editOffice } = getOfficeState();
+    const office = NewOffice.create(editOffice);
     try {
-      const response = await this.client.post("", office);
-      this.setState({ status: "success" });
+      const response = await this.client.put(`${editOffice.id}`, office);
       return response;
     } catch (e) {
-      this.setState({ status: "error" });
+      console.error(e);
     }
   }
 
@@ -34,7 +52,7 @@ export class CreateOfficeService {
   async searchMunicipality(name: string) {
     if (name) {
       const {
-        newOffice: { cityId },
+        editOffice: { cityId },
       } = getOfficeState();
 
       if (cityId > -1) {
@@ -45,7 +63,7 @@ export class CreateOfficeService {
   }
 
   clear() {
-    this.setState(OfficeSlice.newOffice);
+    this.setState(OfficeSlice.editOffice);
   }
 
   clearSearch() {
@@ -70,7 +88,7 @@ export class CreateOfficeService {
   setState(dto: Partial<OfficeDto>) {
     changeState((state) => {
       if (dto) {
-        state.newOffice = { ...state.newOffice, ...dto };
+        state.editOffice = { ...state.editOffice, ...dto };
       }
     });
   }

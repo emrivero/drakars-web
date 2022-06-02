@@ -52,13 +52,12 @@ export class PaginateClientService {
       });
       Debounce(async () => {
         const { data } = await this.client.paginatedClient(dto.json);
-        this.setData(data);
-
         const { meta } = data;
+
+        this.setData(data);
         this.setFilter({ totalItems: meta?.totalItems || 0 });
       }, 200)();
     } catch (e) {
-      console.error(e);
       this.setData(null);
     }
   }
