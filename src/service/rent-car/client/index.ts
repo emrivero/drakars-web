@@ -17,4 +17,8 @@ export class RentCarClient extends Client<
   constructor() {
     super("rent-car");
   }
+
+  getByReference(email: string, reference: string) {
+    return this.getById(`by-reference/${email}/${reference}`);
+  }
 }

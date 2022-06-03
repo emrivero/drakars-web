@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   Dialog,
+  DialogActions,
   DialogContent,
   DialogTitle,
   Fade,
@@ -16,6 +17,7 @@ import { useSnackbar } from "notistack";
 import { FC, useEffect, useState } from "react";
 import { Capitalize } from "../../../components/atoms/transforms/capitalize";
 import { PrimaryTypography } from "../../../components/molecules/primary-typography";
+import { SelectInput } from "../../../components/molecules/select-input";
 import { TableGridRow } from "../../../components/organism/table-grid";
 import { AdminLayout } from "../../../components/templates/admin/layout";
 import { AdminPagination } from "../../../components/templates/admin/pagination";
@@ -24,7 +26,115 @@ import { rentColumns } from "../../../service/rent-car/application/model/rent-gr
 import { RentDataConfirmVm } from "../../../service/rent-car/client/vm/RentDataConfirmVm";
 import { useAdminServices } from "../../../service/user/admin/application";
 import { AdminClient } from "../../../service/user/admin/client";
+import { VehicleClient } from "../../../service/vehicle/client";
 import { useStore } from "../../../store";
+
+interface ChangeCarProps {
+  rentInfo: RentDataConfirmVm;
+  open: boolean;
+  cancel: () => void;
+}
+
+const ChangeCar: FC<ChangeCarProps> = ({ rentInfo, cancel, open }) => {
+  const { paginatorRents } = useAdminServices();
+  const vehicleClient = new VehicleClient();
+  const adminClient = new AdminClient();
+  const [error, setError] = useState(false);
+  const [selectedVehicle, setSelected] = useState(null);
+  const { enqueueSnackbar } = useSnackbar();
+  const [availableVehicles, setAvailableVehicles] = useState<
+    { value: any; label: string }[]
+  >([]);
+
+  const onChangeVehicle = async () => {
+    if (!selectedVehicle) {
+      setError(true);
+    } else {
+      const response = await adminClient.changeVehicle(
+        rentInfo.reference,
+        selectedVehicle
+      );
+      if (response.status < 300) {
+        enqueueSnackbar("Cambio de vehículo exitoso", {
+          variant: "success",
+          autoHideDuration: 2000,
+          anchorOrigin: { horizontal: "center", vertical: "top" },
+        });
+        cancel();
+        paginatorRents.paginate();
+      } else {
+        enqueueSnackbar("Error de servidor", {
+          variant: "error",
+          autoHideDuration: 2000,
+          anchorOrigin: { horizontal: "center", vertical: "top" },
+        });
+      }
+    }
+  };
+
+  const onClose = () => {
+    setError(false);
+    setSelected(null);
+    setAvailableVehicles([]);
+    cancel();
+  };
+
+  useEffect(() => {
+    if (open) {
+      vehicleClient
+        .list({
+          office: rentInfo?.originOffice?.id,
+          startDate: rentInfo?.startDate,
+          endDate: rentInfo?.endDate,
+        })
+        .then((response) => {
+          const { data } = response;
+          const available = data.data.map((value) => {
+            return {
+              value: value.id,
+              label: `${value.id} - ${value.fullName}`,
+            };
+          });
+          setAvailableVehicles(available);
+        });
+    }
+  }, [open]);
+
+  return (
+    <Dialog open={open} sx={{ p: 4 }} onClose={onClose}>
+      <DialogTitle>Cambio de vehículo</DialogTitle>
+      <DialogContent sx={{ minWidth: 560 }}>
+        <Box>
+          <PrimaryTypography display="inline" fontWeight={500}>
+            Vehículo actual:{" "}
+          </PrimaryTypography>
+          <Typography fontWeight={500} display="inline">
+            {rentInfo?.rentedVehicle?.mark} {rentInfo?.rentedVehicle?.model},
+            Llave nº {rentInfo?.rentedVehicle?.id}
+          </Typography>
+        </Box>
+        <Box>
+          <PrimaryTypography display="inline" fontWeight={500}>
+            Elegir otro vehículo
+          </PrimaryTypography>
+          <SelectInput
+            error={error}
+            fullWidth
+            items={availableVehicles}
+            onChange={(e) => setSelected(e.target.value)}
+            placeholder="Selecciona otro vehículo"
+          />
+        </Box>
+      </DialogContent>
+      <DialogActions sx={{ display: "flex", justifyContent: "center" }}>
+        <Button onClick={onClose}>Cancelar</Button>
+        <Button variant="contained" onClick={onChangeVehicle}>
+          Cambiar
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
 
 export interface ViewInfoProps {
   open: boolean;
@@ -161,6 +271,7 @@ const ActionsMenu: FC<{ row: TableGridRow }> = ({ row }) => {
     setProfileAnchor(null);
   };
   const [openManageRent, setOpenManageRent] = useState(false);
+  const [openChangeVehicle, setOpenChangeVehicle] = useState(false);
   const { manageRent, paginatorRents } = useAdminServices();
   const { rentInfo } = useStore();
   const { enqueueSnackbar } = useSnackbar();
@@ -169,6 +280,14 @@ const ActionsMenu: FC<{ row: TableGridRow }> = ({ row }) => {
     manageRent.changeRentValue(row.reference);
     manageRent.getRent();
     setOpenManageRent(true);
+    handleCloseMenuProfile();
+  };
+
+  const onOpenChangeVehicle = async (row) => {
+    manageRent.changeRentValue(row.reference);
+    await manageRent.getRent();
+    setOpenChangeVehicle(true);
+    handleCloseMenuProfile();
   };
 
   const onCancel = () => {
@@ -213,6 +332,13 @@ const ActionsMenu: FC<{ row: TableGridRow }> = ({ row }) => {
             <Capitalize>Ver</Capitalize>
           </Button>
         </MenuItem>
+        {row?.status?.props?.value === "pending" && (
+          <MenuItem onClick={() => onOpenChangeVehicle(row)}>
+            <Button color="warning">
+              <Capitalize>Cambiar vehículo</Capitalize>
+            </Button>
+          </MenuItem>
+        )}
         <MenuItem
           onClick={() => onCancelRent(row)}
           disabled={row?.status?.props?.value !== "pending"}
@@ -223,6 +349,11 @@ const ActionsMenu: FC<{ row: TableGridRow }> = ({ row }) => {
         </MenuItem>
       </Menu>
       <ViewInfo open={openManageRent} cancel={onCancel} rentInfo={rentInfo} />
+      <ChangeCar
+        open={openChangeVehicle}
+        cancel={() => setOpenChangeVehicle(false)}
+        rentInfo={rentInfo}
+      />
     </>
   );
 };

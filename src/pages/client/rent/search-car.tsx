@@ -46,47 +46,45 @@ export const SearchCar: FC = () => {
         backLink={Routes.LOCATION_DATE_PAGE}
       />
       <CommonSection>
-        {data?.length > 0 ? (
-          <Grid container rowSpacing={3}>
-            <Grid item xs={12}>
-              <CustomTypography
-                type="open"
-                align="center"
-                color={theme.palette.primary.dark}
-                variant="h3"
-              >
-                <Upper>elige tu coche</Upper>
-              </CustomTypography>
-            </Grid>
-            <CarFilter sx={{ mt: 4 }} filter={filter} paginator={finder} />
-            <Grid container>
-              {data.map((data) => {
-                return (
-                  <Grid
-                    item
-                    key={data.title}
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    sx={{ mt: 4, p: 1 }}
-                  >
-                    <CarData
-                      actionText="Elegir"
-                      onAction={() => {
-                        filterer.selectVehicle(data);
-                        navigate(Routes.CONFIRM_PAGE);
-                      }}
-                      data={data}
-                      imageSrc={`${process.env.REACT_APP_API_URL}${data?.image?.url}`}
-                    />
-                  </Grid>
-                );
-              })}
-            </Grid>
+        <Grid container rowSpacing={3}>
+          <Grid item xs={12}>
+            <CustomTypography
+              type="open"
+              align="center"
+              color={theme.palette.primary.dark}
+              variant="h3"
+            >
+              <Upper>elige tu coche</Upper>
+            </CustomTypography>
           </Grid>
-        ) : (
-          !!meta && <VehiclesNotFound />
-        )}
+          <CarFilter sx={{ mt: 4 }} filter={filter} paginator={finder} />
+          <Grid container justifyContent={"center"}>
+            {data?.length > 0
+              ? data.map((data) => {
+                  return (
+                    <Grid
+                      item
+                      key={data.title}
+                      xs={12}
+                      sm={6}
+                      md={4}
+                      sx={{ mt: 4, p: 1 }}
+                    >
+                      <CarData
+                        actionText="Elegir"
+                        onAction={() => {
+                          filterer.selectVehicle(data);
+                          navigate(Routes.CONFIRM_PAGE);
+                        }}
+                        data={data}
+                        imageSrc={`${process.env.REACT_APP_API_URL}${data?.image?.url}`}
+                      />
+                    </Grid>
+                  );
+                })
+              : !!meta && <VehiclesNotFound />}
+          </Grid>
+        </Grid>
       </CommonSection>
     </Layout>
   );

@@ -37,6 +37,11 @@ const ActionsMenu: FC<{ row: TableGridRow }> = ({ row }) => {
     await updater.fetch(row.index);
     navigate("/admin/vehicles/edit");
   };
+
+  const onChangeActive = async (flag: boolean) => {
+    await vehicleClient.patch(`${row.index}`, { active: flag });
+    paginatorVehicle.paginate();
+  };
   const { enqueueSnackbar } = useSnackbar();
 
   const onRemove = async () => {
@@ -105,6 +110,17 @@ const ActionsMenu: FC<{ row: TableGridRow }> = ({ row }) => {
           <Button>
             <Capitalize>Editar</Capitalize>
           </Button>
+        </MenuItem>
+        <MenuItem onClick={() => onChangeActive(false)}>
+          {row.active === "Activo" ? (
+            <Button color="warning">
+              <Capitalize>desactivar</Capitalize>
+            </Button>
+          ) : (
+            <Button onClick={() => onChangeActive(true)} color="success">
+              <Capitalize>activar</Capitalize>
+            </Button>
+          )}
         </MenuItem>
         <MenuItem onClick={onRemove}>
           <Button color="error">

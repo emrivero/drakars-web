@@ -113,4 +113,8 @@ export class AdminClient extends Client<
   cancelRent(reference: string) {
     return this.put(`rent/cancel/${reference}`, null);
   }
+
+  changeVehicle(reference: string, vehicleId: number) {
+    return this.put(`rent/change-vehicle/${reference}/${vehicleId}`, null);
+  }
 }

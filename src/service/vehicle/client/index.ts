@@ -13,7 +13,7 @@ export class VehicleClient extends Client<
   VehicleVm,
   NewVehicle,
   NewVehicle,
-  VehicleVm
+  Partial<VehicleVm>
 > {
   constructor() {
     super("vehicle");

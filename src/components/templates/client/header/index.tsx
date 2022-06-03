@@ -24,7 +24,6 @@ import { MuiLink } from "../../../molecules/link";
 
 export const Header: FC = () => {
   const { login, logout, isAuthenticated, userInfo } = useAuth();
-  console.log(userInfo);
   const theme = useTheme();
   const { t, setLang, lang } = useTranslate();
 

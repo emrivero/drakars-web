@@ -14,7 +14,8 @@ export const VehiclesNotFound: FC = () => {
         Lo sentimos
       </Typography>
       <Typography variant="h5" fontWeight={600}>
-        Esta oficina no tiene coches disponibles en la fecha seleccionada
+        Esta oficina no tiene coches disponibles según los parámetros de
+        búsqueda
       </Typography>
     </Box>
   );

@@ -35,9 +35,13 @@ export const useStore = create<
 );
 
 export const set: SetState<AppState> = (newState: any, replace?: boolean) => {
-  console.log("[Applying Changes]", newState);
+  if (process.env.NODE_ENV === "development") {
+    console.log("[Applying Changes]", newState);
+  }
   useStore.setState(newState, replace);
-  console.log("[New State]", useStore.getState());
+  if (process.env.NODE_ENV === "development") {
+    console.log("[New State]", useStore.getState());
+  }
 };
 
 export const get: GetState<AppState> = useStore.getState;

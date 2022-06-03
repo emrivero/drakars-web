@@ -20,10 +20,10 @@ export const vehicleColumns: TableGridColumn[] = [
     field: "fullName",
     label: "Modelo",
   },
-  // {
-  //   field: "seats",
-  //   label: "Nº de asientos",
-  // },
+  {
+    field: "active",
+    label: "Estado",
+  },
   // {
   //   field: "type",
   //   label: "Categoría",

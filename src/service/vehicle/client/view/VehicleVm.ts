@@ -17,7 +17,9 @@ export class VehicleVm extends BaseVm {
     public readonly type: "small" | "medium" | "large" | "premium",
     public readonly pricePerDay: number,
     public readonly office: OfficeVm,
-    public readonly image: VehicleImageVm
+    public readonly image: VehicleImageVm,
+    public readonly active: boolean,
+    public readonly fullName: string
   ) {
     super(id, createdAt, updatedAt);
   }
@@ -37,7 +39,9 @@ export class VehicleVm extends BaseVm {
       vehicle.type,
       vehicle.pricePerDay,
       vehicle.office,
-      vehicle.image
+      vehicle.image,
+      vehicle.active,
+      vehicle.fullName
     );
   }
 
