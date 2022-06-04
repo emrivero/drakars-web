@@ -39,10 +39,7 @@ export const CarData: FC<CarDataProps> = ({
     <Card>
       <CardMedia component="img" image={imageSrc} height="256px" />
       <CardContent>
-        <PrimaryTypography variant="h5">
-          {data.title}
-          {data.year}
-        </PrimaryTypography>
+        <PrimaryTypography variant="h5">{data.title}</PrimaryTypography>
         <PrimaryTypography variant="h6" hidden={!showCategory}>
           <Capitalize>{t(data.type)}</Capitalize>
         </PrimaryTypography>

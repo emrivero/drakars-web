@@ -66,7 +66,11 @@ export const RentSuccess: FC = () => {
             </CustomTypography>
             <Grid item xs={12}>
               <Typography align="center">
-                <a href="#">Descargar resguardo</a>
+                <a
+                  href={`${process.env.REACT_APP_API_URL}/api/rent-car/download/${reference}`}
+                >
+                  Descargar resguardo
+                </a>
               </Typography>
             </Grid>
           </Grid>
