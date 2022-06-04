@@ -1,26 +1,31 @@
-import { AdminPanelSettings } from "@mui/icons-material";
-import { Box, Button, Grid, Paper, Typography, useTheme } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useConfirm } from "material-ui-confirm";
 import { useState } from "react";
-import { Securized } from "../../auth/securized";
-import { Rol } from "../../auth/types/rol";
 import { useAuth } from "../../auth/use-auth";
-import { BlackLink } from "../../components/molecules/black-link";
+import { ErrorTypography } from "../../components/molecules/error-typography";
 import { PrimaryTypography } from "../../components/molecules/primary-typography";
 import { ManageRent } from "../../components/organism/manage-rent";
 import { RegisterAdmin } from "../../components/organism/register-admin";
 import { RegisterEditor } from "../../components/organism/register-admin/register-editor";
 import { AdminLayout } from "../../components/templates/admin/layout";
 import { useAdminServices } from "../../service/user/admin/application";
+import { AdminClient } from "../../service/user/admin/client";
+import { useStore } from "../../store";
 
 const AdminHome = () => {
-  const theme = useTheme();
+  // const theme = useTheme();
+  const adminClient = new AdminClient();
   const { userInfo } = useAuth();
   const [openRegisterAdmin, setOpenRegisterAdmin] = useState(false);
   const [openRegisterEditor, setOpenRegisterEditor] = useState(false);
   const [openManageRent, setOpenManageRent] = useState(false);
   const confirm = useConfirm();
-  const { creator } = useAdminServices();
+  const { creator, manageRent } = useAdminServices();
+  const [error, setError] = useState({
+    msg: "",
+    isError: false,
+  });
+  const { rentRefValue } = useStore();
 
   const onCancelRegisterAdmin = () => {
     setOpenRegisterAdmin(false);
@@ -119,132 +124,62 @@ const AdminHome = () => {
   };
 
   const onSaveManageRent = async () => {
-    setOpenManageRent(true);
+    // setOpenManageRent(true);
+  };
+
+  const onGetRent = async () => {
+    await adminClient.refreshRents();
+    const { status } = await manageRent.getManageRent();
+    setError({ isError: false, msg: "" });
+    if (status === 409) {
+      setError({
+        isError: true,
+        msg: "La reserva no pertenece a esta oficina",
+      });
+    }
+    if (status === 404) {
+      setError({
+        isError: true,
+        msg: "No se ha encontrado reserva",
+      });
+    }
+    if (status < 300) {
+      setOpenManageRent(true);
+    }
   };
 
   return (
     <AdminLayout title={`Hola, ${userInfo.given_name}`}>
-      <Grid container rowSpacing={4} display="flex" justifyContent="center">
-        {/* <Grid item md={8} xs={12}>
-          <Grid container rowSpacing={4}>
-            <Grid item sm={12} display="flex" justifyContent="center">
-              <Typography variant="h4" align="center">
-                Mes pasado
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={4} display="flex" justifyContent="center">
-              <NumberStatistic title="Alquileres" value={30543} />
-            </Grid>
-            <Grid item xs={12} md={4} display="flex" justifyContent="center">
-              <NumberStatistic title="Ganancias" value={30343677} />
-            </Grid>
-            <Grid item xs={12} md={4} display="flex" justifyContent="center">
-              <NumberStatistic title="Ganancias" value={30343677} />
-            </Grid>
-            <Grid item xs={12} display="flex" justifyContent="center">
-              <Typography variant="h4" align="center">
-                Total del año
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={4} display="flex" justifyContent="center">
-              <NumberStatistic title="Alquileres" value={30343677} />
-            </Grid>
-            <Grid item xs={12} md={4} display="flex" justifyContent="center">
-              <NumberStatistic title="Ganancias" value={30343677} />
-            </Grid>
-            <Grid item xs={12} md={4} display="flex" justifyContent="center">
-              <NumberStatistic title="Ganancias" value={30343677} />
-            </Grid>
-          </Grid>
-        </Grid> */}
-        <Grid item md={4} xs={8}>
-          <Paper sx={{ p: 4, backgroundColor: theme.palette.primary.dark }}>
-            <Grid container rowSpacing={4}>
-              <Grid item sm={12}>
-                <Typography
-                  variant="h4"
-                  fontStyle={"italic"}
-                  color="#fff"
-                  align="center"
-                >
-                  Acciones frecuentes
-                </Typography>
-              </Grid>
-              <Securized rol={Rol.EDITOR}>
-                <Grid item sm={12}>
-                  <Button
-                    onClick={() => setOpenManageRent(true)}
-                    color="info"
-                    fullWidth
-                    sx={{ py: 2, backgroundColor: "#fff" }}
-                    size="large"
-                  >
-                    <Typography variant="button">Gestionar reserva</Typography>
-                  </Button>
-                </Grid>
-              </Securized>
-              <Securized>
-                <Grid item sm={12}>
-                  <Button
-                    color="info"
-                    fullWidth
-                    sx={{ py: 2, backgroundColor: "#fff" }}
-                    startIcon={<AdminPanelSettings />}
-                    size="large"
-                    onClick={() => setOpenRegisterAdmin(true)}
-                  >
-                    <Typography variant="button">
-                      Añadir administrador
-                    </Typography>
-                  </Button>
-                </Grid>
-              </Securized>
-              <Securized>
-                <Grid item sm={12}>
-                  <Button
-                    color="info"
-                    fullWidth
-                    sx={{ py: 2, backgroundColor: "#fff" }}
-                    startIcon={<AdminPanelSettings />}
-                    size="large"
-                    onClick={() => setOpenRegisterEditor(true)}
-                  >
-                    <Typography variant="button">Añadir editor</Typography>
-                  </Button>
-                </Grid>
-              </Securized>
-              <Securized>
-                <Grid item sm={12}>
-                  <Button
-                    component={BlackLink}
-                    to="/admin/offices/add"
-                    color="info"
-                    fullWidth
-                    sx={{ py: 2, backgroundColor: "#fff" }}
-                    startIcon={<AdminPanelSettings />}
-                    size="large"
-                  >
-                    <Typography variant="button">Añadir oficina</Typography>
-                  </Button>
-                </Grid>
-              </Securized>
-              <Grid item sm={12}>
-                <Button
-                  component={BlackLink}
-                  to="/admin/vehicles/add"
-                  color="info"
-                  fullWidth
-                  sx={{ py: 2, backgroundColor: "#fff" }}
-                  startIcon={<AdminPanelSettings />}
-                  size="large"
-                >
-                  <Typography variant="button">Alta de vehículo</Typography>
-                </Button>
-              </Grid>
-            </Grid>
-          </Paper>
-        </Grid>
-      </Grid>
+      <Box
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      >
+        <Box sx={{ mb: 3, width: "60%" }}>
+          <Typography variant="h4" textAlign={"center"}>
+            Gestión de reserva
+          </Typography>
+        </Box>
+        <Box sx={{ mb: 3, width: "60%" }}>
+          <TextField
+            fullWidth
+            onChange={(e) => manageRent.changeRentValue(e.target.value)}
+            error={error.isError}
+            placeholder="Busque reserva por email o número de referencia"
+            label="Buscar Reserva"
+            value={rentRefValue}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                onGetRent();
+              }
+            }}
+          />
+          {error.isError && <ErrorTypography>{error.msg}</ErrorTypography>}
+        </Box>
+        <Box sx={{ mb: 3, width: "10%" }}>
+          <Button fullWidth variant="contained" onClick={() => onGetRent()}>
+            Buscar
+          </Button>
+        </Box>
+      </Box>
       <RegisterAdmin
         open={openRegisterAdmin}
         handleCancel={onCancelRegisterAdmin}

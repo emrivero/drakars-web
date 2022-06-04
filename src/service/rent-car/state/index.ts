@@ -97,6 +97,7 @@ export const RentCarSlice: RentCarProps = {
     status: "",
     endHour: "",
     startHour: "",
+    modifiable: false,
   },
   editRentData: {
     searchDestinyOffice: "",

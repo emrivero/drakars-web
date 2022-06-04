@@ -17,4 +17,5 @@ export interface OfficeDto {
   eveningOpeningTime: string;
   eveningClosingTime: string;
   eveningTime: boolean;
+  phone: string;
 }

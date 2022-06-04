@@ -291,6 +291,7 @@ const ActionsMenu: FC<{ row: TableGridRow }> = ({ row }) => {
   };
 
   const onCancel = () => {
+    manageRent.clear();
     setOpenManageRent(false);
     handleCloseMenuProfile();
   };

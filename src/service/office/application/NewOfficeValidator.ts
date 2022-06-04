@@ -27,6 +27,12 @@ export const NewOfficeValidator = new FormValidator<OfficeDto>({
       isValid: (value) => !!value,
     },
   ],
+  phone: [
+    {
+      errorMessage: "Formato de teléfono no válido",
+      isValid: (value) => /9[0-9]{8}/.test(value),
+    },
+  ],
   zipCode: [
     {
       errorMessage: "Añada el código postal",

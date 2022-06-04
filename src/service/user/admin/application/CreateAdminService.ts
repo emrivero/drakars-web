@@ -30,6 +30,15 @@ export class CreateAdminService {
       });
     }
   }
+
+  async fetchOffice(name: string) {
+    if (name) {
+      const { data } = await this.officeClient.searchByName(name);
+
+      return { data, name };
+    }
+  }
+
   async clearSearch() {
     changeState(({ newEditor }) => {
       newEditor.offices = [];

@@ -7,7 +7,6 @@ import { CarFilter } from "../../../components/organism/car-filter";
 import { CarData } from "../../../components/organism/rent-car-data";
 import { Layout } from "../../../components/templates/client/layout";
 import { CommonSection } from "../../../components/templates/client/layout/common-section";
-import { Routes } from "../../../routes/routes";
 
 import { useVehicleService } from "../../../service/vehicle/application";
 import { useStore } from "../../../store";
@@ -51,7 +50,7 @@ export const RentCar: FC = () => {
                 sx={{ mt: 4, p: 1 }}
               >
                 <CarData
-                  onAction={() => navigate(Routes.LOCATION_DATE_PAGE)}
+                  // onAction={() => navigate(Routes.LOCATION_DATE_PAGE)}
                   actionText="Reservar"
                   data={data}
                   imageSrc={`${process.env.REACT_APP_API_URL}${data?.image?.url}`}

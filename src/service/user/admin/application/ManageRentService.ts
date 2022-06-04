@@ -30,9 +30,21 @@ export class ManageRentService {
     return { data, status };
   }
 
+  async getManageRent() {
+    const { rentRefValue } = getAdminState();
+    const { data, status } = await this.client.manageRent(rentRefValue);
+    if (status < 300) {
+      changeState((state) => {
+        state.rentInfo = data;
+      });
+    }
+
+    return { data, status };
+  }
+
   async checkIn() {
     const { rentInfo } = getAdminState();
-    const { data, status } = await this.client.checkIn(rentInfo.id);
+    const { data, status } = await this.client.checkIn(rentInfo.reference);
 
     return { data, status };
   }
@@ -46,7 +58,7 @@ export class ManageRentService {
 
   async checkOut() {
     const { rentInfo } = getAdminState();
-    const { data, status } = await this.client.checkOut(rentInfo.id);
+    const { data, status } = await this.client.checkOut(rentInfo.reference);
 
     return { data, status };
   }

@@ -13,7 +13,9 @@ export class OfficeVm extends BaseVm {
     public readonly morningOpeningTime: string,
     public readonly morningClosingTime: string,
     public readonly eveningOpeningTime: string,
-    public readonly eveningClosingTime: string
+    public readonly eveningClosingTime: string,
+    public readonly phone: string,
+    public readonly deleted: boolean
   ) {
     super(id, createdAt, updatedAt);
   }
@@ -30,7 +32,9 @@ export class OfficeVm extends BaseVm {
       office.morningOpeningTime,
       office.morningClosingTime,
       office.eveningOpeningTime,
-      office.eveningClosingTime
+      office.eveningClosingTime,
+      office.phone,
+      office.deleted
     );
   }
 

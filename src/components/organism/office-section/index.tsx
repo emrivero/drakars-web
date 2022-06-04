@@ -1,6 +1,7 @@
-import { Box, Grid, useTheme } from "@mui/material";
+import { Box, Grid, Typography, useTheme } from "@mui/material";
 import { FC } from "react";
 import { OfficeVm } from "../../../service/office/client/view/OfficeVm";
+import { Upper } from "../../atoms/transforms/upper";
 import { SectionHeader } from "../../molecules/section";
 
 export interface OfficeSectionProps {
@@ -38,7 +39,13 @@ export const OfficeSection: FC<OfficeSectionProps> = ({
                     py: 1,
                   }}
                 >
-                  {office.title}
+                  <Typography>
+                    <Upper>{office.title}</Upper>
+                  </Typography>
+                  <Typography>
+                    {office.address}, {office.zipCode}
+                  </Typography>
+                  <Typography>Teléfono: {office.phone}</Typography>
                 </Box>
               </Grid>
             );

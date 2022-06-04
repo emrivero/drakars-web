@@ -47,6 +47,7 @@ export const OfficeSlice: OfficeStateProps = {
     eveningOpeningTime: "",
     eveningClosingTime: "",
     eveningTime: false,
+    phone: "",
   },
   editOffice: {
     id: null,
@@ -65,6 +66,7 @@ export const OfficeSlice: OfficeStateProps = {
     eveningOpeningTime: "",
     eveningClosingTime: "",
     eveningTime: false,
+    phone: "",
   },
 };
 

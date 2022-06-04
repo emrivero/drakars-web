@@ -9,7 +9,8 @@ export class NewOffice {
     public readonly morningClosingTime: string,
     public readonly eveningOpeningTime: string,
     public readonly eveningClosingTime: string,
-    public readonly municipality: number
+    public readonly municipality: number,
+    public readonly phone: string
   ) {}
 
   static create(officeDto: OfficeDto) {
@@ -21,7 +22,8 @@ export class NewOffice {
       officeDto.morningClosingTime,
       officeDto.eveningOpeningTime,
       officeDto.eveningClosingTime,
-      officeDto.municipalityId
+      officeDto.municipalityId,
+      officeDto.phone
     );
   }
 }

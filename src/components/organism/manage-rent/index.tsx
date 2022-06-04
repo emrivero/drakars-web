@@ -5,15 +5,13 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  TextField,
   Typography,
   useTheme,
 } from "@mui/material";
 import { OptionsObject, useSnackbar } from "notistack";
-import { FC, MouseEventHandler, useState } from "react";
+import { FC, MouseEventHandler } from "react";
 import { useAdminServices } from "../../../service/user/admin/application";
 import { useStore } from "../../../store";
-import { ErrorTypography } from "../../molecules/error-typography";
 import { PrimaryTypography } from "../../molecules/primary-typography";
 
 interface RegisterEditorProps {
@@ -27,90 +25,40 @@ export const ManageRent: FC<RegisterEditorProps> = ({
   handleSave,
   handleCancel,
 }) => {
-  const [error, setError] = useState({
-    msg: "",
-    isError: false,
-  });
   const { manageRent } = useAdminServices();
-  const { rentInfo, rentRefValue } = useStore();
+  const { rentInfo } = useStore();
 
   const theme = useTheme();
   const { enqueueSnackbar } = useSnackbar();
 
-  const onGetRent = async () => {
-    const { status } = await manageRent.getRent();
-    setError({ isError: false, msg: "" });
-    if (status === 409) {
-      setError({
-        isError: true,
-        msg: "La reserva no pertenece a esta oficina",
-      });
-    }
-    if (status > 300) {
-      setError({
-        isError: true,
-        msg: "No se ha encontrado reserva",
-      });
-    }
-  };
-
   const cancel = () => {
-    setError({
-      isError: false,
-      msg: "",
-    });
     handleCancel(null);
     manageRent.clear();
   };
 
   const accept = async () => {
-    handleSave(null);
     const opts: OptionsObject = {
       variant: "success",
     };
 
     if (rentInfo.status === "pending") {
-      await manageRent.checkIn();
-      enqueueSnackbar("Check In realizado", opts);
+      const response = await manageRent.checkIn();
+      if (response.status < 300) {
+        handleSave(null);
+        enqueueSnackbar("Check In realizado", opts);
+        cancel();
+      }
     }
 
     if (rentInfo.status === "checkedin") {
-      await manageRent.checkOut();
-      enqueueSnackbar("Check out realizado", opts);
+      const response = await manageRent.checkOut();
+      if (response.status < 300) {
+        handleSave(null);
+        enqueueSnackbar("Check out realizado", opts);
+        cancel();
+      }
     }
-    cancel();
   };
-
-  if (!rentInfo) {
-    return (
-      <Dialog open={open} sx={{ p: 4 }} onClose={cancel}>
-        <DialogContent sx={{ minWidth: 500 }}>
-          <TextField
-            onChange={(e) => manageRent.changeRentValue(e.target.value)}
-            fullWidth
-            error={error.isError}
-            placeholder="Busque reserva por correo, dni o referencia"
-            label="Buscar Reserva"
-            value={rentRefValue}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                onGetRent();
-              }
-            }}
-          />
-          {error.isError && <ErrorTypography>{error.msg}</ErrorTypography>}
-          <DialogActions>
-            <Button fullWidth variant="contained" onClick={() => onGetRent()}>
-              Aceptar
-            </Button>
-            <Button fullWidth variant="contained" onClick={cancel}>
-              Cancelar
-            </Button>
-          </DialogActions>
-        </DialogContent>
-      </Dialog>
-    );
-  }
 
   return (
     <Dialog open={open} sx={{ p: 4 }} onClose={cancel}>
@@ -129,7 +77,7 @@ export const ManageRent: FC<RegisterEditorProps> = ({
             Reserva:{" "}
           </PrimaryTypography>
           <Typography fontWeight={500} display="inline">
-            {rentInfo.reference}
+            {rentInfo?.reference}
           </Typography>
         </Box>
         <Box>
@@ -137,7 +85,7 @@ export const ManageRent: FC<RegisterEditorProps> = ({
             Cliente:{" "}
           </PrimaryTypography>
           <Typography fontWeight={500} display="inline">
-            {rentInfo.renterUser.name} {rentInfo.renterUser.family_name}
+            {rentInfo?.renterUser?.name} {rentInfo?.renterUser?.family_name}
           </Typography>
         </Box>
         <Box>
@@ -145,7 +93,7 @@ export const ManageRent: FC<RegisterEditorProps> = ({
             DNI:{" "}
           </PrimaryTypography>
           <Typography fontWeight={500} display="inline">
-            {rentInfo.renterUser.dni}
+            {rentInfo?.renterUser?.dni}
           </Typography>
         </Box>
         <Box>
@@ -153,9 +101,9 @@ export const ManageRent: FC<RegisterEditorProps> = ({
             Origen:{" "}
           </PrimaryTypography>
           <Typography fontWeight={500} display="inline">
-            {rentInfo.originOffice.address},{" "}
-            {rentInfo.originOffice.municipality.name},{" "}
-            {rentInfo.originOffice.municipality.city.name}
+            {rentInfo?.originOffice?.address},{" "}
+            {rentInfo?.originOffice?.municipality.name},{" "}
+            {rentInfo?.originOffice?.municipality.city.name}
           </Typography>
         </Box>
         <Box>
@@ -163,9 +111,9 @@ export const ManageRent: FC<RegisterEditorProps> = ({
             Destino:{" "}
           </PrimaryTypography>
           <Typography fontWeight={500} display="inline">
-            {rentInfo.destinyOffice.address},{" "}
-            {rentInfo.destinyOffice.municipality.name},{" "}
-            {rentInfo.destinyOffice.municipality.city.name}
+            {rentInfo?.destinyOffice?.address},{" "}
+            {rentInfo?.destinyOffice?.municipality.name},{" "}
+            {rentInfo?.destinyOffice?.municipality.city.name}
           </Typography>
         </Box>
         <Box>
@@ -173,16 +121,16 @@ export const ManageRent: FC<RegisterEditorProps> = ({
             Vehículo:{" "}
           </PrimaryTypography>
           <Typography fontWeight={500} display="inline">
-            {rentInfo.rentedVehicle.mark} {rentInfo.rentedVehicle.model}, Llave
-            nº {rentInfo.rentedVehicle.id}
+            {rentInfo?.rentedVehicle?.mark} {rentInfo?.rentedVehicle?.model},
+            Llave nº {rentInfo?.rentedVehicle?.id}
           </Typography>
         </Box>
         <Box>
           <PrimaryTypography display="inline" fontWeight={500}>
-            Pago:{" "}
+            Fechas:{" "}
           </PrimaryTypography>
           <Typography fontWeight={500} display="inline">
-            Pagado
+            {rentInfo?.startDate} / {rentInfo?.endDate}
           </Typography>
         </Box>
         <Box>
@@ -190,17 +138,23 @@ export const ManageRent: FC<RegisterEditorProps> = ({
             Estado:{" "}
           </PrimaryTypography>
           <Typography fontWeight={500} display="inline">
-            {rentInfo.status === "pending" && "Pendiente"}
-            {rentInfo.status === "checkedin" && "Entregado"}
+            {rentInfo?.status === "pending" && "Pendiente"}
+            {rentInfo?.status === "checkedin" && "Entregado"}
+            {rentInfo?.status === "delayed" && "Retrasado"}
           </Typography>
         </Box>
       </DialogContent>
       <DialogActions>
         {handleCancel && <Button onClick={cancel}>Cancelar</Button>}
         {handleSave && (
-          <Button variant="contained" onClick={accept}>
-            {rentInfo.status === "pending" && "Check In"}
-            {rentInfo.status === "checkedin" && "Check Out"}
+          <Button
+            variant="contained"
+            onClick={accept}
+            disabled={!rentInfo?.modifiable}
+          >
+            {rentInfo?.status === "pending" && "Entregar coche"}
+            {["checkedin", "delayed"].includes(rentInfo?.status) &&
+              "Devolver coche"}
           </Button>
         )}
       </DialogActions>

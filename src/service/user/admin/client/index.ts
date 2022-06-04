@@ -29,6 +29,7 @@ export class AdminClient extends Client<
       resource: `rent/${value}`,
     });
   }
+
   getRentByReference(value: string) {
     return this.genericRequest<RentDataConfirmVm>({
       method: "get",
@@ -36,7 +37,14 @@ export class AdminClient extends Client<
     });
   }
 
-  checkIn(id: number) {
+  manageRent(value: string) {
+    return this.genericRequest<RentDataConfirmVm>({
+      method: "get",
+      resource: `manage-rent/${value}`,
+    });
+  }
+
+  checkIn(id: string) {
     return this.genericRequest<RentDataConfirmVm, any>({
       method: "patch",
       resource: `rent/checkIn/${id}`,
@@ -44,7 +52,7 @@ export class AdminClient extends Client<
     });
   }
 
-  checkOut(id: number) {
+  checkOut(id: string) {
     return this.genericRequest<RentDataConfirmVm, any>({
       method: "patch",
       resource: `rent/checkOut/${id}`,
@@ -116,5 +124,9 @@ export class AdminClient extends Client<
 
   changeVehicle(reference: string, vehicleId: number) {
     return this.put(`rent/change-vehicle/${reference}/${vehicleId}`, null);
+  }
+
+  changeOffice(editorId: string, officeId: number) {
+    return this.put(`editor/change-office/${editorId}/${officeId}`, null);
   }
 }

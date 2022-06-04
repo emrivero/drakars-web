@@ -17,4 +17,5 @@ export class RentDataConfirmVm extends BaseVm {
   total: number;
   startHour: string;
   endHour: string;
+  modifiable: boolean;
 }

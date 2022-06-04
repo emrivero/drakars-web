@@ -13,4 +13,8 @@ export const adminColumns: TableGridColumn[] = [
     field: "email",
     label: "Email",
   },
+  {
+    field: "office",
+    label: "Oficina"
+  }
 ];

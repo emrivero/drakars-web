@@ -46,6 +46,7 @@ export const AddOffice: FC = () => {
     eveningOpeningTime,
     eveningClosingTime,
     eveningTime,
+    phone,
   } = useStore((state) => state.newOffice);
   const { newOffice } = useStore();
 
@@ -198,7 +199,7 @@ export const AddOffice: FC = () => {
             </FormLabel>
           </Box>
           <Box sx={{ display: "flex" }}>
-            <Box sx={{ p: 1, flexGrow: 1 / 3 }}>
+            <Box sx={{ p: 1, flexGrow: 1 / 4 }}>
               <TextField
                 fullWidth
                 placeholder="Escriba el nombre de la oficina"
@@ -211,7 +212,7 @@ export const AddOffice: FC = () => {
                 {validation.name.errorMessage}
               </ErrorTypography>
             </Box>
-            <Box sx={{ p: 1, flexGrow: 2 / 3 }}>
+            <Box sx={{ p: 1, flexGrow: 1 / 2 }}>
               <TextField
                 fullWidth
                 placeholder="Escriba la dirección de la oficina"
@@ -224,7 +225,7 @@ export const AddOffice: FC = () => {
                 {validation.address.errorMessage}
               </ErrorTypography>
             </Box>
-            <Box sx={{ p: 1, flexGrow: 1 / 3 }}>
+            <Box sx={{ p: 1, flexGrow: 1 / 4 }}>
               <TextField
                 fullWidth
                 placeholder="Escriba código postal de la oficina"
@@ -235,6 +236,19 @@ export const AddOffice: FC = () => {
               />
               <ErrorTypography hidden={validation.zipCode.valid}>
                 {validation.zipCode.errorMessage}
+              </ErrorTypography>
+            </Box>
+            <Box sx={{ p: 1, flexGrow: 1 / 4 }}>
+              <TextField
+                fullWidth
+                placeholder="Escriba teléfono de la oficina"
+                label="Teléfono"
+                value={phone}
+                error={!validation.phone.valid}
+                onChange={(e) => creator.setState({ phone: e.target.value })}
+              />
+              <ErrorTypography hidden={validation.phone.valid}>
+                {validation.phone.errorMessage}
               </ErrorTypography>
             </Box>
           </Box>
