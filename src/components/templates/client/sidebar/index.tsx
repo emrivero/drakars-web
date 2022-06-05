@@ -7,6 +7,7 @@ import {
   CorporateFare,
   DirectionsCar,
   Info,
+  Mail,
 } from "@mui/icons-material";
 import { IconButton, ListItem, styled, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -109,6 +110,17 @@ export const Sidebar: FC = () => {
               <Coronavirus />
               <Box sx={{ ml: 1 }}>
                 <Typography variant="h6">Covid-19</Typography>
+              </Box>
+            </BlackLink>
+          </ListItem>
+          <ListItem>
+            <BlackLink
+              to={Routes.CONTACT_PAGE}
+              sx={{ display: "flex", alignItems: "center" }}
+            >
+              <Mail />
+              <Box sx={{ ml: 1 }}>
+                <Typography variant="h6">Contacta</Typography>
               </Box>
             </BlackLink>
           </ListItem>

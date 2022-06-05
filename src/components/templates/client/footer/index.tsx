@@ -30,7 +30,7 @@ export const Footer: FC = () => {
               color: theme.palette.grey[400],
             }}
           >
-            © 2022 Drakars - Todos los derechos reservados
+            © 2022 Drakars SL - Todos los derechos reservados
           </Typography>
         </Grid>
       </Grid>

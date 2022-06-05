@@ -55,7 +55,7 @@ export const CarData: FC<CarDataProps> = ({
               }}
             >
               <MarchasIcon sx={{ width: 16, mr: 1 }} />
-              {data.transmission}
+              {t(data.transmission)}
             </SecondaryBox>
           </Grid>
           <Grid item xs={3} sm={6}>
@@ -68,7 +68,7 @@ export const CarData: FC<CarDataProps> = ({
               }}
             >
               <GasIcon sx={{ width: 16, mr: 1 }} />
-              {data.fuel}
+              {t(data.fuel)}
             </SecondaryBox>
           </Grid>
           <Grid item xs={3} sm={6}>

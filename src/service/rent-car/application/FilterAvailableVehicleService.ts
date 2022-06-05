@@ -1,11 +1,11 @@
 import { changeState } from "../../../store";
 import { FilterService } from "../../base/application/FilterService";
 import { PaginateVm } from "../../base/client/view/PaginateVm";
+import { Debounce } from "../../base/utils/debounce";
 import { FilterVehicle } from "../../vehicle/application/model/filter-vehicle";
 import { PaginateVehicleBuilder } from "../../vehicle/application/PaginateVehicleBuilder";
 import { VehicleClient } from "../../vehicle/client";
 import { VehicleVm } from "../../vehicle/client/view/VehicleVm";
-import { getVehicleState } from "../../vehicle/state";
 import { getRentState } from "../state";
 
 export class FilterAvailableVehicleService
@@ -36,12 +36,9 @@ export class FilterAvailableVehicleService
 
   private async listFilter(newFilter: Partial<FilterVehicle>) {
     const {
-      vehicles: { filter },
-    } = getVehicleState();
-
-    const {
       rentData: {
         selectedOffice: { endDate, startDate, originOffice },
+        availableVehicles: { filter },
       },
     } = getRentState();
 
@@ -51,17 +48,23 @@ export class FilterAvailableVehicleService
     });
 
     try {
-      const { data } = await this.client.list({
-        ...paginateQuery.json,
-        office: originOffice,
-        startDate,
-        endDate,
-      });
-
-      this.setAvailableVehicles(data, {
+      this.setAvailableVehicles(null, {
         ...filter,
         ...newFilter,
       });
+      Debounce(async () => {
+        const { data } = await this.client.list({
+          ...paginateQuery.json,
+          office: originOffice,
+          startDate,
+          endDate,
+        });
+
+        this.setAvailableVehicles(data, {
+          ...filter,
+          ...newFilter,
+        });
+      }, 200)();
     } catch (e) {
       this.setAvailableVehicles(null, { ...filter, ...newFilter });
     }

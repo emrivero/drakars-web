@@ -1,8 +1,10 @@
+import { Refresh } from "@mui/icons-material";
 import {
   Box,
   BoxProps,
   Button,
   Grid,
+  IconButton,
   TextField,
   TextFieldProps,
 } from "@mui/material";
@@ -20,6 +22,7 @@ export interface AdminPaginationProps {
   tableProps: CrudCheckboxTableProps;
   onAddItem?: () => void;
   onRemoveItems?: (row: TableGridRow[]) => void;
+  onRefresh?: () => void;
 }
 
 export const AdminPagination: FC<AdminPaginationProps> = ({
@@ -31,6 +34,7 @@ export const AdminPagination: FC<AdminPaginationProps> = ({
   tableProps,
   onAddItem = () => null,
   onRemoveItems = () => null,
+  onRefresh = () => null,
 }) => {
   const [selectedRows, setSelected] = useState<TableGridRow[]>([]);
 
@@ -40,7 +44,7 @@ export const AdminPagination: FC<AdminPaginationProps> = ({
 
   return (
     <Grid container rowSpacing={4} {...containerProps}>
-      <Grid item xs={12}>
+      <Grid item xs={11}>
         <TextField
           fullWidth
           InputProps={{
@@ -48,6 +52,11 @@ export const AdminPagination: FC<AdminPaginationProps> = ({
           }}
           {...textFieldSearch}
         />
+      </Grid>
+      <Grid item xs={1} display="flex" justifyContent="center">
+        <IconButton onClick={onRefresh} size="large">
+          <Refresh fontSize="large" />
+        </IconButton>
       </Grid>
       <Grid item xs={12} display="flex">
         {addText && (

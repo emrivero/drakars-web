@@ -1,4 +1,5 @@
 export type DictType = {
+  [x: string]: string;
   enter: string;
   language: string;
   manage_booking: string;
@@ -9,4 +10,8 @@ export type DictType = {
   large: string;
   premium: string;
   exit: string;
+  automatic: string;
+  manual: string;
+  diesel: string;
+  fuel: string;
 };

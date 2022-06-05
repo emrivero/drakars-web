@@ -9,4 +9,5 @@ export enum Routes {
   LOCATION_DATE_PAGE = "/home/rent/location-date",
   SEARCH_CAR_PAGE = "/home/rent/search-car",
   SUCCESS_PAGE = "/home/rent/success",
+  CONTACT_PAGE = "/home/about/contact",
 }

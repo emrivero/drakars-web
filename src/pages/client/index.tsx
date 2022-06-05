@@ -11,6 +11,7 @@ import { isLoggedInfo } from "../../store/logged-info/actions/is-logged-info";
 import { setLoggedInfo } from "../../store/logged-info/actions/set-logged-info";
 import { NotFoundPage } from "./404";
 import AboutUs from "./about/about-us";
+import { ContactPage } from "./about/contact";
 import Covid19 from "./about/covid19";
 import Faq from "./about/faq";
 import Home from "./home";
@@ -78,6 +79,7 @@ export const ClientWebApp: FC = () => {
           <Route path="about-us" element={<AboutUs />} />
           <Route path="covid19" element={<Covid19 />} />
           <Route path="faq" element={<Faq />} />
+          <Route path="contact" element={<ContactPage />} />
         </Route>
         <Route path="/profile">
           <Route path="" element={<Profile />} />

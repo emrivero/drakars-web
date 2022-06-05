@@ -1,6 +1,8 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useConfirm } from "material-ui-confirm";
 import { useState } from "react";
+import { Securized } from "../../auth/securized";
+import { Rol } from "../../auth/types/rol";
 import { useAuth } from "../../auth/use-auth";
 import { ErrorTypography } from "../../components/molecules/error-typography";
 import { PrimaryTypography } from "../../components/molecules/primary-typography";
@@ -150,36 +152,42 @@ const AdminHome = () => {
 
   return (
     <AdminLayout title={`Hola, ${userInfo.given_name}`}>
-      <Box
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-      >
-        <Box sx={{ mb: 3, width: "60%" }}>
-          <Typography variant="h4" textAlign={"center"}>
-            Gestión de reserva
-          </Typography>
+      <Securized rol={Rol.EDITOR}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Box sx={{ mb: 3, width: "60%" }}>
+            <Typography variant="h4" textAlign={"center"}>
+              Gestión de reserva
+            </Typography>
+          </Box>
+          <Box sx={{ mb: 3, width: "60%" }}>
+            <TextField
+              fullWidth
+              onChange={(e) => manageRent.changeRentValue(e.target.value)}
+              error={error.isError}
+              placeholder="Busque reserva por email o número de referencia"
+              label="Buscar Reserva"
+              value={rentRefValue}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  onGetRent();
+                }
+              }}
+            />
+            {error.isError && <ErrorTypography>{error.msg}</ErrorTypography>}
+          </Box>
+          <Box sx={{ mb: 3, width: "10%" }}>
+            <Button fullWidth variant="contained" onClick={() => onGetRent()}>
+              Buscar
+            </Button>
+          </Box>
         </Box>
-        <Box sx={{ mb: 3, width: "60%" }}>
-          <TextField
-            fullWidth
-            onChange={(e) => manageRent.changeRentValue(e.target.value)}
-            error={error.isError}
-            placeholder="Busque reserva por email o número de referencia"
-            label="Buscar Reserva"
-            value={rentRefValue}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                onGetRent();
-              }
-            }}
-          />
-          {error.isError && <ErrorTypography>{error.msg}</ErrorTypography>}
-        </Box>
-        <Box sx={{ mb: 3, width: "10%" }}>
-          <Button fullWidth variant="contained" onClick={() => onGetRent()}>
-            Buscar
-          </Button>
-        </Box>
-      </Box>
+      </Securized>
       <RegisterAdmin
         open={openRegisterAdmin}
         handleCancel={onCancelRegisterAdmin}

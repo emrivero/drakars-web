@@ -26,7 +26,7 @@ import { AdminLayout } from "../../../../components/templates/admin/layout";
 import { AdminPagination } from "../../../../components/templates/admin/pagination";
 import { useRentCarService } from "../../../../service/rent-car/application";
 import { useAdminServices } from "../../../../service/user/admin/application";
-import { adminColumns } from "../../../../service/user/admin/application/model/AdminGridColumn";
+import { editorColums } from "../../../../service/user/admin/application/model/AdminGridColumn";
 import { AdminClient } from "../../../../service/user/admin/client";
 import { useStore } from "../../../../store";
 
@@ -311,7 +311,7 @@ export const EditorUsers: FC = () => {
           placeholder: "Introduce nombre o correo eléctronico",
         }}
         tableProps={{
-          columns: adminColumns,
+          columns: editorColums,
           paginationProps: {
             count: totalItems,
             page: currentPage,

@@ -10,7 +10,12 @@ const en: DictType = {
   medium: "medium",
   large: "large",
   premium: "premium",
-  exit: "salir",
+  exit: "exit",
+  automatic: "automatic",
+  manual: "manual",
+  diesel: "diesel",
+  fuel: "fuel",
+  electric: "electric",
 };
 
 export default en;

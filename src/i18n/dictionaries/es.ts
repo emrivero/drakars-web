@@ -11,6 +11,11 @@ const es: DictType = {
   large: "familiar",
   premium: "premium",
   exit: "exit",
+  automatic: "automático",
+  manual: "manual",
+  diesel: "diésel",
+  fuel: "gasolina",
+  electric: "eléctrico",
 };
 
 export default es;
