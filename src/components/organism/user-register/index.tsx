@@ -7,7 +7,6 @@ import {
   Radio,
   RadioGroup,
   Switch,
-  TextareaAutosize,
   TextField,
   Typography,
   useTheme,
@@ -279,7 +278,7 @@ export const UserRegister: FC = () => {
             </Grid>
           </Grid>
         </SectionHeader>
-        <SectionHeader title="Comentarios" color={theme.palette.secondary.main}>
+        {/* <SectionHeader title="Comentarios" color={theme.palette.secondary.main}>
           <Grid container mt={4} columnSpacing={2} pb={5}>
             <Grid item xs={12}>
               <FormControl fullWidth>
@@ -290,7 +289,7 @@ export const UserRegister: FC = () => {
               </FormControl>
             </Grid>
           </Grid>
-        </SectionHeader>
+        </SectionHeader> */}
       </Form>
     </Box>
   );
