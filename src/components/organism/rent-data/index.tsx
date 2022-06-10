@@ -49,7 +49,7 @@ export const RentData: FC = () => {
           data={selectedVehicle}
           imageSrc={`${process.env.REACT_APP_API_URL}${selectedVehicle?.image?.url}`}
           actionText={"Cambiar"}
-          onAction={() => null}
+          onAction={() => navigate(Routes.SEARCH_CAR_PAGE)}
         />
         <Paper sx={{ mt: 1, px: 1, py: 4 }}>
           <Box
@@ -120,7 +120,12 @@ export const RentData: FC = () => {
             </Box>
           </Box>
           <Box width="100%" sx={{ mt: 2 }}>
-            <Button fullWidth color="primary" variant="contained">
+            <Button
+              fullWidth
+              color="primary"
+              variant="contained"
+              onClick={() => navigate(Routes.LOCATION_DATE_PAGE)}
+            >
               Cambiar
             </Button>
           </Box>

@@ -92,14 +92,7 @@ export const RentSuccess: FC = () => {
                 <Upper>Datos de cliente</Upper>
               </PrimaryTypography>
             </Grid>
-            <Grid
-              item
-              xs={2}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              borderRight="2px solid #aaa"
-            >
+            <Grid item md={2} xs={6} display="flex" alignItems="center">
               <Box>
                 <CustomTypography customColor={() => "#888"}>
                   Nombre
@@ -107,14 +100,7 @@ export const RentSuccess: FC = () => {
                 <Typography fontWeight={600}>{userData.name}</Typography>
               </Box>
             </Grid>
-            <Grid
-              item
-              xs={2}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              borderRight="2px solid #aaa"
-            >
+            <Grid item md={2} xs={6} display="flex" alignItems="center">
               <Box>
                 <CustomTypography customColor={() => "#888"}>
                   Apellidos
@@ -122,14 +108,7 @@ export const RentSuccess: FC = () => {
                 <Typography fontWeight={600}>{userData.lastName}</Typography>
               </Box>
             </Grid>
-            <Grid
-              item
-              xs={2}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              borderRight="2px solid #aaa"
-            >
+            <Grid item md={2} xs={6} display="flex" alignItems="center">
               <Box>
                 <CustomTypography customColor={() => "#888"}>
                   DNI/NIE
@@ -137,14 +116,7 @@ export const RentSuccess: FC = () => {
                 <Typography fontWeight={600}>{userData.dni}</Typography>
               </Box>
             </Grid>
-            <Grid
-              item
-              xs={2}
-              display="flex"
-              alignItems="center"
-              borderRight="2px solid #aaa"
-              justifyContent="center"
-            >
+            <Grid item md={2} xs={6} display="flex" alignItems="center">
               <Box>
                 <CustomTypography customColor={() => "#888"}>
                   Correo Electrónico:
@@ -152,13 +124,7 @@ export const RentSuccess: FC = () => {
                 <Typography fontWeight={600}>{userData.email}</Typography>
               </Box>
             </Grid>
-            <Grid
-              item
-              xs={2}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-            >
+            <Grid item md={2} xs={6} display="flex" alignItems="center">
               <Box>
                 <CustomTypography customColor={() => "#888"}>
                   Teléfono móvil:
@@ -170,19 +136,12 @@ export const RentSuccess: FC = () => {
         </Box>
         <Box width={"100%"}>
           <Grid container>
-            <Grid item xs={12} sx={{ mt: 12, mb: 8 }}>
+            <Grid item xs={12} sx={{ mt: 6, mb: 8 }}>
               <PrimaryTypography variant="h6">
                 <Upper> Detalles de su reserva</Upper>
               </PrimaryTypography>
             </Grid>
-            <Grid
-              item
-              xs={2}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              borderRight="2px solid #aaa"
-            >
+            <Grid item md={4} xs={6} display="flex" alignItems="center">
               <Box>
                 <CustomTypography customColor={() => "#888"}>
                   Referencia
@@ -190,14 +149,7 @@ export const RentSuccess: FC = () => {
                 <Typography fontWeight={600}>{reference}</Typography>
               </Box>
             </Grid>
-            <Grid
-              item
-              xs={2}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              borderRight="2px solid #aaa"
-            >
+            <Grid item md={4} xs={6} display="flex" alignItems="center">
               <Box>
                 <CustomTypography customColor={() => "#888"}>
                   Fechas
@@ -207,14 +159,7 @@ export const RentSuccess: FC = () => {
                 </Typography>
               </Box>
             </Grid>
-            <Grid
-              item
-              xs={3}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              borderRight="2px solid #aaa"
-            >
+            <Grid item md={4} xs={6} display="flex" alignItems="center">
               <Box>
                 <CustomTypography customColor={() => "#888"}>
                   Recogida:
@@ -229,14 +174,7 @@ export const RentSuccess: FC = () => {
                 </Typography>
               </Box>
             </Grid>
-            <Grid
-              item
-              xs={3}
-              display="flex"
-              alignItems="center"
-              borderRight="2px solid #aaa"
-              justifyContent="center"
-            >
+            <Grid item md={4} xs={6} display="flex" alignItems="center">
               <Box>
                 <CustomTypography customColor={() => "#888"}>
                   Devolución:
@@ -251,13 +189,7 @@ export const RentSuccess: FC = () => {
                 </Typography>
               </Box>
             </Grid>
-            <Grid
-              item
-              xs={2}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-            >
+            <Grid item md={4} xs={6} display="flex" alignItems="center">
               <Box>
                 <CustomTypography customColor={() => "#888"}>
                   Vehículo:

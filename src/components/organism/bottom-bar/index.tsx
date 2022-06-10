@@ -1,13 +1,15 @@
 import { CarRental, Person } from "@mui/icons-material";
 import { BottomNavigation, BottomNavigationAction } from "@mui/material";
 import { FC } from "react";
+import { useNavigate } from "react-router";
 import { useAuth } from "../../../auth/use-auth";
 import { useTranslate } from "../../../i18n/useTranslate";
 import { Capitalize } from "../../atoms/transforms/capitalize";
 
 export const BottomBar: FC = () => {
   const { t } = useTranslate();
-  const { login } = useAuth();
+  const { login, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   return (
     <BottomNavigation
       sx={{
@@ -24,11 +26,19 @@ export const BottomBar: FC = () => {
         icon={<CarRental />}
         href="/home/services/manage-booking"
       />
-      <BottomNavigationAction
-        onClick={login}
-        label={<Capitalize>{t("enter")}</Capitalize>}
-        icon={<Person />}
-      />
+      {!isAuthenticated ? (
+        <BottomNavigationAction
+          onClick={login}
+          label={<Capitalize>{t("enter")}</Capitalize>}
+          icon={<Person />}
+        />
+      ) : (
+        <BottomNavigationAction
+          onClick={() => navigate("/home/profile")}
+          label={<Capitalize>Mi Perfil</Capitalize>}
+          icon={<Person />}
+        />
+      )}
     </BottomNavigation>
   );
 };

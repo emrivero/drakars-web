@@ -136,14 +136,7 @@ export const EditBooking: FC = () => {
                 <Upper>Datos de cliente</Upper>
               </PrimaryTypography>
             </Grid>
-            <Grid
-              item
-              xs={2}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              borderRight="2px solid #aaa"
-            >
+            <Grid item md={2} xs={6} display="flex" alignItems="center">
               <Box>
                 <CustomTypography customColor={() => "#888"}>
                   Nombre
@@ -153,14 +146,7 @@ export const EditBooking: FC = () => {
                 </Typography>
               </Box>
             </Grid>
-            <Grid
-              item
-              xs={2}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              borderRight="2px solid #aaa"
-            >
+            <Grid item md={2} xs={6} display="flex" alignItems="center">
               <Box>
                 <CustomTypography customColor={() => "#888"}>
                   Apellidos
@@ -170,14 +156,7 @@ export const EditBooking: FC = () => {
                 </Typography>
               </Box>
             </Grid>
-            <Grid
-              item
-              xs={2}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              borderRight="2px solid #aaa"
-            >
+            <Grid item md={2} xs={6} display="flex" alignItems="center">
               <Box>
                 <CustomTypography customColor={() => "#888"}>
                   DNI/NIE
@@ -187,14 +166,7 @@ export const EditBooking: FC = () => {
                 </Typography>
               </Box>
             </Grid>
-            <Grid
-              item
-              xs={2}
-              display="flex"
-              alignItems="center"
-              borderRight="2px solid #aaa"
-              justifyContent="center"
-            >
+            <Grid item md={2} xs={6} display="flex" alignItems="center">
               <Box>
                 <CustomTypography customColor={() => "#888"}>
                   Correo Electrónico:
@@ -204,13 +176,7 @@ export const EditBooking: FC = () => {
                 </Typography>
               </Box>
             </Grid>
-            <Grid
-              item
-              xs={2}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-            >
+            <Grid item md={2} xs={6} display="flex" alignItems="center">
               <Box>
                 <CustomTypography customColor={() => "#888"}>
                   Teléfono móvil:
@@ -229,14 +195,7 @@ export const EditBooking: FC = () => {
                 <Upper> Detalles de su reserva</Upper>
               </PrimaryTypography>
             </Grid>
-            <Grid
-              item
-              xs={2}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              borderRight="2px solid #aaa"
-            >
+            <Grid item md={4} xs={6} display="flex" alignItems="center">
               <Box>
                 <CustomTypography customColor={() => "#888"}>
                   Referencia
@@ -246,14 +205,7 @@ export const EditBooking: FC = () => {
                 </Typography>
               </Box>
             </Grid>
-            <Grid
-              item
-              xs={2}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              borderRight="2px solid #aaa"
-            >
+            <Grid item md={4} xs={6} display="flex" alignItems="center">
               <Box>
                 <CustomTypography customColor={() => "#888"}>
                   Fechas
@@ -263,14 +215,7 @@ export const EditBooking: FC = () => {
                 </Typography>
               </Box>
             </Grid>
-            <Grid
-              item
-              xs={3}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              borderRight="2px solid #aaa"
-            >
+            <Grid item md={4} xs={6} display="flex" alignItems="center">
               <Box>
                 <CustomTypography customColor={() => "#888"}>
                   Recogida:
@@ -287,14 +232,7 @@ export const EditBooking: FC = () => {
                 </Typography>
               </Box>
             </Grid>
-            <Grid
-              item
-              xs={3}
-              display="flex"
-              alignItems="center"
-              borderRight="2px solid #aaa"
-              justifyContent="center"
-            >
+            <Grid item md={4} xs={6} display="flex" alignItems="center">
               <Box>
                 <CustomTypography customColor={() => "#888"}>
                   Devolución:
@@ -311,13 +249,7 @@ export const EditBooking: FC = () => {
                 </Typography>
               </Box>
             </Grid>
-            <Grid
-              item
-              xs={2}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-            >
+            <Grid item md={4} xs={6} display="flex" alignItems="center">
               <Box>
                 <CustomTypography customColor={() => "#888"}>
                   Vehículo:

@@ -3,7 +3,6 @@ import {
   ChevronLeft,
   ChevronRight,
   ContactSupport,
-  Coronavirus,
   CorporateFare,
   DirectionsCar,
   Info,
@@ -102,7 +101,7 @@ export const Sidebar: FC = () => {
               </Box>
             </BlackLink>
           </ListItem>
-          <ListItem>
+          {/* <ListItem>
             <BlackLink
               to={Routes.COVID19}
               sx={{ display: "flex", alignItems: "center" }}
@@ -112,7 +111,7 @@ export const Sidebar: FC = () => {
                 <Typography variant="h6">Covid-19</Typography>
               </Box>
             </BlackLink>
-          </ListItem>
+          </ListItem> */}
           <ListItem>
             <BlackLink
               to={Routes.CONTACT_PAGE}
