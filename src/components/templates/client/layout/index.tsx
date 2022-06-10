@@ -15,7 +15,7 @@ export const Layout: FC<LayoutProps> = ({ children, showFooter = true }) => {
     toggleSidebar(false);
   }, []);
   return (
-    <Box sx={{ width: 1 }}>
+    <Box sx={{ width: 1, mb: { xs: 8, md: 1 } }}>
       <Header />
       {children}
       <Sidebar />

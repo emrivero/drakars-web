@@ -1,10 +1,4 @@
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@mui/material";
+import { Card, CardContent, CardMedia } from "@mui/material";
 import { FC } from "react";
 import { PrimaryTypography } from "../../molecules/primary-typography";
 
@@ -23,20 +17,14 @@ export const RentCarCard: FC<RentCarCardProps> = ({
 }) => {
   return (
     <Card>
-      <CardActionArea
-        sx={{
-          p: 2,
-        }}
-      >
-        <CardMedia
-          component="img"
-          image={`${process.env.REACT_APP_API_URL}${imageSrc}`}
-        ></CardMedia>
-        <CardContent>
-          <PrimaryTypography variant="h5">{title}</PrimaryTypography>
-          <Typography>{textBody}</Typography>
-        </CardContent>
-      </CardActionArea>
+      <CardMedia
+        component="img"
+        image={`${process.env.REACT_APP_API_URL}${imageSrc}`}
+      ></CardMedia>
+      <CardContent>
+        <PrimaryTypography variant="h5">{title}</PrimaryTypography>
+        {/* <Typography>{textBody}</Typography> */}
+      </CardContent>
     </Card>
   );
 };

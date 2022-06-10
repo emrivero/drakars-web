@@ -33,14 +33,14 @@ const AboutUs = () => {
               Un pequeño resumen de la historia de nuestra empresa
             </Typography>
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={12} md={3}>
             <img
               src="/img/about.jpg"
               width="100%"
               style={{ borderRadius: "5%" }}
             />
           </Grid>
-          <Grid item xs={8} display="flex" alignItems={"center"}>
+          <Grid item xs={12} md={8} display="flex" alignItems={"center"}>
             <Box sx={{ width: "100%" }}>
               <Typography variant="h6" fontWeight={400} paragraph={true}>
                 <PrimarySpan fontWeight={"bolder"}>Drakars</PrimarySpan> tiene
@@ -58,7 +58,7 @@ const AboutUs = () => {
               </Typography>
             </Box>
           </Grid>
-          <Grid item xs={8} display="flex" alignItems={"center"}>
+          <Grid item xs={12} md={8} display="flex" alignItems={"center"}>
             <Box sx={{ width: "100%" }}>
               <Typography variant="h6" fontWeight={400} paragraph={true}>
                 El nombre alude por un lado a las embarcaciones vikingas rápidas
@@ -76,7 +76,7 @@ const AboutUs = () => {
               </Typography>
             </Box>
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={12} md={3}>
             <img
               src="/img/drakkar.jpg"
               width="100%"

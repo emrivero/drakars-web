@@ -6,7 +6,6 @@ import {
   Grid,
   Radio,
   RadioGroup,
-  Switch,
   TextField,
   Typography,
   useTheme,
@@ -141,7 +140,7 @@ export const UserRegister: FC = () => {
           color={theme.palette.secondary.main}
         >
           <Grid container mt={1} rowSpacing={4} columnSpacing={2} pb={5}>
-            <Grid item md={12}>
+            <Grid item xs={12} md={12}>
               <FormControl fullWidth>
                 <TextField
                   onChange={(e) => onChange(e, "name")}
@@ -157,7 +156,7 @@ export const UserRegister: FC = () => {
                 {name.errorMessage}
               </ErrorTypography>
             </Grid>
-            <Grid item md={12}>
+            <Grid item xs={12} md={12}>
               <FormControl fullWidth>
                 <TextField
                   onChange={(e) => onChange(e, "lastName")}
@@ -173,7 +172,7 @@ export const UserRegister: FC = () => {
                 </ErrorTypography>
               </FormControl>
             </Grid>
-            <Grid item md={4}>
+            <Grid item xs={12} md={4}>
               <FormControl fullWidth>
                 <TextField
                   onChange={(e) => onChange(e, "dni")}
@@ -189,7 +188,7 @@ export const UserRegister: FC = () => {
                 {dni.errorMessage}
               </ErrorTypography>
             </Grid>
-            <Grid item md={4}>
+            <Grid item xs={12} md={4}>
               <FormControl fullWidth>
                 <TextField
                   onChange={(e) => onChange(e, "email")}
@@ -205,7 +204,7 @@ export const UserRegister: FC = () => {
                 {email.errorMessage}
               </ErrorTypography>
             </Grid>
-            <Grid item md={4}>
+            <Grid item xs={12} md={4}>
               <FormControl fullWidth>
                 <TextField
                   onChange={(e) => onChange(e, "phone")}
@@ -233,7 +232,7 @@ export const UserRegister: FC = () => {
               flexDirection={"column"}
               alignItems="center"
             >
-              <FormControlLabel
+              {/* <FormControlLabel
                 control={
                   <Switch
                     checked={userData.onlinePay}
@@ -246,7 +245,7 @@ export const UserRegister: FC = () => {
                   />
                 }
                 label="Pago online"
-              />
+              /> */}
               {userData.onlinePay && (
                 <FormControl>
                   <RadioGroup

@@ -36,7 +36,7 @@ export const ContactPage = () => {
         </Grid>
         <Grid container>
           <Grid item xs={12} display="flex" justifyContent="center" mt={2}>
-            <Box sx={{ width: "40%" }}>
+            <Box sx={{ width: { md: "40%", xs: "70%" } }}>
               <Paper>
                 <Box sx={{ p: 1 }}>
                   <FormLabel>
@@ -101,7 +101,7 @@ export const ContactPage = () => {
             </Box>
           </Grid>
           <Grid item xs={12} display="flex" justifyContent="center">
-            <Box sx={{ width: "40%" }}>
+            <Box sx={{ width: { md: "40%", xs: "70%" } }}>
               <Button variant="contained" fullWidth>
                 Enviar mensaje
               </Button>
