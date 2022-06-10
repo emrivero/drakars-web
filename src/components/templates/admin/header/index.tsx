@@ -1,17 +1,28 @@
 import { useTheme } from "@emotion/react";
-import { Avatar, Fade, Grid, Menu, MenuItem, Typography } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  Fade,
+  Grid,
+  Menu,
+  MenuItem,
+  Typography,
+} from "@mui/material";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
 import { deepOrange } from "@mui/material/colors";
 import Toolbar from "@mui/material/Toolbar";
 import { Theme } from "@mui/system";
 import { FC, useState } from "react";
+import { useAuth } from "../../../../auth/use-auth";
 import { Capitalize } from "../../../atoms/transforms/capitalize";
-import { BlackLink } from "../../../molecules/black-link";
 
-export const AdminHeader: FC = () => {
+export interface AdminHeaderProps {
+  title?: string;
+}
+
+export const AdminHeader: FC<AdminHeaderProps> = ({ title }) => {
   const theme: Partial<Theme> = useTheme();
-  // const { login, logout, isAuthenticated } = useAuth();
+  const { logout, userInfo } = useAuth();
 
   const [profileAnchor, setProfileAnchor] = useState<null | HTMLElement>(null);
   const open = Boolean(profileAnchor);
@@ -25,17 +36,18 @@ export const AdminHeader: FC = () => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <>
       <AppBar
         position="fixed"
         sx={{
-          width: `calc(100% - 280px)`,
+          width: { md: `calc(100% - 280px)`, xs: `calc(100% - 200px)` },
+          ml: "280px",
         }}
       >
         <Toolbar sx={{ backgroundColor: theme.palette.common.white }}>
           <Grid>
             <Typography variant="h4" noWrap color={theme.palette.primary.main}>
-              Bienvenido, Paco
+              {title}
             </Typography>
           </Grid>
           <Grid container justifyContent="flex-end">
@@ -49,7 +61,8 @@ export const AdminHeader: FC = () => {
               }}
               onClick={handleMenuProfile}
             >
-              ED
+              {userInfo.name[0]}
+              {userInfo.family_name[0]}
             </Avatar>
           </Grid>
         </Toolbar>
@@ -62,16 +75,16 @@ export const AdminHeader: FC = () => {
         TransitionComponent={Fade}
       >
         <MenuItem>
-          <BlackLink to="profile">
-            <Capitalize>editar perfil</Capitalize>
-          </BlackLink>
+          <Button onClick={logout}>
+            <Capitalize>Mi Perfil</Capitalize>
+          </Button>
         </MenuItem>
         <MenuItem>
-          <BlackLink to="logout">
+          <Button onClick={logout}>
             <Capitalize>desconectar</Capitalize>
-          </BlackLink>
+          </Button>
         </MenuItem>
       </Menu>
-    </Box>
+    </>
   );
 };

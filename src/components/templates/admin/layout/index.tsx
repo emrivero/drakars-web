@@ -1,14 +1,25 @@
-import { Box } from "@mui/material";
+import { Box, CssBaseline, Toolbar } from "@mui/material";
 import { FC } from "react";
 import { AdminHeader } from "../header";
 import { AdminSidebar } from "../sidebar";
 
-export const AdminLayout: FC = ({ children }) => {
+export interface AdminLayoutProps {
+  title?: string;
+}
+
+export const AdminLayout: FC<AdminLayoutProps> = ({ children, title }) => {
   return (
-    <Box sx={{ width: 1 }}>
-      <AdminHeader />
+    <Box sx={{ display: "flex" }}>
+      <CssBaseline />
+      <AdminHeader title={title} />
       <AdminSidebar />
-      {children}
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, ml: { md: "280px", sm: "200px" }, p: 3 }}
+      >
+        <Toolbar />
+        {children}
+      </Box>
     </Box>
   );
 };

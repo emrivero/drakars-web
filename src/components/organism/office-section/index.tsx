@@ -1,10 +1,12 @@
-import { Box, Grid, useTheme } from "@mui/material";
+import { Box, Grid, Typography, useTheme } from "@mui/material";
 import { FC } from "react";
+import { OfficeVm } from "../../../service/office/client/view/OfficeVm";
+import { Upper } from "../../atoms/transforms/upper";
 import { SectionHeader } from "../../molecules/section";
 
 export interface OfficeSectionProps {
   title: string;
-  offices?: string[];
+  offices?: OfficeVm[];
 }
 
 export const OfficeSection: FC<OfficeSectionProps> = ({
@@ -20,7 +22,7 @@ export const OfficeSection: FC<OfficeSectionProps> = ({
             return (
               <Grid
                 item
-                key={office}
+                key={office.id}
                 md={4}
                 sm={6}
                 xs={12}
@@ -37,7 +39,13 @@ export const OfficeSection: FC<OfficeSectionProps> = ({
                     py: 1,
                   }}
                 >
-                  {office}
+                  <Typography>
+                    <Upper>{office.title}</Upper>
+                  </Typography>
+                  <Typography>
+                    {office.address}, {office.zipCode}
+                  </Typography>
+                  <Typography>Teléfono: {office.phone}</Typography>
                 </Box>
               </Grid>
             );

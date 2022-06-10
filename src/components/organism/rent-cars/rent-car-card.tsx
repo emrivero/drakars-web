@@ -11,7 +11,7 @@ import { PrimaryTypography } from "../../molecules/primary-typography";
 export interface RentCarCardProps {
   imageSrc: string;
   title: string;
-  textBody: string;
+  textBody?: string;
   height?: string;
 }
 
@@ -28,7 +28,10 @@ export const RentCarCard: FC<RentCarCardProps> = ({
           p: 2,
         }}
       >
-        <CardMedia component="img" image={imageSrc}></CardMedia>
+        <CardMedia
+          component="img"
+          image={`${process.env.REACT_APP_API_URL}${imageSrc}`}
+        ></CardMedia>
         <CardContent>
           <PrimaryTypography variant="h5">{title}</PrimaryTypography>
           <Typography>{textBody}</Typography>

@@ -52,7 +52,7 @@ export const RentFilter: FC<RentFilterProps> = ({ image }) => {
           p: 2,
         }}
       >
-        <Grid item md={8} justifyContent="center" display={"flex"}>
+        <Grid item md={7} justifyContent="center" display={"flex"}>
           <Box
             sx={{
               position: "relative",
@@ -73,7 +73,7 @@ export const RentFilter: FC<RentFilterProps> = ({ image }) => {
             <Typography variant="h6">Los precios más bajos del país</Typography>
           </Box>
         </Grid>
-        <Grid item md={4}>
+        <Grid item md={5}>
           <Box
             sx={{
               position: "relative",

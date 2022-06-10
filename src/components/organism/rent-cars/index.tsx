@@ -44,7 +44,7 @@ export const RentCars = () => {
         >
           <RentCarCard
             height="134px"
-            imageSrc="https://www.centauro.net/_next/image/?url=https%3A%2F%2Fcdn.centauro.net%2Fweb%2FA_400738ceb4.jpg&w=384&q=90"
+            imageSrc={"/static/vehicles/fiat_punto.jpeg"}
             textBody="Se trata de coches asequibles que están al alcance de todos los bolsillos."
             title="Pequeño"
           />
@@ -59,7 +59,7 @@ export const RentCars = () => {
         >
           <RentCarCard
             height="134px"
-            imageSrc="https://www.centauro.net/_next/image/?url=https%3A%2F%2Fcdn.centauro.net%2Fweb%2Fpolo_4_d1171481ee.jpg&w=384&q=90"
+            imageSrc="/static/vehicles/volkswagen_polo.jpeg"
             textBody="Se trata de coches asequibles que están al alcance de todos los bolsillos."
             title="Mediano"
           />
@@ -74,7 +74,7 @@ export const RentCars = () => {
         >
           <RentCarCard
             height="134px"
-            imageSrc="https://www.centauro.net/_next/image/?url=https%3A%2F%2Fcdn.centauro.net%2Fweb%2Fnew_picasso_51926250be.png&w=384&q=90"
+            imageSrc="/static/vehicles/fiat_doblo_panorama.jpeg"
             textBody="Se trata de coches asequibles que están al alcance de todos los bolsillos."
             title="Familiar"
           />
@@ -89,7 +89,7 @@ export const RentCars = () => {
         >
           <RentCarCard
             height="134px"
-            imageSrc="https://www.centauro.net/_next/image/?url=https%3A%2F%2Fcdn.centauro.net%2Fweb%2Faudi_a4_1_57e10a0e45.png&w=384&q=90"
+            imageSrc="/static/vehicles/audi_a4.png"
             textBody="Se trata de coches asequibles que están al alcance de todos los bolsillos."
             title="Premium"
           />

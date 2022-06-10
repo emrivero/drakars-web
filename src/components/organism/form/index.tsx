@@ -2,23 +2,32 @@ import { Box, Button, Paper, PaperProps, SxProps } from "@mui/material";
 import { FC, FormEventHandler, ReactNode } from "react";
 
 export interface FormProps {
-  handleSubmit: FormEventHandler<Element>;
-  saveContent: ReactNode;
+  handleSubmit?: FormEventHandler<Element>;
+  saveContent?: ReactNode;
   sx?: SxProps;
   paperProps?: PaperProps;
   buttomComponent?: JSX.Element;
+  disabledSubmit?: boolean;
+  showActions?: boolean;
 }
 
 export const Form: FC<FormProps> = ({
-  handleSubmit,
+  disabledSubmit = false,
+  handleSubmit = () => null,
   children,
-  saveContent,
+  saveContent = "",
   paperProps = {},
   sx = {},
   buttomComponent = null,
+  showActions = true,
 }) => {
   const defaultButton = (
-    <Button variant="contained" color="primary" onClick={handleSubmit}>
+    <Button
+      variant="contained"
+      disabled={disabledSubmit}
+      color="primary"
+      onClick={handleSubmit}
+    >
       {saveContent}
     </Button>
   );
@@ -34,7 +43,7 @@ export const Form: FC<FormProps> = ({
             justifyContent: "center",
           }}
         >
-          {buttomComponent || defaultButton}
+          {showActions && (buttomComponent || defaultButton)}
         </Box>
       </Paper>
     </form>
