@@ -18,8 +18,6 @@ export const EditBooking: FC = () => {
   const [dialogState, setDialogState] = useState({ open: false });
   const { loggedClient, anonActiveRent } = useStore();
 
-  const notDelete = loggedClient?.activeRent?.status !== "pending";
-
   const { clearer, cancelRent } = useRentCarService();
   const { getter } = useClientService();
   const navigate = useNavigate();
@@ -52,6 +50,10 @@ export const EditBooking: FC = () => {
       </Layout>
     );
   }
+
+  const notDelete =
+    loggedClient?.activeRent?.status !== "pending" &&
+    anonActiveRent?.data?.status !== "pending";
 
   const onRemove = () => {
     confirm({

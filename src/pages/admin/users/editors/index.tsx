@@ -299,6 +299,7 @@ export const EditorUsers: FC = () => {
   return (
     <AdminLayout title="Editores">
       <AdminPagination
+        onRefresh={() => paginatorEditor.paginate()}
         onAddItem={() => setOpenRegisterEditor(true)}
         addText="Añadir editor"
         textFieldSearch={{

@@ -76,11 +76,6 @@ export const AdminHeader: FC<AdminHeaderProps> = ({ title }) => {
       >
         <MenuItem>
           <Button onClick={logout}>
-            <Capitalize>Mi Perfil</Capitalize>
-          </Button>
-        </MenuItem>
-        <MenuItem>
-          <Button onClick={logout}>
             <Capitalize>desconectar</Capitalize>
           </Button>
         </MenuItem>

@@ -127,6 +127,7 @@ export const ClientUsers: FC = () => {
   return (
     <AdminLayout title="Clientes">
       <AdminPagination
+        onRefresh={() => paginatorClient.paginate()}
         textFieldSearch={{
           onChange: (e) =>
             paginatorClient.onFilter({

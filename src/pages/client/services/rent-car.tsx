@@ -1,6 +1,5 @@
 import { Grid, useTheme } from "@mui/material";
 import { FC, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { Upper } from "../../../components/atoms/transforms/upper";
 import { CustomTypography } from "../../../components/molecules/custom-typography";
 import { CarFilter } from "../../../components/organism/car-filter";
@@ -14,7 +13,6 @@ import { useStore } from "../../../store";
 export const RentCar: FC = () => {
   const { finder } = useVehicleService();
   const theme = useTheme();
-  const navigate = useNavigate();
   const {
     data: { data },
     filter,

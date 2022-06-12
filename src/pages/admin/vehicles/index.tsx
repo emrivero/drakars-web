@@ -153,6 +153,7 @@ export const ListVehicles: FC = () => {
   return (
     <AdminLayout title="Vehículos">
       <AdminPagination
+        onRefresh={() => paginatorVehicle.paginate()}
         onAddItem={() => navigation("/admin/vehicles/add")}
         addText="Añadir vehículo"
         textFieldSearch={{

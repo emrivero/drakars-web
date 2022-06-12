@@ -35,6 +35,7 @@ export const AdminPagination: FC<AdminPaginationProps> = ({
   onAddItem = () => null,
   onRemoveItems = () => null,
   onRefresh = () => null,
+  children,
 }) => {
   const [selectedRows, setSelected] = useState<TableGridRow[]>([]);
 
@@ -59,6 +60,7 @@ export const AdminPagination: FC<AdminPaginationProps> = ({
         </IconButton>
       </Grid>
       <Grid item xs={12} display="flex">
+        {children}
         {addText && (
           <Box mr={1}>
             <Button variant="contained" color="primary" onClick={onAddItem}>

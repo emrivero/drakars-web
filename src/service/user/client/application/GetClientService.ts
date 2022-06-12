@@ -53,11 +53,11 @@ export class GetClientService {
     changeState(({ rentData }) => {
       rentData.userData = {
         ...rentData.userData,
-        dni: client.dni,
+        dni: client.dni || "",
         name: client.name,
         lastName: client.family_name,
         email: client.email,
-        phone: client.phone,
+        phone: client.phone || "",
       };
     });
 

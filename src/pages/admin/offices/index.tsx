@@ -128,6 +128,7 @@ export const ListOffices: FC = () => {
   return (
     <AdminLayout title="Oficinas">
       <AdminPagination
+        onRefresh={() => paginator.paginate()}
         onAddItem={() => navigation("/admin/offices/add")}
         addText="Añadir oficina"
         textFieldSearch={{

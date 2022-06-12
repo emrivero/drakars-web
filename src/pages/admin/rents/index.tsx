@@ -412,6 +412,7 @@ export const Rents: FC = () => {
   return (
     <AdminLayout title="Reservas">
       <AdminPagination
+        onRefresh={() => paginatorRents.paginate()}
         textFieldSearch={{
           onChange: (e) =>
             paginatorRents.onFilter({ search: e.target.value, currentPage: 0 }),
@@ -452,7 +453,47 @@ export const Rents: FC = () => {
             };
           }),
         }}
-      />
+      >
+        {/* <Grid container>
+          <Grid
+            item
+            xs={12}
+            md={2}
+            sx={{
+              mt: 4,
+            }}
+          >
+            <FormControl sx={{ px: 0.5, width: "100%" }} variant="filled">
+              <InputLabel id="type-filter">
+                <CustomTypography color={theme.themeAdmin.palette.primary.dark}>
+                  Estado
+                </CustomTypography>
+              </InputLabel>
+              <Select
+                fullWidth
+                onChange={(e: SelectChangeEvent) => {
+                  // const value = e.target.value as
+                  //   | ""
+                  //   | "small"
+                  //   | "medium"
+                  //   | "large"
+                  //   | "premium";
+                  // paginator.onFilter({ type: value });
+                }}
+                labelId="type-filter"
+                value={""}
+                label="Type"
+              >
+                <MenuItem value={""}>Cualquiera</MenuItem>
+                <MenuItem value={"small"}>Pequeño</MenuItem>
+                <MenuItem value={"medium"}>Mediano</MenuItem>
+                <MenuItem value={"large"}>Familiar</MenuItem>
+                <MenuItem value={"premium"}>Premium</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+        </Grid> */}
+      </AdminPagination>
     </AdminLayout>
   );
 };

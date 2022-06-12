@@ -154,6 +154,7 @@ export const AdminUsers: FC = () => {
   return (
     <AdminLayout title="Administradores">
       <AdminPagination
+        onRefresh={() => paginatorAdmin.paginate()}
         onAddItem={() => setOpenRegisterAdmin(true)}
         addText="Añadir administrador"
         textFieldSearch={{
