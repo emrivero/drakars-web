@@ -25,6 +25,16 @@ import { MarkTypeOptions } from "../../../service/vehicle/application/enum/mark"
 import { VehicleYearsOption } from "../../../service/vehicle/application/enum/year";
 import { useStore } from "../../../store";
 
+const calculatePrice = (type: string) => {
+  const pricePerType = {
+    small: 17.75,
+    medium: 22.5,
+    large: 27.75,
+    premium: 39.9,
+  };
+  return pricePerType[type];
+};
+
 export const AddVehicle: FC = () => {
   const [openGallery, setOpenGallery] = useState(false);
   const { paginatorVehicleImage } = useAdminServices();
@@ -239,7 +249,11 @@ export const AddVehicle: FC = () => {
                   labelId="seats"
                   selectInputProps={{
                     value: type,
-                    onChange: (e) => creator.setState({ type: e.target.value }),
+                    onChange: (e) =>
+                      creator.setState({
+                        type: e.target.value,
+                        pricePerDay: calculatePrice(e.target.value),
+                      }),
                     items: [
                       { label: "Pequeño", value: "small" },
                       { label: "Mediano", value: "medium" },

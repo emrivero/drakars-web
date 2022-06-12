@@ -33,7 +33,7 @@ export const VehicleSlice: VehicleStateProps = {
     model: "",
     officeId: null,
     offices: [],
-    pricePerDay: 100.5,
+    pricePerDay: 0,
     seats: 5,
     status: "",
     transmission: "manual",
