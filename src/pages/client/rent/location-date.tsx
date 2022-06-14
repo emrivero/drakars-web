@@ -6,9 +6,11 @@ import { Filter } from "../../../components/organism/rent-filter/filter";
 import { Layout } from "../../../components/templates/client/layout";
 import { CommonSection } from "../../../components/templates/client/layout/common-section";
 import { RentStepper } from "../../../components/templates/client/layout/rent-stepper";
+import { useTranslate } from "../../../i18n/useTranslate";
 
 export const LocationDate: FC = () => {
   const theme = useTheme();
+  const { t } = useTranslate();
 
   return (
     <Layout showFooter={false}>
@@ -22,7 +24,7 @@ export const LocationDate: FC = () => {
                 color={theme.palette.primary.dark}
                 variant="h3"
               >
-                <Upper>elige fecha y hora</Upper>
+                <Upper>{t("choosedate")}</Upper>
               </CustomTypography>
             </Grid>
             <Grid

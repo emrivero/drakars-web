@@ -106,7 +106,9 @@ export const CarData: FC<CarDataProps> = ({
                 py: 1,
               }}
             >
-              <Typography fontWeight={600}>{data.pricePerDay} €/Día</Typography>
+              <Typography fontWeight={600}>
+                {data.pricePerDay} €/{t("day")}
+              </Typography>
             </Box>
           </Grid>
           {onAction && (

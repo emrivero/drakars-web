@@ -1,6 +1,7 @@
 import { LocationOn } from "@mui/icons-material";
 import { Box, Grid, Typography } from "@mui/material";
 import { FC } from "react";
+import { useTranslate } from "../../../i18n/useTranslate";
 import { PrimaryIcon } from "../../molecules/primary-icon";
 import { PrimarySpan } from "../../molecules/primary-span";
 import { PrimaryTypography } from "../../molecules/primary-typography";
@@ -8,6 +9,7 @@ import { FavDestination } from "./fav-destination";
 
 export const FavDestinations: FC = () => {
   const LocationPrimaryIcon = PrimaryIcon(LocationOn);
+  const { t } = useTranslate();
   return (
     <Box sx={{ width: "100%" }}>
       <Grid container>
@@ -16,7 +18,10 @@ export const FavDestinations: FC = () => {
             <LocationPrimaryIcon sx={{ fontSize: 48 }} />
           </Box>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <PrimaryTypography variant="h6">MEJORES DESTINOS</PrimaryTypography>
+            <PrimaryTypography variant="h6">
+              {" "}
+              {t("bestdest")}{" "}
+            </PrimaryTypography>
           </Box>
           <Box
             sx={{
@@ -27,9 +32,8 @@ export const FavDestinations: FC = () => {
           >
             <Box sx={{ width: { md: "70%" } }}>
               <Typography align="center" variant="h6">
-                Estos son nuestros destinos más recomendados. Relación
-                calidad-precio <PrimarySpan>inmejorable.</PrimarySpan> Atrévete
-                a disfrutar.
+                {t("recommended")}
+                <PrimarySpan>inmejorable.</PrimarySpan> {t("daretoenjoy")}
               </Typography>
             </Box>
           </Box>

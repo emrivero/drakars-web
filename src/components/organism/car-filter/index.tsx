@@ -13,6 +13,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { FC, useState } from "react";
+import { useTranslate } from "../../../i18n/useTranslate";
 import { FilterService } from "../../../service/base/application/FilterService";
 import { FilterVehicle } from "../../../service/vehicle/application/model/filter-vehicle";
 import { FilterIcon } from "../../atoms/filter-icon";
@@ -36,6 +37,7 @@ export const CarFilter: FC<CarFilterProps> = ({
   const { search, type, seats, fuel, sort, transmission } = filter;
   const theme = useTheme();
   const [isVisible, setVisibility] = useState(false);
+  const { t } = useTranslate();
   return (
     <Grid container alignItems={"center"} sx={sx}>
       <Grid item xs={12} display="flex" justifyContent="center">
@@ -46,7 +48,7 @@ export const CarFilter: FC<CarFilterProps> = ({
             onChange={(e) => paginator.onFilter({ search: e.target.value })}
             value={search}
             sx={{ flexGrow: 0.9 }}
-            placeholder="Introduce marca o modelo de vehículo"
+            placeholder={t("entering")}
             InputProps={{
               type: "search",
               endAdornment: <Search />,
@@ -76,7 +78,7 @@ export const CarFilter: FC<CarFilterProps> = ({
           <FormControl sx={{ flexGrow: 1 / 2, px: 0.5 }} variant="filled">
             <InputLabel id="type-filter">
               <CustomTypography color={theme.palette.primary.main}>
-                Tipo
+                {t("type")}
               </CustomTypography>
             </InputLabel>
             <Select
@@ -93,17 +95,17 @@ export const CarFilter: FC<CarFilterProps> = ({
               value={type}
               label="Type"
             >
-              <MenuItem value={""}>Cualquiera</MenuItem>
-              <MenuItem value={"small"}>Pequeño</MenuItem>
-              <MenuItem value={"medium"}>Mediano</MenuItem>
-              <MenuItem value={"large"}>Familiar</MenuItem>
-              <MenuItem value={"premium"}>Premium</MenuItem>
+              <MenuItem value={""}>{t("any")}</MenuItem>
+              <MenuItem value={"small"}>{t("small")}</MenuItem>
+              <MenuItem value={"medium"}>{t("medium")}</MenuItem>
+              <MenuItem value={"large"}>{t("large")}</MenuItem>
+              <MenuItem value={"premium"}>{t("premium")}</MenuItem>
             </Select>
           </FormControl>
           <FormControl variant="filled" sx={{ flexGrow: 1 / 2, px: 0.5 }}>
             <InputLabel id="seats-filter">
               <CustomTypography color={theme.palette.primary.main}>
-                Asientos
+                {t("seats")}
               </CustomTypography>
             </InputLabel>
             <Select
@@ -115,17 +117,17 @@ export const CarFilter: FC<CarFilterProps> = ({
               value={seats}
               label="Seats"
             >
-              <MenuItem value={""}>Cualquiera</MenuItem>
-              <MenuItem value={2}>2 o más</MenuItem>
-              <MenuItem value={4}>4 o más</MenuItem>
-              <MenuItem value={5}>5 o más</MenuItem>
-              <MenuItem value={6}>6 o más</MenuItem>
+              <MenuItem value={""}>{t("any")}</MenuItem>
+              <MenuItem value={2}>2 {t("more")}</MenuItem>
+              <MenuItem value={4}>4 {t("more")}</MenuItem>
+              <MenuItem value={5}>5 {t("more")}</MenuItem>
+              <MenuItem value={6}>6 {t("more")}</MenuItem>
             </Select>
           </FormControl>
           <FormControl variant="filled" sx={{ flexGrow: 1 / 2, px: 0.5 }}>
             <InputLabel id="seats-filter">
               <CustomTypography color={theme.palette.primary.main}>
-                Combustible
+                {t("fuel2")}
               </CustomTypography>
             </InputLabel>
             <Select
@@ -141,16 +143,16 @@ export const CarFilter: FC<CarFilterProps> = ({
                 paginator.onFilter({ fuel: value });
               }}
             >
-              <MenuItem value={""}>Cualquiera</MenuItem>
-              <MenuItem value={"fuel"}>Gasolina</MenuItem>
-              <MenuItem value={"diesel"}>Diesel</MenuItem>
-              <MenuItem value={"electric"}>Electrico</MenuItem>
+              <MenuItem value={""}>{t("any")}</MenuItem>
+              <MenuItem value={"fuel"}>{t("fuel3")}</MenuItem>
+              <MenuItem value={"diesel"}>{t("diesel2")}</MenuItem>
+              <MenuItem value={"electric"}>{t("electric2")}</MenuItem>
             </Select>
           </FormControl>
           <FormControl variant="filled" sx={{ flexGrow: 1 / 2, px: 0.5 }}>
             <InputLabel id="order-filter">
               <CustomTypography color={theme.palette.primary.main}>
-                Orden
+                {t("order")}
               </CustomTypography>
             </InputLabel>
             <Select
@@ -165,15 +167,15 @@ export const CarFilter: FC<CarFilterProps> = ({
               value={sort}
               label="order"
             >
-              <MenuItem value={"cheap"}>Precio más bajo</MenuItem>
-              <MenuItem value={"expensive"}>Precio más alto</MenuItem>
-              <MenuItem value={"better"}>Mejor valorados</MenuItem>
+              <MenuItem value={"cheap"}>{t("lowest2")}</MenuItem>
+              <MenuItem value={"expensive"}>{t("highest")}</MenuItem>
+              <MenuItem value={"better"}>{t("top")}</MenuItem>
             </Select>
           </FormControl>
           <FormControl variant="filled" sx={{ flexGrow: 1 / 2, px: 0.5 }}>
             <InputLabel id="marchas-filter">
               <CustomTypography color={theme.palette.primary.main}>
-                Marchas
+                {t("gears")}
               </CustomTypography>
             </InputLabel>
             <Select
@@ -185,9 +187,9 @@ export const CarFilter: FC<CarFilterProps> = ({
                 paginator.onFilter({ transmission: value });
               }}
             >
-              <MenuItem value={""}>Cualquiera</MenuItem>
-              <MenuItem value={"manual"}>Manual</MenuItem>
-              <MenuItem value={"automatic"}>Automático</MenuItem>
+              <MenuItem value={""}>{t("any")}</MenuItem>
+              <MenuItem value={"manual"}>{t("manual")}</MenuItem>
+              <MenuItem value={"automatic"}>{t("automatic")}</MenuItem>
             </Select>
           </FormControl>
         </Box>

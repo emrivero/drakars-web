@@ -21,6 +21,7 @@ import { SelectInput } from "../../../components/molecules/select-input";
 import { TableGridRow } from "../../../components/organism/table-grid";
 import { AdminLayout } from "../../../components/templates/admin/layout";
 import { AdminPagination } from "../../../components/templates/admin/pagination";
+import { useTranslate } from "../../../i18n/useTranslate";
 import { RentStatusMapper } from "../../../service/rent-car/application/mappers/RentStatusMapper";
 import { rentColumns } from "../../../service/rent-car/application/model/rent-grid-column";
 import { RentDataConfirmVm } from "../../../service/rent-car/client/vm/RentDataConfirmVm";
@@ -78,7 +79,7 @@ const ChangeCar: FC<ChangeCarProps> = ({ rentInfo, cancel, open }) => {
     setAvailableVehicles([]);
     cancel();
   };
-
+  const { t } = useTranslate();
   useEffect(() => {
     if (open) {
       vehicleClient
@@ -129,7 +130,7 @@ const ChangeCar: FC<ChangeCarProps> = ({ rentInfo, cancel, open }) => {
       <DialogActions sx={{ display: "flex", justifyContent: "center" }}>
         <Button onClick={onClose}>Cancelar</Button>
         <Button variant="contained" onClick={onChangeVehicle}>
-          Cambiar
+          {t("change")}
         </Button>
       </DialogActions>
     </Dialog>

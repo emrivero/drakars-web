@@ -5,9 +5,11 @@ import { PrimarySpan } from "../../../components/molecules/primary-span";
 import { PrimaryTypography } from "../../../components/molecules/primary-typography";
 import { Layout } from "../../../components/templates/client/layout";
 import { CommonSection } from "../../../components/templates/client/layout/common-section";
+import { useTranslate } from "../../../i18n/useTranslate";
 
 const AboutUs = () => {
   const theme = useTheme();
+  const { t } = useTranslate();
   return (
     <Layout>
       <CommonSection>
@@ -27,10 +29,10 @@ const AboutUs = () => {
               color={theme.palette.primary.dark}
               variant="h3"
             >
-              <Upper>¿Quiénes somos?</Upper>
+              <Upper>{t("about")}</Upper>
             </CustomTypography>
             <Typography variant="h4" align="center">
-              Un pequeño resumen de la historia de nuestra empresa
+              {t("summary")}
             </Typography>
           </Grid>
           <Grid item xs={3}>
@@ -43,17 +45,11 @@ const AboutUs = () => {
           <Grid item xs={8} display="flex" alignItems={"center"}>
             <Box sx={{ width: "100%" }}>
               <Typography variant="h6" fontWeight={400} paragraph={true}>
-                <PrimarySpan fontWeight={"bolder"}>Drakars</PrimarySpan> tiene
-                su origen a principios de los 90, cuando un joven sueco llamado
-                Liam Skarsgård viaja en su año sabático a la provincia de Málaga
-                y allí se enamora de la costa andaluza.
+                <PrimarySpan fontWeight={"bolder"}>Drakars</PrimarySpan>{" "}
+                {t("itsorigins")}
               </Typography>
               <Typography variant="h6" fontWeight={400} paragraph={true}>
-                Decidido a permanecer en el país consigue con esfuerzo emprender
-                una idea relacionada con sus dos mayores pasiones: España y
-                viajar. Así que pone en marcha con una inversión inicial muy
-                modesta tres oficinas de alquiler de coches de su incipiente
-                nueva empresa a la que llamó{" "}
+                {t("determined")}{" "}
                 <PrimarySpan fontWeight={"bolder"}>Drakars</PrimarySpan>.
               </Typography>
             </Box>
@@ -61,18 +57,12 @@ const AboutUs = () => {
           <Grid item xs={8} display="flex" alignItems={"center"}>
             <Box sx={{ width: "100%" }}>
               <Typography variant="h6" fontWeight={400} paragraph={true}>
-                El nombre alude por un lado a las embarcaciones vikingas rápidas
-                y ligeras que usaban los piratas escandinavos en sus aventuras,
-                los «drakkars», añadiendo esa connotación de aventura y viaje
-                que tanto le gusta a nuestro fundador, y por otro lado la
-                palabra «car» (coche en inglés) terminando así en un juego de
-                palabras redondo.
+                {t("name")}
               </Typography>
               <Typography variant="h6" fontWeight={400} paragraph={true}>
-                Treinta años después en{" "}
+                {t("thirty")}{" "}
                 <PrimarySpan fontWeight={"bolder"}>Drakars</PrimarySpan>{" "}
-                contamos con más de 200 oficinas repartidas por todo el
-                territorio español y una flota de más de 20.000 vehículos.
+                {t("spread")}
               </Typography>
             </Box>
           </Grid>
@@ -85,15 +75,10 @@ const AboutUs = () => {
           </Grid>
           <Grid item xs={12}>
             <Typography variant="h6" fontWeight={400} paragraph={true}>
-              En <PrimarySpan fontWeight={"bolder"}>Drakars</PrimarySpan>{" "}
-              queremos ser un valor seguro para tí, permitiendo que viajes lo
-              más cómodo y seguro posible por toda España y haciendo honor a
-              nuestros valores de{" "}
-              <PrimarySpan fontWeight={"bolder"}>
-                experiencia y aventura
-              </PrimarySpan>{" "}
-              que queremos transmitir a nuestros clientes.{" "}
-              <b>Elígenos y no te arrepentirás.</b>
+              {t("in")} <PrimarySpan fontWeight={"bolder"}>Drakars</PrimarySpan>{" "}
+              {t("wewant")}{" "}
+              <PrimarySpan fontWeight={"bolder"}>{t("experience")}</PrimarySpan>{" "}
+              {t("convey")} <b>{t("choose")}</b>
             </Typography>
             <PrimaryTypography
               textAlign="center"
@@ -101,14 +86,14 @@ const AboutUs = () => {
               variant={"h4"}
               paragraph
             >
-              <Upper>aquí comienza tu viaje</Upper>
+              <Upper>{t("journey")}</Upper>
             </PrimaryTypography>
             <PrimaryTypography
               textAlign="center"
               letterSpacing={3}
               variant={"h4"}
             >
-              <Upper>bienvenido a Drakars</Upper>
+              <Upper>{t("welcome")}</Upper>
             </PrimaryTypography>
           </Grid>
         </Grid>

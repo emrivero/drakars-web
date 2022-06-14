@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { FC } from "react";
+import { useTranslate } from "../../../i18n/useTranslate";
 import { DragonIcon } from "../../atoms/dragon-icon";
 import { MuiLink } from "../../molecules/link";
 import { PrimaryBox } from "../../molecules/primary-box";
@@ -13,6 +14,7 @@ export interface FavDestination {
 
 export const FavDestination: FC<FavDestination> = ({ price, location }) => {
   const mdSize = "170px";
+  const { t } = useTranslate();
   return (
     <MuiLink to={""}>
       <Box
@@ -33,7 +35,7 @@ export const FavDestination: FC<FavDestination> = ({ price, location }) => {
         />
         <Box sx={{ position: "absolute", bottom: "-25px", right: "-15px" }}>
           <Box justifyContent="end" display="flex">
-            <PrimaryTypography fontWeight={900}>Desde</PrimaryTypography>
+            <PrimaryTypography fontWeight={900}>{t("from")}</PrimaryTypography>
           </Box>
           <SecondaryBox>
             <PrimaryTypography
@@ -53,7 +55,7 @@ export const FavDestination: FC<FavDestination> = ({ price, location }) => {
           </SecondaryBox>
           <Box>
             <PrimaryTypography variant="caption">
-              Impuestos incluidos
+              {t("Taxed")}
             </PrimaryTypography>
           </Box>
         </Box>

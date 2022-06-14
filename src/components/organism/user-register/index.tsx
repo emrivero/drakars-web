@@ -16,6 +16,7 @@ import { useConfirm } from "material-ui-confirm";
 import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../auth/use-auth";
+import { useTranslate } from "../../../i18n/useTranslate";
 import { Routes } from "../../../routes/routes";
 import { useRentCarService } from "../../../service/rent-car/application";
 import { UserData } from "../../../service/rent-car/application/model/user-data";
@@ -34,6 +35,7 @@ export const UserRegister: FC = () => {
   const confirmDialog = useConfirm();
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
+  const { t } = useTranslate();
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -67,10 +69,10 @@ export const UserRegister: FC = () => {
       description: (
         <>
           <ErrorTypography variant="h6" align="center">
-            Existe una cuenta registrada con este email.
+            {t("thereis")}
           </ErrorTypography>
           <ErrorTypography variant="h6" align="center">
-            Acceda a su cuenta para hacer uso de nuestros servicios.
+            {t("access")}
           </ErrorTypography>
         </>
       ),
@@ -92,10 +94,10 @@ export const UserRegister: FC = () => {
       description: (
         <>
           <ErrorTypography variant="h6" align="center">
-            Ya tiene una reserva hecha con esta cuenta.
+            {t("already")}
           </ErrorTypography>
           <ErrorTypography variant="h6" align="center">
-            Si necesita cancelarla vaya a la sección de {'"'}Gestionar Reserva
+            {t("tocancel")} {'"'} {t("manage")}
             {'"'}.
           </ErrorTypography>
         </>
@@ -133,12 +135,12 @@ export const UserRegister: FC = () => {
             color="primary"
             onClick={onConfirm}
           >
-            Continuar
+            {t("continue")}
           </Button>
         }
       >
         <SectionHeader
-          title="Datos personales"
+          title={t("personaldata")}
           color={theme.palette.secondary.main}
         >
           <Grid container mt={1} rowSpacing={4} columnSpacing={2} pb={5}>
@@ -151,7 +153,7 @@ export const UserRegister: FC = () => {
                   required
                   type="text"
                   fullWidth
-                  label="Nombre"
+                  label={t("name3")}
                 />
               </FormControl>
               <ErrorTypography hidden={name.valid}>
@@ -166,7 +168,7 @@ export const UserRegister: FC = () => {
                   required
                   type="text"
                   fullWidth
-                  label="Apellidos"
+                  label={t("surname")}
                   error={!lastName.valid}
                 />
                 <ErrorTypography hidden={lastName.valid}>
@@ -199,7 +201,7 @@ export const UserRegister: FC = () => {
                   required
                   type="text"
                   fullWidth
-                  label="Correo eléctronico"
+                  label={t("email2")}
                 />
               </FormControl>
               <ErrorTypography hidden={email.valid}>
@@ -215,7 +217,7 @@ export const UserRegister: FC = () => {
                   required
                   type="text"
                   fullWidth
-                  label="Número de teléfono móvil"
+                  label={t("phone2")}
                 />
               </FormControl>
               <ErrorTypography hidden={phone.valid}>
@@ -224,7 +226,10 @@ export const UserRegister: FC = () => {
             </Grid>
           </Grid>
         </SectionHeader>
-        <SectionHeader title="Pago" color={theme.palette.secondary.main}>
+        <SectionHeader
+          title={t("payment")}
+          color={theme.palette.secondary.main}
+        >
           <Grid container my={8}>
             <Grid
               item
@@ -246,7 +251,7 @@ export const UserRegister: FC = () => {
                     name="online_pay"
                   />
                 }
-                label="Pago online"
+                label={t("online")}
               />
               {userData.onlinePay && (
                 <FormControl>
@@ -273,20 +278,20 @@ export const UserRegister: FC = () => {
               )}
               {!userData.onlinePay && (
                 <Typography fontStyle={"italic"} sx={{ mt: 4 }}>
-                  El pago se hará presencialmente a la entrega del vehículo.
+                  {t("inperson")}
                 </Typography>
               )}
             </Grid>
           </Grid>
         </SectionHeader>
-        <SectionHeader title="Comentarios" color={theme.palette.secondary.main}>
+        <SectionHeader
+          title={t("comments")}
+          color={theme.palette.secondary.main}
+        >
           <Grid container mt={4} columnSpacing={2} pb={5}>
             <Grid item xs={12}>
               <FormControl fullWidth>
-                <TextareaAutosize
-                  minRows={5}
-                  placeholder="Escribe aquí tus observaciones..."
-                />
+                <TextareaAutosize minRows={5} placeholder={t("write")} />
               </FormControl>
             </Grid>
           </Grid>

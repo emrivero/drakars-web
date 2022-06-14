@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { useConfirm } from "material-ui-confirm";
 import { FC } from "react";
+import { useTranslate } from "../../../i18n/useTranslate";
 import { useRentCarService } from "../../../service/rent-car/application";
 import { useStore } from "../../../store";
 import { PrimaryTypography } from "../../molecules/primary-typography";
@@ -18,6 +19,7 @@ import { EditBookingForm } from "./form";
 export const EditManageModal: FC<DialogProps> = (props) => {
   const { reference, renterUser } = useStore((state) => state.rentConfirmData);
   const confirm = useConfirm();
+  const { t } = useTranslate();
   const { editor, getter } = useRentCarService();
   const onEdit = async () => {
     const data = await editor.edit();
@@ -63,7 +65,7 @@ export const EditManageModal: FC<DialogProps> = (props) => {
           Cancelar
         </Button>
         <Button variant="contained" onClick={onEdit} autoFocus>
-          Cambiar
+          {t("change")}
         </Button>
       </DialogActions>
     </Dialog>

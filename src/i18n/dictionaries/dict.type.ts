@@ -14,4 +14,5 @@ export type DictType = {
   manual: string;
   diesel: string;
   fuel: string;
+  cancel_message: string;
 };

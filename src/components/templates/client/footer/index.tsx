@@ -3,10 +3,12 @@ import { FacebookRounded, Twitter, YouTube } from "@mui/icons-material";
 import { Grid, Typography } from "@mui/material";
 import { Theme } from "@mui/system";
 import { FC } from "react";
+import { useTranslate } from "../../../../i18n/useTranslate";
 import { GreyBox } from "../../../molecules/grey-box";
 
 export const Footer: FC = () => {
   const theme: Partial<Theme> = useTheme();
+  const { t } = useTranslate();
   return (
     <GreyBox sx={{ flexGrow: 1, p: 4 }}>
       <Grid
@@ -30,7 +32,7 @@ export const Footer: FC = () => {
               color: theme.palette.grey[400],
             }}
           >
-            © 2022 Drakars SL - Todos los derechos reservados
+            {t("rigths")}
           </Typography>
         </Grid>
       </Grid>

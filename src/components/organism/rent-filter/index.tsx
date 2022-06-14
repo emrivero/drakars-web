@@ -1,5 +1,6 @@
 import { Box, Grid, Paper, Typography } from "@mui/material";
 import { FC } from "react";
+import { useTranslate } from "../../../i18n/useTranslate";
 import { Filter } from "./filter";
 
 export interface RentFilterProps {
@@ -7,6 +8,7 @@ export interface RentFilterProps {
 }
 
 export const RentFilter: FC<RentFilterProps> = ({ image }) => {
+  const { t } = useTranslate();
   return (
     <Paper
       sx={{
@@ -65,12 +67,12 @@ export const RentFilter: FC<RentFilterProps> = ({ image }) => {
                 fontFamily: `'Acme', sans-serif`,
               }}
             >
-              Alquiler de coches en toda España
+              {t("rent")}
             </Typography>
             <Typography variant="h6" alignContent={"baseline"}>
-              Cancelación hasta 24h antes de la recogida
+              {t("cancel_message")}
             </Typography>
-            <Typography variant="h6">Los precios más bajos del país</Typography>
+            <Typography variant="h6">{t("lowest")}</Typography>
           </Box>
         </Grid>
         <Grid item md={5}>

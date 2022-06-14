@@ -13,9 +13,11 @@ import { CustomTypography } from "../../../components/molecules/custom-typograph
 import { PrimaryTypography } from "../../../components/molecules/primary-typography";
 import { Layout } from "../../../components/templates/client/layout";
 import { CommonSection } from "../../../components/templates/client/layout/common-section";
+import { useTranslate } from "../../../i18n/useTranslate";
 
 export const ContactPage = () => {
   const theme = useTheme();
+  const { t } = useTranslate();
   return (
     <Layout>
       <CommonSection>
@@ -27,10 +29,10 @@ export const ContactPage = () => {
               color={theme.palette.primary.dark}
               variant="h3"
             >
-              <Upper>Contáctanos</Upper>
+              <Upper>{t("contact")}</Upper>
             </CustomTypography>
             <Typography variant="h4" align="center">
-              Haznos saber en qué podemos ayudarte
+              {t("let")}
             </Typography>
           </Grid>
         </Grid>
@@ -41,7 +43,7 @@ export const ContactPage = () => {
                 <Box sx={{ p: 1 }}>
                   <FormLabel>
                     <PrimaryTypography fontWeight={500}>
-                      Su nombre
+                      {t("name2")}
                     </PrimaryTypography>
                   </FormLabel>
                 </Box>
@@ -49,13 +51,13 @@ export const ContactPage = () => {
                   <TextField
                     fullWidth
                     placeholder="Escriba su nombre"
-                    label="Nombre"
+                    label={t("name3")}
                   />
                 </Box>
                 <Box sx={{ p: 1 }}>
                   <FormLabel>
                     <PrimaryTypography fontWeight={500}>
-                      Su email
+                      {t("email")}
                     </PrimaryTypography>
                   </FormLabel>
                 </Box>
@@ -63,13 +65,13 @@ export const ContactPage = () => {
                   <TextField
                     fullWidth
                     placeholder="Escriba su email"
-                    label="Email"
+                    label={t("email2")}
                   />
                 </Box>
                 <Box sx={{ p: 1 }}>
                   <FormLabel>
                     <PrimaryTypography fontWeight={500}>
-                      Un teléfono de contacto
+                      {t("phone")}
                     </PrimaryTypography>
                   </FormLabel>
                 </Box>
@@ -77,13 +79,13 @@ export const ContactPage = () => {
                   <TextField
                     fullWidth
                     placeholder="Escriba su teléfono"
-                    label="Teléfono"
+                    label={t("phone2")}
                   />
                 </Box>
                 <Box sx={{ p: 1 }}>
                   <FormLabel>
                     <PrimaryTypography fontWeight={500}>
-                      Su mensaje
+                      {t("message")}
                     </PrimaryTypography>
                   </FormLabel>
                 </Box>
@@ -94,7 +96,7 @@ export const ContactPage = () => {
                     multiline
                     fullWidth
                     placeholder="Escriba su consulta..."
-                    label="Mensaje"
+                    label={t("message2")}
                   />
                 </Box>
               </Paper>
@@ -103,7 +105,7 @@ export const ContactPage = () => {
           <Grid item xs={12} display="flex" justifyContent="center">
             <Box sx={{ width: "40%" }}>
               <Button variant="contained" fullWidth>
-                Enviar mensaje
+                {t("send")}
               </Button>
             </Box>
           </Grid>

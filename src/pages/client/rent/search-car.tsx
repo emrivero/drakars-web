@@ -10,6 +10,7 @@ import { Layout } from "../../../components/templates/client/layout";
 import { CommonSection } from "../../../components/templates/client/layout/common-section";
 import { RentStepper } from "../../../components/templates/client/layout/rent-stepper";
 import { VehiclesNotFound } from "../../../components/templates/client/not-found/vehicles";
+import { useTranslate } from "../../../i18n/useTranslate";
 import { Routes } from "../../../routes/routes";
 import { useRentCarService } from "../../../service/rent-car/application";
 import { useStore } from "../../../store";
@@ -18,6 +19,7 @@ export const SearchCar: FC = () => {
   const { filterer, finder } = useRentCarService();
   const theme = useTheme();
   const navigate = useNavigate();
+  const { t } = useTranslate();
   const {
     data: { data, meta },
     filter,
@@ -54,7 +56,7 @@ export const SearchCar: FC = () => {
               color={theme.palette.primary.dark}
               variant="h3"
             >
-              <Upper>elige tu coche</Upper>
+              <Upper>{t("choosecar")}</Upper>
             </CustomTypography>
           </Grid>
           <CarFilter sx={{ mt: 4 }} filter={filter} paginator={finder} />
@@ -71,7 +73,7 @@ export const SearchCar: FC = () => {
                       sx={{ mt: 4, p: 1 }}
                     >
                       <CarData
-                        actionText="Elegir"
+                        actionText={t("choose2")}
                         onAction={() => {
                           filterer.selectVehicle(data);
                           navigate(Routes.CONFIRM_PAGE);

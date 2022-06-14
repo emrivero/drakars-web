@@ -7,6 +7,7 @@ import { CarFilter } from "../../../components/organism/car-filter";
 import { CarData } from "../../../components/organism/rent-car-data";
 import { Layout } from "../../../components/templates/client/layout";
 import { CommonSection } from "../../../components/templates/client/layout/common-section";
+import { useTranslate } from "../../../i18n/useTranslate";
 
 import { useVehicleService } from "../../../service/vehicle/application";
 import { useStore } from "../../../store";
@@ -15,6 +16,8 @@ export const RentCar: FC = () => {
   const { finder } = useVehicleService();
   const theme = useTheme();
   const navigate = useNavigate();
+  const { t } = useTranslate();
+
   const {
     data: { data },
     filter,
@@ -35,7 +38,7 @@ export const RentCar: FC = () => {
               color={theme.palette.primary.dark}
               variant="h3"
             >
-              <Upper>nuestra flota de coches</Upper>
+              <Upper>{t("fleetof")}</Upper>
             </CustomTypography>
           </Grid>
           <CarFilter sx={{ my: 4 }} filter={filter} paginator={finder} />

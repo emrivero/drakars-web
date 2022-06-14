@@ -16,6 +16,7 @@ import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import { Theme } from "@mui/system";
 import { FC } from "react";
+import { useTranslate } from "../../../../i18n/useTranslate";
 import { Routes } from "../../../../routes/routes";
 import { useStore } from "../../../../store";
 import { toggleSidebar } from "../../../../store/sidebar/actions/toggle-sidebar";
@@ -31,6 +32,7 @@ const DrawerHeader = styled("div")(() => ({
 export const Sidebar: FC = () => {
   const { open } = useStore((state) => state.sidebarState);
   const theme: Partial<Theme> = useTheme();
+  const { t } = useTranslate();
   return (
     <Drawer anchor="left" open={open} onClose={() => toggleSidebar()}>
       <Box
@@ -46,7 +48,7 @@ export const Sidebar: FC = () => {
           </IconButton>
         </DrawerHeader>
         <Typography sx={{ color: theme.palette.primary.main }}>
-          Servicios
+          {t("services")}
         </Typography>
         <List>
           <ListItem>
@@ -59,7 +61,7 @@ export const Sidebar: FC = () => {
             >
               <DirectionsCar />
               <Box sx={{ ml: 1 }}>
-                <Typography variant="h6">Alquiler de coches</Typography>
+                <Typography variant="h6">{t("rent2")}</Typography>
               </Box>
             </BlackLink>
           </ListItem>
@@ -70,14 +72,14 @@ export const Sidebar: FC = () => {
             >
               <CorporateFare />
               <Box sx={{ ml: 1 }}>
-                <Typography variant="h6">Nuestras oficinas</Typography>
+                <Typography variant="h6">{t("office")}</Typography>
               </Box>
             </BlackLink>
           </ListItem>
         </List>
         <Divider sx={{ mb: 2 }} />
         <Typography sx={{ color: theme.palette.primary.main }}>
-          Sobre nosotros
+          {t("about")}
         </Typography>
         <List>
           <ListItem>
@@ -87,7 +89,7 @@ export const Sidebar: FC = () => {
             >
               <Info />
               <Box sx={{ ml: 1 }}>
-                <Typography variant="h6">Quiénes somos</Typography>
+                <Typography variant="h6">{t("about")}</Typography>
               </Box>
             </BlackLink>
           </ListItem>
@@ -120,7 +122,7 @@ export const Sidebar: FC = () => {
             >
               <Mail />
               <Box sx={{ ml: 1 }}>
-                <Typography variant="h6">Contacta</Typography>
+                <Typography variant="h6">{t("contact")}</Typography>
               </Box>
             </BlackLink>
           </ListItem>

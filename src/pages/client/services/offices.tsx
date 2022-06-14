@@ -6,6 +6,7 @@ import { CustomTypography } from "../../../components/molecules/custom-typograph
 import { OfficeSection } from "../../../components/organism/office-section";
 import { Layout } from "../../../components/templates/client/layout";
 import { CommonSection } from "../../../components/templates/client/layout/common-section";
+import { useTranslate } from "../../../i18n/useTranslate";
 
 import { useOfficeService } from "../../../service/office/application";
 import { useStore } from "../../../store";
@@ -13,6 +14,7 @@ import { useStore } from "../../../store";
 export const Offices: FC = () => {
   const theme = useTheme();
   const { data } = useStore((state) => state.offices);
+  const { t } = useTranslate();
   const {
     finder,
     mappers: { CityWithOffices },
@@ -34,14 +36,14 @@ export const Offices: FC = () => {
               color={theme.palette.primary.dark}
               variant="h3"
             >
-              <Upper>nuestra red de oficinas</Upper>
+              <Upper>{t("network")}</Upper>
             </CustomTypography>
           </Grid>
           <Grid item xs={12}>
             <TextField
               onChange={(e) => finder.onSearch({ search: e.target.value })}
               fullWidth
-              placeholder="Introduce nombre de oficina, municipio, provincia o código postal"
+              placeholder={t("enteroffice")}
               InputProps={{
                 type: "search",
                 endAdornment: <Search />,

@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslate } from "../../../../i18n/useTranslate";
 
 export interface RentStepperProps {
   stepperProps?: StepperProps;
@@ -21,6 +22,7 @@ export const RentStepper: FC<RentStepperProps> = ({
   backLink = null,
 }) => {
   const navigate = useNavigate();
+  const { t } = useTranslate();
   return (
     <Container
       maxWidth={false}
@@ -33,22 +35,22 @@ export const RentStepper: FC<RentStepperProps> = ({
         <Grid item xs={12}>
           <Stepper {...stepperProps}>
             <Step>
-              <StepLabel>Lugar y fecha</StepLabel>
+              <StepLabel>{t("placedate")}</StepLabel>
             </Step>
             <Step>
-              <StepLabel>Coche</StepLabel>
+              <StepLabel>{t("car")}</StepLabel>
             </Step>
             {/* <Step>
               <StepLabel>Servicios adicionales</StepLabel>
             </Step> */}
             <Step>
-              <StepLabel>Confirmación</StepLabel>
+              <StepLabel>{t("confirmation")}</StepLabel>
             </Step>
           </Stepper>
         </Grid>
         {backLink && (
           <Grid item xs={12} sx={{ mt: 4 }}>
-            <Button onClick={() => navigate(backLink)}>Atrás</Button>
+            <Button onClick={() => navigate(backLink)}>{t("back")}</Button>
           </Grid>
         )}
       </Grid>

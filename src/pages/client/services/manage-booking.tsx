@@ -8,6 +8,7 @@ import { CustomTypography } from "../../../components/molecules/custom-typograph
 import { ManageBookingForm } from "../../../components/organism/manage-booking-form";
 import { Layout } from "../../../components/templates/client/layout";
 import { CommonSection } from "../../../components/templates/client/layout/common-section";
+import { useTranslate } from "../../../i18n/useTranslate";
 import { Routes } from "../../../routes/routes";
 import { useVehicleService } from "../../../service/vehicle/application";
 import { useStore } from "../../../store";
@@ -16,6 +17,7 @@ export const ManageBooking: FC = () => {
   const theme = useTheme();
   const { finder } = useVehicleService();
   const { loggedClient } = useStore();
+  const { t } = useTranslate();
 
   const { isAuthenticated } = useAuth();
 
@@ -35,15 +37,12 @@ export const ManageBooking: FC = () => {
                 color={theme.palette.primary.dark}
                 variant="h3"
               >
-                <Upper>gestiona tu reserva</Upper>
+                <Upper>{t("manage")}</Upper>
               </CustomTypography>
             </Grid>
             <Grid item xs={12}>
               <CustomTypography align="center" color={"#999"} variant="h6">
-                <Capitalize>
-                  modifica o cancela tu reserva según lo que necesites, sin
-                  complicaciones.
-                </Capitalize>
+                <Capitalize>{t("modify")}</Capitalize>
               </CustomTypography>
             </Grid>
             <Grid item xs={12}>

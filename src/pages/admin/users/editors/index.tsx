@@ -24,6 +24,7 @@ import { RegisterEditor } from "../../../../components/organism/register-admin/r
 import { TableGridRow } from "../../../../components/organism/table-grid";
 import { AdminLayout } from "../../../../components/templates/admin/layout";
 import { AdminPagination } from "../../../../components/templates/admin/pagination";
+import { useTranslate } from "../../../../i18n/useTranslate";
 import { useRentCarService } from "../../../../service/rent-car/application";
 import { useAdminServices } from "../../../../service/user/admin/application";
 import { editorColums } from "../../../../service/user/admin/application/model/AdminGridColumn";
@@ -82,6 +83,7 @@ const ChangeOffice: FC<ChangeOfficeProps> = ({ row, cancel, open }) => {
     setSelected({ value: null, label: "" });
     cancel();
   };
+  const { t } = useTranslate();
 
   useEffect(() => {
     //
@@ -133,7 +135,7 @@ const ChangeOffice: FC<ChangeOfficeProps> = ({ row, cancel, open }) => {
       <DialogActions sx={{ display: "flex", justifyContent: "center" }}>
         <Button onClick={onClose}>Cancelar</Button>
         <Button variant="contained" onClick={onChangeOffice}>
-          Cambiar
+          {t("change")}
         </Button>
       </DialogActions>
     </Dialog>

@@ -2,6 +2,7 @@ import { Box, Button, FormControl, Grid, TextField } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslate } from "../../../i18n/useTranslate";
 import { Routes } from "../../../routes/routes";
 import { useRentCarService } from "../../../service/rent-car/application";
 import { useStore } from "../../../store";
@@ -10,6 +11,7 @@ export const ManageBookingForm: FC = () => {
   const navigate = useNavigate();
   const { getter } = useRentCarService();
   const { set } = useStore((state) => state.anonActiveRent);
+  const { t } = useTranslate();
   const [{ reference, email }, setState] = useState<{
     reference?: string;
     email?: string;
@@ -52,9 +54,9 @@ export const ManageBookingForm: FC = () => {
               required
               type="text"
               variant="outlined"
-              label={"Número de reserva"}
+              label={t("reservation")}
               fullWidth
-              placeholder="Introduce número de reserva"
+              placeholder={t("enternum")}
             />
           </FormControl>
         </Grid>
@@ -64,11 +66,11 @@ export const ManageBookingForm: FC = () => {
               onChange={(e) => setState({ email: e.target.value, reference })}
               value={email}
               required
-              label={"Correo electrónico"}
+              label={t("email2")}
               type={"email"}
               fullWidth
               variant="outlined"
-              placeholder="Introduce tu correo eléctronico"
+              placeholder={t("enteremail")}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   onContinue();
@@ -94,7 +96,7 @@ export const ManageBookingForm: FC = () => {
               color="primary"
               onClick={onContinue}
             >
-              Continuar
+              {t("continue")}
             </Button>
           </Box>
         </Grid>

@@ -14,6 +14,7 @@ import moment from "moment";
 import { FC, useEffect, useState } from "react";
 import DatePicker from "react-date-picker/dist/entry.nostyle";
 import { useNavigate } from "react-router-dom";
+import { useTranslate } from "../../../i18n/useTranslate";
 import { Routes } from "../../../routes/routes";
 import { useRentCarService } from "../../../service/rent-car/application";
 import { HoursOptions } from "../../../service/rent-car/application/model/HoursOptions";
@@ -30,6 +31,7 @@ export interface FilterProps {
 
 export const Filter: FC<FilterProps> = ({ sx = {}, showTitle = true }) => {
   const theme = useTheme();
+  const { t } = useTranslate();
   const [{ sameOrigin }, setState] = useState({ sameOrigin: true });
   const navigate = useNavigate();
   const {
@@ -83,16 +85,14 @@ export const Filter: FC<FilterProps> = ({ sx = {}, showTitle = true }) => {
     <Form
       disabledSubmit={!active}
       handleSubmit={() => navigate(Routes.SEARCH_CAR_PAGE)}
-      saveContent="Buscar"
+      saveContent={t("search")}
       sx={sx}
     >
       <Grid container>
         {showTitle && (
           <Grid item xs={12}>
             <Box sx={{ pt: 1, pb: 1, pl: 2 }}>
-              <PrimaryTypography variant="h6">
-                Encuentra lo que buscas
-              </PrimaryTypography>
+              <PrimaryTypography variant="h6">{t("find")}</PrimaryTypography>
             </Box>
           </Grid>
         )}
@@ -123,7 +123,7 @@ export const Filter: FC<FilterProps> = ({ sx = {}, showTitle = true }) => {
               },
             }}
             TextFieldProps={{
-              label: "Origen",
+              label: t("origin"),
             }}
           />
         </Grid>
@@ -132,7 +132,7 @@ export const Filter: FC<FilterProps> = ({ sx = {}, showTitle = true }) => {
             sx={{
               pl: 2,
             }}
-            label="Devolver el coche en la misma oficina"
+            label={t("drop")}
             control={
               <Checkbox
                 checked={sameOrigin}
@@ -177,7 +177,7 @@ export const Filter: FC<FilterProps> = ({ sx = {}, showTitle = true }) => {
         )}
         <Grid item xs={12} sm={12} md={6}>
           <Box pl={1} display="flex" flexDirection={"column"}>
-            <FormLabel>Fecha de recogida</FormLabel>
+            <FormLabel>{t("date")}</FormLabel>
             <DatePicker
               value={startDate && moment(startDate).toDate()}
               minDate={moment().toDate()}
@@ -204,7 +204,7 @@ export const Filter: FC<FilterProps> = ({ sx = {}, showTitle = true }) => {
               pr: 1,
             }}
           >
-            <InputLabel id="devolution-time-label">Hora de recogida</InputLabel>
+            <InputLabel id="devolution-time-label">{t("time")}</InputLabel>
             <SelectInput
               fullWidth
               onChange={(e) => filterer.setState({ startHour: e.target.value })}
@@ -230,7 +230,7 @@ export const Filter: FC<FilterProps> = ({ sx = {}, showTitle = true }) => {
         )}
         <Grid item xs={12} sm={12} md={6}>
           <Box pl={1} display="flex" flexDirection={"column"}>
-            <FormLabel>Fecha de devolución</FormLabel>
+            <FormLabel>{t("returndate")}</FormLabel>
             <DatePicker
               value={endDate && moment(endDate).toDate()}
               minDate={
@@ -255,7 +255,7 @@ export const Filter: FC<FilterProps> = ({ sx = {}, showTitle = true }) => {
             }}
           >
             <InputLabel id="devolution-time-label">
-              Hora de devolución
+              {t("returntime")}
             </InputLabel>
             <SelectInput
               onChange={(e) => filterer.setState({ endHour: e.target.value })}
